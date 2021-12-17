@@ -11,7 +11,8 @@
 #include <frc/Joystick.h>
 #include "subsystems/Drivetrain.h"
 #include "commands/TankDrive.h"
-
+#include "commands/PickupBall.h"
+#include "subsystems/intake.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -32,6 +33,7 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
   frc :: Joystick joy1{3};
   DriveTrain m_drivetrain;
+  intake m_intake;
 
   void ConfigureButtonBindings();
 };
