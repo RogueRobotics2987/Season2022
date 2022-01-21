@@ -1,15 +1,31 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <frc/trajectory/constraint/DifferentialDriveKinematicsConstraint.h>
+#include <units/length.h>
+#include <units/voltage.h>
+#include <wpi/math>
 
-#pragma once
+#pragma once 
 
-/**
- * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
- * purpose.
- *
- * It is generally a good idea to place constants into subsystem- or
- * command-specific namespaces within this header, which can then be used where
- * they are needed.
- */
+namespace DriveConstants{ 
+
+    constexpr auto ks = 0.131_V; 
+    constexpr auto kv = 2.73 * 1_V * 1_s / 1_m; 
+    constexpr auto ka = .516 * 1_V * 1_s * 1_s / 1_m; 
+    // constexpr double kPDriveVel = 1.69; 
+    constexpr double kPDriveVel = 0; 
+    constexpr auto trackWidth = 0.784_m; 
+    extern const frc::DifferentialDriveKinematics kDriveKinematics;
+    constexpr int kEncoderCPR = 1024; 
+
+
+}
+
+namespace AutoConstants{ 
+     constexpr auto kMaxSpeed = 2.2_mps; 
+     constexpr auto kMaxAcceleration = 1.2_mps_sq;
+     constexpr double  kRamseteB = 2; 
+     constexpr double kRamseteZeta = .7;
+
+
+}
+
