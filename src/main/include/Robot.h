@@ -41,4 +41,5 @@ class Robot : public frc::TimedRobot {
   frc::DifferentialDrive m_robotDrive{m_leftLeadMotor, m_rightLeadMotor};
 
   frc::Joystick m_stick{0};
+  rev::SparkMaxRelativeEncoder m_encoder = m_leftLeadMotor.GetEncoder();
 };
