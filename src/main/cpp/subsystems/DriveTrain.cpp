@@ -7,14 +7,9 @@
 DriveTrain::DriveTrain() {
 
     SetName("DriveTrain");
-    myAhrs = new AHRS(frc::SerialPort::kMXP); 
     //RightFront.SetInverted(true);
-   // m_robotDrive = new frc::DifferentialDrive(*LeftFront, *RightFront);
     LeftBack.Follow(LeftFront);
     RightBack.Follow(RightFront);
-
-    m_odometry = new frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))};
-
     DriveTrain::Reset();
 
 }
@@ -29,7 +24,7 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-    frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs->GetAngle());
+    frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
     frc::SmartDashboard::PutNumber("Output Voltage Right BusVolatage", RightFront.GetBusVoltage());
@@ -38,7 +33,7 @@ void DriveTrain::Periodic() {
     frc::SmartDashboard::PutNumber("Output Voltage Left GetApplied", LeftFront.GetAppliedOutput());
 
 
-    m_odometry->Update(
+    m_odometry.Update(
         frc::Rotation2d(GetHeading()), 
         units::meter_t(LeftEncoder.GetPosition() * 0.044), 
         units::meter_t(-1.0 * RightEncoder.GetPosition() * 0.044)
@@ -47,7 +42,7 @@ void DriveTrain::Periodic() {
     frc::SmartDashboard::PutNumber("left Encoder Val", LeftEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("right Encoder Val", -1.0 * RightEncoder.GetPosition());
 
-  m_field.SetRobotPose(m_odometry->GetPose());
+  m_field.SetRobotPose(m_odometry.GetPose());
   frc::SmartDashboard::PutData("Field", &m_field);
 }
 
@@ -66,12 +61,12 @@ void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
 
 }
 units::degree_t DriveTrain::GetHeading() { 
-  return units::degree_t(-1.0 * myAhrs->GetAngle()); // TODO: Fixed Units
+  return units::degree_t(-1.0 * myAhrs.GetAngle()); // TODO: Fixed Units
 }
 
 
 void DriveTrain::Reset() {
-  myAhrs->Reset();
+  myAhrs.Reset();
   LeftEncoder.SetPosition(0.0);
   RightEncoder.SetPosition(0.0);
 } 
@@ -85,11 +80,11 @@ frc::DifferentialDriveWheelSpeeds DriveTrain::GetWheelSpeeds() {
 
 void DriveTrain::ResetOdometry(frc::Pose2d pose){ 
   Reset(); //reset encoders and ahrs  
-  m_odometry->ResetPosition(pose, frc::Rotation2d(units::degree_t(GetHeading()))); 
+  m_odometry.ResetPosition(pose, frc::Rotation2d(units::degree_t(GetHeading()))); 
 }
 
 frc::Pose2d DriveTrain::GetPose(){
-  return m_odometry->GetPose();
+  return m_odometry.GetPose();
 }
 
 void DriveTrain::ResetEncoders(){ 

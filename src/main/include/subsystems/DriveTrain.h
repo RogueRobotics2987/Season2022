@@ -51,14 +51,13 @@ class DriveTrain : public frc2::SubsystemBase {
   rev::CANSparkMax RightBack = rev::CANSparkMax(2, rev::CANSparkMax::MotorType::kBrushless);//50 on Howie
   rev::CANSparkMax RightFront = rev::CANSparkMax(1, rev::CANSparkMax::MotorType::kBrushless);//46 on Howie
   frc::DifferentialDrive m_robotDrive{LeftFront, RightFront};
-  //rev::CANEncoder LeftEncoder = LeftFront->GetEncoder(); 
-  //rev::CANEncoder RightEncoder = RightFront->GetEncoder();
+
   rev::SparkMaxRelativeEncoder LeftEncoder = LeftFront.GetEncoder();
   rev::SparkMaxRelativeEncoder RightEncoder = RightFront.GetEncoder();
 
   
   //for autonomous
-  AHRS* myAhrs = nullptr; 
-  frc::DifferentialDriveOdometry* m_odometry = nullptr; 
+  AHRS myAhrs = AHRS( frc::SerialPort::kMXP); 
+  frc::DifferentialDriveOdometry m_odometry = frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))}; 
   frc::Field2d m_field;
 };
