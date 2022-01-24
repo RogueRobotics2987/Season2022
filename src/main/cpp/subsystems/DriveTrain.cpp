@@ -7,15 +7,16 @@
 DriveTrain::DriveTrain() {
 
     SetName("DriveTrain");
-    //RightFront.SetInverted(true);
     LeftBack.Follow(LeftFront);
     RightBack.Follow(RightFront);
+    LeftFront.SetInverted(true);
+    RightFront.SetInverted(false); 
     DriveTrain::Reset();
 
 }
 
-void DriveTrain::Drive(double y, double z) {
-    m_robotDrive.ArcadeDrive(-y, z);
+void DriveTrain::Drive(double xSpeed, double zRotation) {
+    m_robotDrive.ArcadeDrive(xSpeed, -zRotation);
 }
 
 void DriveTrain::autonDrive(){

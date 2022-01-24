@@ -24,13 +24,13 @@ m_drivetrain->Reset();
 void TankDrive::Execute() {
  // m_drivetrain->Drive(m_stick1->GetY(), m_stick1->GetX()); //simple drive code
 
-static double lastLeft = 0.0; 
-  static double lastRight = 0.0;
+  static double lastTurnVal = 0.0; 
+  static double lastSpeedVal = 0.0;//speed means drive forward or backwards
 
-  double Left = m_stick1 -> GetX(); //getting the Y value from the joystick
-  double Right = m_stick2 -> GetY(); //comment
-  double outLeft = 0;
-  double outRight = 0;
+  double stickTurnVal = m_stick1 -> GetX(); //getting the Y value from the joystick
+  double stickSpeedVal = m_stick2 -> GetY(); //comment
+  double outTurnVal = 0;
+  double outSpeedVal = 0;
   double maxChange = 0.04; //per second
  
  //frc::SmartDashboard::PutNumber("lastLeft Value", lastLeft);
@@ -43,20 +43,20 @@ static double lastLeft = 0.0;
  bool accelCtrl = false; 
  accelCtrl = frc::SmartDashboard::GetBoolean("Acceleration Control", false); 
 
-  if (abs(Left-lastLeft) >maxChange && accelCtrl) {
-    outLeft = lastLeft + copysignf(1.0,Left - lastLeft)*maxChange;
+  if (abs(stickTurnVal-lastTurnVal) >maxChange && accelCtrl) {
+    outTurnVal = lastTurnVal + copysignf(1.0,stickTurnVal - lastTurnVal)*maxChange;
     } else {
-      outLeft = Left;
+      outTurnVal = stickTurnVal;
   }
-  if (abs(Right-lastRight) >maxChange && accelCtrl) {
-    outRight = lastRight + copysignf(1.0,Right - lastRight)*maxChange;
+  if (abs(stickSpeedVal-lastSpeedVal) >maxChange && accelCtrl) {
+    outSpeedVal = lastSpeedVal + copysignf(1.0,stickSpeedVal - lastSpeedVal)*maxChange;
     } else {
-      outRight = Right;
+      outSpeedVal = stickSpeedVal;
   }
   
-  m_drivetrain -> Drive(outLeft, outRight);
-   lastLeft = outLeft;
-  lastRight = outRight; }
+  m_drivetrain -> Drive(outSpeedVal, outTurnVal);
+   lastTurnVal = outTurnVal;
+  lastSpeedVal = outSpeedVal; }
 
 // Called once the command ends or is interrupted.
 void TankDrive::End(bool interrupted) {m_drivetrain->Drive(0,0);}
