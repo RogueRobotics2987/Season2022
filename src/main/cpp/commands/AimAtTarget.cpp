@@ -4,8 +4,10 @@
 
 #include "commands/AimAtTarget.h"
 
-AimAtTarget::AimAtTarget() {
+AimAtTarget::AimAtTarget(TurretSubsystem& turret) {
   // Use addRequirements() here to declare subsystem dependencies.
+  // m_turret = turret;
+  m_turret.reset(&turret);
 }
 
 // Called when the command is initially scheduled.
@@ -17,12 +19,12 @@ void AimAtTarget::Initialize() {
 void AimAtTarget::Execute() {
   float error = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
   float adjustment = error * kp;
-  m_turret.setSpeed(adjustment);
+  m_turret->setSpeed(adjustment);
 }
 
 // Called once the command ends or is interrupted.
 void AimAtTarget::End(bool interrupted) {
-  m_turret.setSpeed(0);
+  m_turret->setSpeed(0);
 }
 
 // Returns true when the command should end.

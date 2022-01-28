@@ -9,7 +9,7 @@ TurretSubsystem::TurretSubsystem() {
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
 }
 void TurretSubsystem::setSpeed(float speed) {
-    // m_turret.Set(speed);
+    m_turret.Set(speed);
 }
 // This method will be called once per scheduler run
 void TurretSubsystem::Periodic() {}

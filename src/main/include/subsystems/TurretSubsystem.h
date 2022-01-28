@@ -19,7 +19,9 @@ class TurretSubsystem : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
-  rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
+  // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax m_turret{60, rev::CANSparkMax::MotorType::kBrushless};
+
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

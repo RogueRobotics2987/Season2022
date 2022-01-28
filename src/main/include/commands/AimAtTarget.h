@@ -9,8 +9,9 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <memory>
 
-#include "subsystems/AutoAim.h"
+// #include "subsystems/AutoAim.h"
 #include "subsystems/TurretSubsystem.h"
 
 /**
@@ -26,7 +27,7 @@ class AimAtTarget
 
 
 
-  AimAtTarget();
+  AimAtTarget(TurretSubsystem& turret);
 
   void Initialize() override;
 
@@ -38,6 +39,6 @@ class AimAtTarget
 
 private:
   float kp;
-  TurretSubsystem m_turret;
+  std::shared_ptr<TurretSubsystem> m_turret;
 
 };
