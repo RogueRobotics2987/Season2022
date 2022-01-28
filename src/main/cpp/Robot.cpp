@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
+#include <string.h>
 
 #include <fmt/core.h>
 
@@ -12,7 +13,10 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  //m_SerialMXP.SetTimeout(units::time::second_t(0.001));
+  m_SerialMXP.SetTimeout(units::time::second_t(0.001));
+  m_SerialMXP.SetReadBufferSize(1);
+  m_SerialMXP.Reset();
+
 }
 
 /**
@@ -24,18 +28,15 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-  char myArray[10];
-  int bytesRead = 0;
   int test = 1;
-  bytesRead = m_SerialMXP.Read(myArray,1);
-  myArray[1] = NULL;
-  char myArray2[] = "Hello!";
-  //std::string mStr = "Hi!";
-//  mStr = std::string(myArray);
-  // maxChange = frc::SmartDashboard::GetNumber("maxChange", maxChange); 
+  frc::SmartDashboard::PutNumber("test",test);
+
+  char myArray[10] = {NULL};
+  int bytesRead = 0;
+  bytesRead = m_SerialMXP.Read(myArray,9);
+  myArray[9] = NULL;
   frc::SmartDashboard::PutString("myKey",myArray);
   frc::SmartDashboard::PutNumber("bytesRead",bytesRead);
-  frc::SmartDashboard::PutNumber("test",test);
 }
 
 /**
