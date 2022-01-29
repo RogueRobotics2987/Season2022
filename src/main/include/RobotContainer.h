@@ -24,8 +24,8 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  AutoAim m_subsystem;
-  AimAtTarget m_autonomousCommand;
+  TurretSubsystem m_turret;
+  AimAtTarget m_autonomousCommand{m_turret};
 
   void ConfigureButtonBindings();
 };
