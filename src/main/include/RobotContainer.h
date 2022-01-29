@@ -21,11 +21,12 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetTeleopCommand();
 
  private:
   // The robot's subsystems and commands are defined here...
   TurretSubsystem m_turret;
-  AimAtTarget m_autonomousCommand{m_turret};
+  AimAtTarget m_TeleopCommand{m_turret};
 
   void ConfigureButtonBindings();
 };
