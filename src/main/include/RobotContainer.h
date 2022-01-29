@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-
+#include <frc/XboxController.h>
 #include <frc2/command/Command.h>
 #include "subsystems/DriveTrain.h"
 #include "commands/TankDrive.h" 
@@ -11,8 +11,11 @@
 #include "rev/CANSparkMax.h"
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
-
-
+#include "subsystems/ShooterActuator.h"
+#include "commands/TrimAngle.h"
+#include "subsystems/Shooter.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "subsystems/Intake.h"
 //random stuff
 
 /**
@@ -31,10 +34,16 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain m_drivetrain;
+  frc::Joystick xbox{0}; 
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
+  ShooterActuator actuator;
+  Shooter m_shooter; 
+  Intake m_intake;
+
+
 
 
   void ConfigureButtonBindings();

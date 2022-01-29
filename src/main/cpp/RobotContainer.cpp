@@ -9,6 +9,8 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   m_drivetrain.SetDefaultCommand(TankDrive(&m_drivetrain, &stick1, &stick2));
   // Configure the button bm_indings
   ConfigureButtonBindings();
+  actuator.SetDefaultCommand(TrimAngle(&xbox, &actuator, &stick2)); 
+
 }
 
 void RobotContainer::ConfigureButtonBindings() {
