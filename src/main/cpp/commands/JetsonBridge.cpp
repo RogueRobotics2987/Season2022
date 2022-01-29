@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/JetsonBridge.h";
+#include "commands/JetsonBridge.h"
 
 
 JetsonBridge::JetsonBridge() {
@@ -14,7 +14,11 @@ void JetsonBridge::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JetsonBridge::Execute() {
-  nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumber("tx",0.0);
+  x = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumber("x",0.0);
+  y = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumber("y",0.0);
+
+  frc::SmartDashboard::PutNumber("DetectedBall X", x);
+  frc::SmartDashboard::PutNumber("DetectedBall Y", y);
 }
 // Called once the command ends or is interrupted.
 void JetsonBridge::End(bool interrupted) {}

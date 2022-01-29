@@ -43,6 +43,10 @@ void RobotContainer::ConfigureButtonBindings() {
       .WhenReleased(&m_driveFullSpeed);
 }
 
+frc2::Command* RobotContainer::GetJetsonCommand() {
+    return &m_JetsonBridge;
+}
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Create a voltage constraint to ensure we don't accelerate too fast
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(

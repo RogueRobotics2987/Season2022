@@ -4,11 +4,12 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>;
-#include <frc2/command/CommandHelper.h>;
-#include "networktables/NetworkTable.h";
-#include "networktables/NetworkTableInstance.h";
-#include <frc/smartdashboard/SmartDashboard.h>;
+#include <frc2/command/CommandBase.h>
+#include <frc2/command/CommandHelper.h>
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+
 
 /**
  * An example command.
@@ -29,4 +30,10 @@ class JetsonBridge
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+  private:
+// std::shared_ptr<nt::NetworkTable> xyTable;
+
+  float x = 0;
+  float y = 0;
 };

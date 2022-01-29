@@ -15,6 +15,7 @@
 
 #include "Constants.h"
 #include "subsystems/DriveSubsystem.h"
+#include "commands/JetsonBridge.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -28,12 +29,14 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetJetsonCommand();
 
  private:
   // The driver's controller
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
   // The robot's subsystems and commands are defined here...
+ JetsonBridge m_JetsonBridge;
 
   // The robot's subsystems
   DriveSubsystem m_drive;
