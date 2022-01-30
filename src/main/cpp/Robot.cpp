@@ -4,6 +4,8 @@
 
 #include "Robot.h"
 #include <string.h>
+#include <string>
+#include <iostream>
 
 #include <fmt/core.h>
 
@@ -35,6 +37,8 @@ void Robot::RobotPeriodic() {
   int bytesRead = 0;
   bytesRead = m_SerialMXP.Read(myArray,9);
   myArray[9] = NULL;
+
+  std::string myStrObj = myArray;  // Example of how to convert from c-string to string-object
   frc::SmartDashboard::PutString("myKey",myArray);
   frc::SmartDashboard::PutNumber("bytesRead",bytesRead);
 }
