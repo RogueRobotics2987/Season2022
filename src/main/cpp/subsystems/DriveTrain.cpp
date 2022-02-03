@@ -3,6 +3,37 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/DriveTrain.h"
+#include <string>
+#include <iostream>
+
+float rrsDecoder(std::string inputArray) {
+        static float output = 0.0;
+        std::string cmString = "";
+        
+        int cmInt = 0;
+        // Finds the position of "B" marking the beginning of the range value
+        int BIndex = inputArray.find("B");
+        BIndex += 1; // Prevents "B" from being added to the return value
+        // Adds on to cmString from inputArray until an "E" is reached
+        
+        // Converts cmInt string into int, converted to mm as a float
+       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == ","){
+         cmString = "0";
+       } else {
+        while (inputArray[BIndex] != 'E') {
+            cmString += inputArray[BIndex];
+            BIndex++;
+          }
+        }
+        if(!(cmString == "0")) {
+          std::cout << cmString << std::endl;
+          cmInt = stoi(cmString);
+          output = cmInt/100.0;
+          std::cout << output << std::endl;
+        }
+        frc::SmartDashboard::PutNumber("Range", output);
+        return output;
+}
 
 DriveTrain::DriveTrain() {
 
@@ -12,11 +43,18 @@ DriveTrain::DriveTrain() {
     LeftFront.SetInverted(true);
     RightFront.SetInverted(false); 
     DriveTrain::Reset();
+    DriveTrain::rraReset();
 
 }
 
 void DriveTrain::Drive(double xSpeed, double zRotation) {
     m_robotDrive.ArcadeDrive(xSpeed, -zRotation);
+}
+
+void DriveTrain::rraReset() {
+    m_SerialMXP.SetTimeout(units::time::second_t(0.001));
+    m_SerialMXP.SetReadBufferSize(10);
+    m_SerialMXP.Reset();
 }
 
 void DriveTrain::autonDrive(){
@@ -25,14 +63,13 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-    frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
+    //frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
     frc::SmartDashboard::PutNumber("Output Voltage Right BusVolatage", RightFront.GetBusVoltage());
     frc::SmartDashboard::PutNumber("Output Voltage Left BusVoltage", LeftFront.GetBusVoltage());
     frc::SmartDashboard::PutNumber("Output Voltage Right GetApplied", RightFront.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Output Voltage Left GetApplied", LeftFront.GetAppliedOutput());
-
 
     m_odometry.Update(
         frc::Rotation2d(GetHeading()), 
@@ -43,8 +80,18 @@ void DriveTrain::Periodic() {
     frc::SmartDashboard::PutNumber("left Encoder Val", LeftEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("right Encoder Val", -1.0 * RightEncoder.GetPosition());
 
-  m_field.SetRobotPose(m_odometry.GetPose());
-  frc::SmartDashboard::PutData("Field", &m_field);
+    m_field.SetRobotPose(m_odometry.GetPose());
+    frc::SmartDashboard::PutData("Field", &m_field);
+    
+    char sSenseData[10] = {NULL};
+    int bytesRead = 0;
+    bytesRead = m_SerialMXP.Read(sSenseData,9);
+    sSenseData[9] = NULL;
+    std::string soSenseData = sSenseData;
+    float fSenseData = rrsDecoder(soSenseData);
+    frc::SmartDashboard::PutString("myKey",sSenseData);
+    frc::SmartDashboard::PutNumber("bytesRead",bytesRead);
+    //frc::SmartDashboard::PutNumber("Range", fSenseData);
 }
 
 void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
@@ -62,12 +109,12 @@ void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
 
 }
 units::degree_t DriveTrain::GetHeading() { 
-  return units::degree_t(-1.0 * myAhrs.GetAngle()); // TODO: Fixed Units
+  return units::degree_t(0.0); // Temp Removed -1.0 * myAhrs.GetAngle()); // TODO: Fixed Units
 }
 
 
 void DriveTrain::Reset() {
-  myAhrs.Reset();
+  //myAhrs.Reset();
   LeftEncoder.SetPosition(0.0);
   RightEncoder.SetPosition(0.0);
 } 

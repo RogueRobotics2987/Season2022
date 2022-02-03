@@ -14,6 +14,7 @@
 #include <frc/smartdashboard/Field2d.h>
 #include <units/angle.h>
 #include "Constants.h" 
+#include <frc/SerialPort.h>
 
 
 class DriveTrain : public frc2::SubsystemBase {
@@ -25,6 +26,7 @@ class DriveTrain : public frc2::SubsystemBase {
    */
   void Periodic() override;
   void autonDrive(); 
+  void rraReset();
 
   /**
   * @return The robots heading in degrees.
@@ -55,9 +57,11 @@ class DriveTrain : public frc2::SubsystemBase {
   rev::SparkMaxRelativeEncoder LeftEncoder = LeftFront.GetEncoder();
   rev::SparkMaxRelativeEncoder RightEncoder = RightFront.GetEncoder();
 
-  
+  // Serial port for external Arduino (sensors)
+  frc::SerialPort m_SerialMXP = frc::SerialPort(9600,frc::SerialPort::kMXP,8,frc::SerialPort::kParity_None,frc::SerialPort::kStopBits_One);
+
   //for autonomous
-  AHRS myAhrs = AHRS( frc::SerialPort::kMXP); 
+  // myAhrs = AHRS( frc::SerialPort::kMXP); 
   frc::DifferentialDriveOdometry m_odometry = frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))}; 
   frc::Field2d m_field;
 };
