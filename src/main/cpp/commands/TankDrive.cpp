@@ -4,19 +4,20 @@
 
 #include "commands/TankDrive.h"
 
-TankDrive::TankDrive(DriveTrain* drivetrain, frc::Joystick* stick1, frc::Joystick* stick2) {
+TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystick& stick2) {
   // Use addRequirements() here to declare subsystem dependencies.
-  m_drivetrain = drivetrain;
-  m_stick1 = stick1;
-  m_stick2 = stick2;
+  //m_drivetrain.reset(std::make_shared<DriveTrain>(drivetrain));
+    m_drivetrain.reset(&drivetrain);
+    m_stick1.reset(&stick1);
+    m_stick2.reset(&stick2);
   SetName("TankDrive");
-  AddRequirements({m_drivetrain});
+  AddRequirements({&drivetrain});
   frc::SmartDashboard::PutBoolean("Acceleration Control", false); 
 }
 
 // Called when the command is initially scheduled.
 void TankDrive::Initialize() {
-m_drivetrain->Reset();
+m_drivetrain->Reset();//works if lowercase
 
 }
 
@@ -27,8 +28,8 @@ void TankDrive::Execute() {
   static double lastTurnVal = 0.0; 
   static double lastSpeedVal = 0.0;//speed means drive forward or backwards
 
-  double stickTurnVal = m_stick1 -> GetX(); //getting the Y value from the joystick
-  double stickSpeedVal = m_stick2 -> GetY(); //comment
+  double stickTurnVal = m_stick1->GetX(); //getting the Y value from the joystick
+  double stickSpeedVal = m_stick2->GetY(); //comment
   double outTurnVal = 0;
   double outSpeedVal = 0;
   double maxChange = 0.04; //per second
@@ -54,7 +55,7 @@ void TankDrive::Execute() {
       outSpeedVal = stickSpeedVal;
   }
   
-  m_drivetrain -> Drive(outSpeedVal, outTurnVal);
+  m_drivetrain->Drive(outSpeedVal, outTurnVal);
    lastTurnVal = outTurnVal;
   lastSpeedVal = outSpeedVal; }
 

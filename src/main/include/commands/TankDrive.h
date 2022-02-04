@@ -19,7 +19,7 @@
 class TankDrive
     : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
  public:
-  TankDrive(DriveTrain* drivetrain, frc::Joystick* stick1, frc::Joystick* stick2);
+  TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystick& stick2);
 
   void Initialize() override;
 
@@ -30,7 +30,9 @@ class TankDrive
   bool IsFinished() override;
 
   private:
-    frc::Joystick* m_stick1 = nullptr;
-    frc::Joystick* m_stick2 = nullptr;
-    DriveTrain* m_drivetrain = nullptr;
+  std::shared_ptr<frc::Joystick> m_stick1;
+  std::shared_ptr<frc::Joystick> m_stick2;
+    //frc::Joystick stick1;
+    //frc::Joystick stick2;
+  std::shared_ptr<DriveTrain> m_drivetrain;
 };
