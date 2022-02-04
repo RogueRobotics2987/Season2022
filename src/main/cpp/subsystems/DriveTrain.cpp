@@ -9,7 +9,6 @@
 float rrsDecoder(std::string inputArray) {
         static float output = 0.0;
         std::string cmString = "";
-        
         int cmInt = 0;
         // Finds the position of "B" marking the beginning of the range value
         int BIndex = inputArray.find("B");
@@ -26,7 +25,6 @@ float rrsDecoder(std::string inputArray) {
           }
         }
         if(!(cmString == "0")) {
-          std::cout << cmString << std::endl;
           cmInt = stoi(cmString);
           output = cmInt/100.0;
           std::cout << output << std::endl;
@@ -53,7 +51,7 @@ void DriveTrain::Drive(double xSpeed, double zRotation) {
 
 void DriveTrain::rraReset() {
     m_SerialMXP.SetTimeout(units::time::second_t(0.001));
-    m_SerialMXP.SetReadBufferSize(10);
+    m_SerialMXP.SetReadBufferSize(5);
     m_SerialMXP.Reset();
 }
 
