@@ -46,17 +46,17 @@ class DriveTrain : public frc2::SubsystemBase {
 
  private:
   double Lvkp = 0.1;
-  double Lvki = 0.001;
+  double Lvki = 0.00;
   double Lvkd = 0;
 
   double Avkp = 0.1;
-  double Avki = 0.001;
+  double Avki = 0.00;
   double Avkd = 0;
   frc2::PIDController LvPid{Lvkp, Lvki, Lvkd};
   frc2::PIDController AvPid{Avkp, Avki, Avkd};
 
-  double currentAngle = 0;
-  double currentDistance = 0;
+  double currentAngle = 33;
+  double currentDistance = 8;
 
 
   // Components (e.g. motor controllers and sensors) should generally be

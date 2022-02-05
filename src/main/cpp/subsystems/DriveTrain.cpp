@@ -22,6 +22,8 @@ DriveTrain::DriveTrain() {
     frc::SmartDashboard::PutNumber(" I", Avki); 
     frc::SmartDashboard::PutNumber(" D", Avkd);
 
+    frc::SmartDashboard::PutNumber("CurrentDistance",currentDistance );
+    frc::SmartDashboard::PutNumber("CurrentAngle",currentAngle );
 
   //  DrivePID = new rev::CANPIDController(shooterMotor);
 
@@ -37,14 +39,20 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
+    currentAngle = frc::SmartDashboard::GetNumber("CurrentAngle", currentAngle);
+    currentDistance = frc::SmartDashboard::GetNumber("CurrentDistance", currentDistance);
+
+    frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentAngle);
+    frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentDistance);
+
     double LvPidOut = LvPid.Calculate(currentDistance ,0);
     double AvPidOut = AvPid.Calculate(currentAngle ,0);
     m_robotDrive.ArcadeDrive(LvPidOut, AvPidOut); 
     frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
     frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
-    frc::SmartDashboard::PutNumber("CurrentDistance",currentDistance );
-    frc::SmartDashboard::PutNumber("CurrentAngle",currentAngle );
+
+
     frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
