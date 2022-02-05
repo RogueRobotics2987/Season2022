@@ -7,7 +7,8 @@
 #include <frc2/command/Command.h>
 
 #include "commands/AimAtTarget.h"
-#include "subsystems/AutoAim.h"
+#include "commands/LimelightSingleTarget.h"
+#include "commands/LimelightTriTarget.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -23,10 +24,14 @@ class RobotContainer {
   frc2::Command* GetAutonomousCommand();
   frc2::Command* GetTeleopCommand();
 
+
  private:
   // The robot's subsystems and commands are defined here...
   TurretSubsystem m_turret;
-  AimAtTarget m_TeleopCommand{m_turret};
+  // AimAtTarget m_TeleopCommand{m_turret};
+  // LimelightSingleTarget m_TeleopCommand;
+  LimelightTriTarget m_TeleopCommand;
+
 
   void ConfigureButtonBindings();
 };

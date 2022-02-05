@@ -6,6 +6,10 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <iostream>
 
 /**
  * An example command.
@@ -26,4 +30,19 @@ class LimelightTriTarget
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+  private:
+
+  float tx0 = 0;
+
+  float ty0 = 0;
+
+  float tx1 = 0;
+
+  float ty1 = 0;
+
+  float tx2 = 0;
+
+  float ty2 = 0;
+   
 };

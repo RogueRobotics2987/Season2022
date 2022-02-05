@@ -17,6 +17,9 @@ void LimelightSingleTarget::Execute() {
   ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
   frc::SmartDashboard::PutNumber("Limelight X", tx);
   frc::SmartDashboard::PutNumber("Limelight Y", ty);
+
+  // std::cout << tx << std::endl;
+  // std::cout << ty << std::endl;
 }
 
 // Called once the command ends or is interrupted.

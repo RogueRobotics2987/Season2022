@@ -44,9 +44,14 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit() {
-  m_teleopCommand.reset(m_container.GetTeleopCommand());
+  void Robot::TeleopInit() {
+
+  m_teleopCommand = m_container.GetTeleopCommand();
+
+  if (m_teleopCommand != nullptr){
   m_teleopCommand->Schedule();
+
+   }
    
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to

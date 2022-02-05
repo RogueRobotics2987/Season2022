@@ -9,6 +9,7 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <iostream>
 
 /**
  * An example command.
@@ -30,17 +31,12 @@ class LimelightSingleTarget
 
   bool IsFinished() override;
 
-  double GetTY(); 
-
-  double GetTX(); 
-
   private:
 
-  std::shared_ptr<nt::NetworkTable> limelightTable;
-   
+  // std::shared_ptr<nt::NetworkTable> limelightTable;
+
   float tx = 0;
 
   float ty = 0;
-
 
 };
