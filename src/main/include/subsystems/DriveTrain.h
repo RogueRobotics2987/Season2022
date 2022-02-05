@@ -14,6 +14,7 @@
 #include <frc/smartdashboard/Field2d.h>
 #include <units/angle.h>
 #include "Constants.h" 
+#include "frc/controller/PIDController.h"
 
 
 class DriveTrain : public frc2::SubsystemBase {
@@ -44,6 +45,20 @@ class DriveTrain : public frc2::SubsystemBase {
   void TankDriveVolts(units::volt_t left, units::volt_t right);
 
  private:
+  double Lvkp = 0.1;
+  double Lvki = 0.001;
+  double Lvkd = 0;
+
+  double Avkp = 0.1;
+  double Avki = 0.001;
+  double Avkd = 0;
+  frc2::PIDController LvPid{Lvkp, Lvki, Lvkd};
+  frc2::PIDController AvPid{Avkp, Avki, Avkd};
+
+  double currentAngle = 0;
+  double currentDistance = 0;
+
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   rev::CANSparkMax LeftBack = rev::CANSparkMax(3, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie

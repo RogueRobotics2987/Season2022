@@ -13,6 +13,18 @@ DriveTrain::DriveTrain() {
     RightFront.SetInverted(false); 
     DriveTrain::Reset();
 
+
+    frc::SmartDashboard::PutNumber("Set P", Lvkp); 
+    frc::SmartDashboard::PutNumber("Set I", Lvki); 
+    frc::SmartDashboard::PutNumber("Set D", Lvkd);
+    
+    frc::SmartDashboard::PutNumber("Set P", Avkp); 
+    frc::SmartDashboard::PutNumber("Set I", Avki); 
+    frc::SmartDashboard::PutNumber("Set D", Avkd);
+
+
+  //  DrivePID = new rev::CANPIDController(shooterMotor);
+
 }
 
 void DriveTrain::Drive(double xSpeed, double zRotation) {
@@ -25,6 +37,12 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
+    double LvPidOut = LvPid.Calculate(currentDistance ,0);
+    double AvPidOut = AvPid.Calculate(currentAngle ,0);
+    m_robotDrive.ArcadeDrive(LvPidOut, AvPidOut); 
+    frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
+    frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
+
     frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
