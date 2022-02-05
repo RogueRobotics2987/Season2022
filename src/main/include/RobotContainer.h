@@ -30,7 +30,7 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  DriveTrain m_drivetrain;
+  DriveTrain drivetrain;
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;

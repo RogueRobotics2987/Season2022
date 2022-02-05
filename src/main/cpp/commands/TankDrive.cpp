@@ -4,13 +4,13 @@
 
 #include "commands/TankDrive.h"
 
-TankDrive::TankDrive(DriveTrain* drivetrain, frc::Joystick* stick1, frc::Joystick* stick2) {
+TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystick& stick2) {
   // Use addRequirements() here to declare subsystem dependencies.
-  m_drivetrain = drivetrain;
-  m_stick1 = stick1;
-  m_stick2 = stick2;
+ m_drivetrain = &drivetrain;
+    m_stick1 = &stick1;
+    m_stick2 = &stick2;
   SetName("TankDrive");
-  AddRequirements({m_drivetrain});
+  AddRequirements({&drivetrain});
   frc::SmartDashboard::PutBoolean("Acceleration Control", false); 
 }
 
@@ -22,9 +22,9 @@ m_drivetrain->Reset();
 
 // Called repeatedly when this Command is scheduled to run
 void TankDrive::Execute() {
- // m_drivetrain->Drive(m_stick1->GetY(), m_stick1->GetX()); //simple drive code
+  m_drivetrain->Drive(m_stick1->GetY(), m_stick1->GetX()); //simple drive code
 
-  static double lastTurnVal = 0.0; 
+  /*static double lastTurnVal = 0.0; 
   static double lastSpeedVal = 0.0;//speed means drive forward or backwards
 
   double stickTurnVal = m_stick1 -> GetX(); //getting the Y value from the joystick
@@ -56,7 +56,8 @@ void TankDrive::Execute() {
   
   m_drivetrain -> Drive(outSpeedVal, outTurnVal);
    lastTurnVal = outTurnVal;
-  lastSpeedVal = outSpeedVal; }
+  lastSpeedVal = outSpeedVal;*/ 
+  }
 
 // Called once the command ends or is interrupted.
 void TankDrive::End(bool interrupted) {m_drivetrain->Drive(0,0);}

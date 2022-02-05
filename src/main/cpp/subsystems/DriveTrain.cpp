@@ -7,8 +7,8 @@
 DriveTrain::DriveTrain() {
 
     SetName("DriveTrain");
-    LeftBack.Follow(LeftFront);
-    RightBack.Follow(RightFront);
+    //LeftBack.Follow(LeftFront);
+    //RightBack.Follow(RightFront);
     LeftFront.SetInverted(true);
     RightFront.SetInverted(false); 
     DriveTrain::Reset();
@@ -51,7 +51,7 @@ void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
 //   // if(left > units::volt_t(.25)){ left = units::volt_t(.25); }
 //   // if(right > units::volt_t(.25)){ right = units::volt_t(.25); }
   frc::SmartDashboard::PutNumber("Left Distance", LeftEncoder.GetPosition());
-  frc::SmartDashboard::PutNumber("Right Distance", RightEncoder.GetPosition());
+ // frc::SmartDashboard::PutNumber("Right Distance", RightEncoder.GetPosition());
   frc::SmartDashboard::PutNumber("Tank Drive Volts Left", double(left));
   frc::SmartDashboard::PutNumber("Tank Drive Volts Right", double(right));
   // frc::SmartDashboard::PutNumber("AHRS Heading", GetHeading()); 
@@ -69,7 +69,7 @@ units::degree_t DriveTrain::GetHeading() {
 void DriveTrain::Reset() {
   myAhrs.Reset();
   LeftEncoder.SetPosition(0.0);
-  RightEncoder.SetPosition(0.0);
+  //RightEncoder.SetPosition(0.0);
 } 
 
 frc::DifferentialDriveWheelSpeeds DriveTrain::GetWheelSpeeds() {
@@ -89,6 +89,6 @@ frc::Pose2d DriveTrain::GetPose(){
 }
 
 void DriveTrain::ResetEncoders(){ 
-  RightEncoder.SetPosition(0); 
+  //RightEncoder.SetPosition(0); 
   LeftEncoder.SetPosition(0); 
 }

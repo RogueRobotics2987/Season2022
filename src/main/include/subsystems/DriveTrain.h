@@ -46,9 +46,9 @@ class DriveTrain : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  rev::CANSparkMax LeftBack = rev::CANSparkMax(3, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie
-  rev::CANSparkMax LeftFront = rev::CANSparkMax(4, rev::CANSparkMax::MotorType::kBrushless);//49 on Howie
-  rev::CANSparkMax RightBack = rev::CANSparkMax(2, rev::CANSparkMax::MotorType::kBrushless);//50 on Howie
+  //rev::CANSparkMax LeftBack = rev::CANSparkMax(3, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie
+  rev::CANSparkMax LeftFront = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);//49 on Howie
+  //rev::CANSparkMax RightBack = rev::CANSparkMax(2, rev::CANSparkMax::MotorType::kBrushless);//50 on Howie
   rev::CANSparkMax RightFront = rev::CANSparkMax(1, rev::CANSparkMax::MotorType::kBrushless);//46 on Howie
   frc::DifferentialDrive m_robotDrive{LeftFront, RightFront};
 
