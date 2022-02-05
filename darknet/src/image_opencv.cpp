@@ -961,7 +961,7 @@ extern "C" void draw_detections_cv_v3(mat_cv* mat, detection *dets, int num, flo
                 b.h = (b.h < 1) ? b.h : 1;
                 b.x = (b.x < 1) ? b.x : 1;
                 b.y = (b.y < 1) ? b.y : 1;
-                //printf("%f %f %f %f\n", b.x, b.y, b.w, b.h);
+                printf("%f %f %f %f\n", b.x, b.y, b.w, b.h); //
 
                 int left = (b.x - b.w / 2.)*show_img->cols;
                 int right = (b.x + b.w / 2.)*show_img->cols;
