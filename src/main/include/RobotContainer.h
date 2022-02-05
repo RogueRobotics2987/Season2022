@@ -15,6 +15,10 @@
 
 //random stuff
 
+#include "commands/AimAtTarget.h"
+#include "commands/LimelightSingleTarget.h"
+#include "commands/LimelightTriTarget.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -35,6 +39,13 @@ class RobotContainer {
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
+  frc2::Command* GetTeleopCommand();
+
+
+  TurretSubsystem m_turret;
+  // AimAtTarget m_TeleopCommand{m_turret};
+  // LimelightSingleTarget m_TeleopCommand;
+  LimelightTriTarget m_TeleopCommand;
 
 
   void ConfigureButtonBindings();

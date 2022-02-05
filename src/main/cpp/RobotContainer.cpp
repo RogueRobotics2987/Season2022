@@ -14,8 +14,13 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 }
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autonomousCommand; 
+  // return &m_autonomousCommand;
+}
+frc2::Command* RobotContainer::GetTeleopCommand() {
+  // An example command will be run in teleop
+  return &m_TeleopCommand;
 }
 
