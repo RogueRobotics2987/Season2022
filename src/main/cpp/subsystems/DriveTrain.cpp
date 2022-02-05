@@ -18,9 +18,9 @@ DriveTrain::DriveTrain() {
     frc::SmartDashboard::PutNumber("Set I", Lvki); 
     frc::SmartDashboard::PutNumber("Set D", Lvkd);
     
-    frc::SmartDashboard::PutNumber("Set P", Avkp); 
-    frc::SmartDashboard::PutNumber("Set I", Avki); 
-    frc::SmartDashboard::PutNumber("Set D", Avkd);
+    frc::SmartDashboard::PutNumber(" P", Avkp); 
+    frc::SmartDashboard::PutNumber(" I", Avki); 
+    frc::SmartDashboard::PutNumber(" D", Avkd);
 
 
   //  DrivePID = new rev::CANPIDController(shooterMotor);
@@ -43,6 +43,8 @@ void DriveTrain::Periodic() {
     frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
     frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
+    frc::SmartDashboard::PutNumber("CurrentDistance",currentDistance );
+    frc::SmartDashboard::PutNumber("CurrentAngle",currentAngle );
     frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
