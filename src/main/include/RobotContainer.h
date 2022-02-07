@@ -31,6 +31,8 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetTeleopCommand();
+
 
  private:
   // The robot's subsystems and commands are defined here...
@@ -39,7 +41,6 @@ class RobotContainer {
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
-  frc2::Command* GetTeleopCommand();
 
 
   TurretSubsystem m_turret;
