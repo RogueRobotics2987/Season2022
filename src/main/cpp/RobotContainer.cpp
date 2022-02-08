@@ -6,14 +6,16 @@
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   // Initialize all of your commands and subsystems here
-  m_drivetrain.SetDefaultCommand(TankDrive(&m_drivetrain, &stick1, &stick2));
-  intake.SetDefaultCommand(PickUpBall(&intake, &xbox, &stick2));
+  drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
+  intake.SetDefaultCommand(PickUpBall(intake, xbox, stick2));
   // Configure the button bm_indings
   ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+    //frc2::JoystickButton(&xbox, 4).WhenPressed(&m_conveyerForward); 
+
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

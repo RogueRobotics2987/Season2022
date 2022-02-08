@@ -19,7 +19,7 @@
 class TankDrive
     : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
  public:
-  TankDrive(DriveTrain* drivetrain, frc::Joystick* stick1, frc::Joystick* stick2);
+  TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystick& stick2);
 
   void Initialize() override;
 

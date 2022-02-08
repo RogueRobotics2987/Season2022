@@ -13,6 +13,8 @@
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/Intake.h"
 #include "commands/PickUpBall.h"
+#include <frc2/command/InstantCommand.h>
+//#include <frc2/command/button/JoystickButton.h>
 
 
 //random stuff
@@ -27,19 +29,23 @@
 class RobotContainer {
  public:
   RobotContainer();
+  
 
   frc2::Command* GetAutonomousCommand();
 
  private:
   // The robot's subsystems and commands are defined here...
-  DriveTrain m_drivetrain;
+  DriveTrain drivetrain;
   frc::Joystick xbox{0};
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
   Intake intake;
-
+  frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
+  /*frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
+  frc2::InstantCommand m_intakeIn{[this] {intake.IntakeIn();}, {&intake}};
+  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};*/
 
   void ConfigureButtonBindings();
 };

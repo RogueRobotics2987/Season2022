@@ -8,6 +8,7 @@
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Intake.h"
 #include <frc/Joystick.h>
+#include <frc2/command/InstantCommand.h>
 
 /**
  * An example command.
@@ -19,7 +20,7 @@
 class PickUpBall
     : public frc2::CommandHelper<frc2::CommandBase, PickUpBall> {
  public:
-  PickUpBall(Intake* intake, frc::Joystick* xbox, frc::Joystick* stick2);
+  PickUpBall(Intake& intake, frc::Joystick& xbox, frc::Joystick& stick2);
 
   void Initialize() override;
 
@@ -33,4 +34,7 @@ class PickUpBall
   Intake* m_intake = nullptr;
   frc::Joystick* m_xbox = nullptr;
   frc::Joystick* m_stick2 = nullptr;
+  int conveyorState = 0;
+  int intakeState = 0;
+
 };

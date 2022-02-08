@@ -25,6 +25,10 @@ class Intake : public frc2::SubsystemBase {
   void setSolenoidFalse();
   void StartConveyor(double percent);
   void IntakeBall(double setVal);
+  void ConveyorForward();
+  void ConveyorBackward();
+  void IntakeIn();
+  void IntakeOut();
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -32,4 +36,9 @@ class Intake : public frc2::SubsystemBase {
   rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(51, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(48, rev::CANSparkMax::MotorType::kBrushless);
   frc::DoubleSolenoid intakeSolenoid {frc::PneumaticsModuleType::CTREPCM, 0, 1};
+  bool intakeSigFwd = false; 
+  bool intakeSigRelease = false;
+  bool intakeSigBack = false;
+  int stateIntake = 0;
+  int stateConveyor = 0;
 };
