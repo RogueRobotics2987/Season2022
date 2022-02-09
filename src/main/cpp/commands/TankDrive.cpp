@@ -6,9 +6,9 @@
 
 TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystick& stick2) {
   // Use addRequirements() here to declare subsystem dependencies.
- m_drivetrain = &drivetrain;
-    m_stick1 = &stick1;
-    m_stick2 = &stick2;
+  m_drivetrain = &drivetrain;
+  m_stick1 = &stick1;
+  m_stick2 = &stick2;
   SetName("TankDrive");
   AddRequirements({&drivetrain});
   frc::SmartDashboard::PutBoolean("Acceleration Control", false); 
