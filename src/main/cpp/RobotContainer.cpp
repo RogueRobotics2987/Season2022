@@ -14,7 +14,10 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-    //frc2::JoystickButton(&xbox, 4).WhenPressed(&m_conveyerForward); 
+  frc2::JoystickButton(&xbox, 4).WhenHeld(&m_intakeIn); 
+  frc2::JoystickButton(&xbox, 2).WhenHeld(&m_intakeOut); 
+  frc2::JoystickButton(&xbox, 1).WhenHeld(&m_conveyerForward); 
+  frc2::JoystickButton(&stick2, 2).WhenHeld(&m_conveyerBackward); 
 
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {

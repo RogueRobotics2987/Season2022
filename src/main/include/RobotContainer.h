@@ -14,7 +14,7 @@
 #include "subsystems/Intake.h"
 #include "commands/PickUpBall.h"
 #include <frc2/command/InstantCommand.h>
-//#include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/button/JoystickButton.h>
 
 
 //random stuff
@@ -43,9 +43,9 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
   Intake intake;
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
-  /*frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
+  frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
   frc2::InstantCommand m_intakeIn{[this] {intake.IntakeIn();}, {&intake}};
-  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};*/
+  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
 
   void ConfigureButtonBindings();
 };

@@ -24,26 +24,95 @@ void Intake::Periodic() {
         //clean up ball counts or bools
         stateIntake = 3; //stopped stateIntake
     } else if (stateIntake == 1) {
-        //goForward
-        m_intakeMotor.Set(0.5);
-        intakeSigFwd = false;
+        //Intake in
+        m_intakeMotor.Set(0.5); //50% speed 
+        intakeSigIn = false;
         stateConveyor = 1;
         //exit stateIntakes
-        if(intakeSigRelease) {
+        if(intakeSigInRelease) {
+            stateIntake = 3;
+        } else if (intakeSigOut) {
             stateIntake = 2;
-        } else if (intakeSigBack) {
+        }
+    } else if (stateIntake == 2) {
+        //Intake out
+        m_intakeMotor.Set(-0.5);
+        intakeSigOut = false;
+        
+        //exit statements
+        if (intakeSigOutRelease){
+            stateIntake = 3;
+        } else if (intakeSigIn) {
+            stateIntake = 1;
+        }
+    } else if (stateIntake == 3){
+        //stopped intake
+        m_intakeMotor.Set(0.0);
+
+        //exit statements 
+        if (intakeSigIn) {
+            stateIntake = 1;
+        } else if (intakeSigOut){
             stateIntake = 3;
         }
+    } 
+
+    //conveyor state machine
+    if (stateConveyor == 0){
+        //initialization state
+        m_conveyorMotor.Set(0.0);
+        stateConveyor = 3;
+    } else if (stateConveyor == 1){
+        //conveyor forward
+        m_conveyorMotor.Set(0.5); //50% speed
+        conveyorSigFwd = false;
+
+        if (conveyorSigFwdReleaase){
+            stateConveyor = 3;
+        } else if (conveyorSigBack){
+            stateConveyor = 2;
+        }
+    } else if (stateConveyor = 2){
+        //conveyor backward
+        m_conveyorMotor.Set(-0.5);
+        conveyorSigBack = false;
+
+        if (conveyorSigBackRelease){
+            stateConveyor = 3;
+        } else if (conveyorSigFwd){
+            stateConveyor = 1;
+        }
+    } else if (stateConveyor = 3){
+        //conveyor moter stopped
+        m_conveyorMotor.Set(0.0);
+
+        if (conveyorSigFwd){
+            stateConveyor = 1;
+        } else if (conveyorSigBack){
+            stateConveyor = 2;
+        }
     }
+
+
+
+}
+
+void Intake::IntakeIn(){
+   // Set:ConveyorForward
+   intakeSigIn = true;
+}
+
+void Intake::IntakeOut(){
+    intakeSigOut = true;
+    //m_intakeMotor.Set(0.5);
 }
 
 void Intake::ConveyorForward(){
-   // Set:ConveyorForward
-   intakeSigFwd = true;
+    conveyorSigFwd = true;
 }
 
 void Intake::ConveyorBackward(){
-    m_intakeMotor.Set(0.5);
+    conveyorSigBack = true;
 }
 
 void Intake::IntakeBall(double setVal){

@@ -36,9 +36,15 @@ class Intake : public frc2::SubsystemBase {
   rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(51, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(48, rev::CANSparkMax::MotorType::kBrushless);
   frc::DoubleSolenoid intakeSolenoid {frc::PneumaticsModuleType::CTREPCM, 0, 1};
-  bool intakeSigFwd = false; 
-  bool intakeSigRelease = false;
-  bool intakeSigBack = false;
+  bool intakeSigIn = false; 
+  bool intakeSigInRelease = false;
+  bool intakeSigOutRelease = false;
+  bool intakeSigOut = false;
+
+  bool conveyorSigFwd = false;
+  bool conveyorSigBack = false;
+  bool conveyorSigFwdReleaase = false;
+  bool conveyorSigBackRelease = false;
   int stateIntake = 0;
   int stateConveyor = 0;
 };
