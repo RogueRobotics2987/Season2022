@@ -14,11 +14,14 @@ void JetsonBridge::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JetsonBridge::Execute() {
-  x = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumber("x",0.0);
-  y = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumber("y",0.0);
+  std::vector< double > xArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Left X", defaultValReturn);
+  std::vector< double > yArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Top Y",defaultValReturn);
+  std::vector< std::string > labelArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetStringArray("Label",defaultStringReturn);
+  std::vector< double > areaArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Area",defaultValReturn);
+  std::vector< double > confArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Confidence",defaultValReturn);
 
-  frc::SmartDashboard::PutNumber("DetectedBall X", x);
-  frc::SmartDashboard::PutNumber("DetectedBall Y", y);
+  // frc::SmartDashboard::PutNumber("DetectedBall X", x);
+  // frc::SmartDashboard::PutNumber("DetectedBall Y", y);
 }
 // Called once the command ends or is interrupted.
 void JetsonBridge::End(bool interrupted) {}

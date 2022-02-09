@@ -36,4 +36,9 @@ class JetsonBridge
 
   float x = 0;
   float y = 0;
+
+  const double defaultValReturn[2] = {0.0, 0.0};
+  const std::string defaultStringReturn[2] = {"not", "found"};
+  
+
 };
