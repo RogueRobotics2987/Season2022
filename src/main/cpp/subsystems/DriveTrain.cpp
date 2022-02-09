@@ -22,8 +22,8 @@ DriveTrain::DriveTrain() {
     frc::SmartDashboard::PutNumber(" I", Avki); 
     frc::SmartDashboard::PutNumber(" D", Avkd);
 
-    frc::SmartDashboard::PutNumber("CurrentDistance",currentDistance );
-    frc::SmartDashboard::PutNumber("CurrentAngle",currentAngle );
+    frc::SmartDashboard::PutNumber("CurrentDistance",currentPitch );
+    frc::SmartDashboard::PutNumber("CurrentAngle",currentHeading );
 
   //  DrivePID = new rev::CANPIDController(shooterMotor);
 
@@ -39,15 +39,26 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-    currentAngle = frc::SmartDashboard::GetNumber("CurrentAngle", currentAngle);
-    currentDistance = frc::SmartDashboard::GetNumber("CurrentDistance", currentDistance);
 
-    frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentAngle);
-    frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentDistance);
+    std::vector< double > xArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Left X", defaultValReturn);
+    std::vector< double > yArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Top Y",defaultValReturn);
+    std::vector< std::string > labelArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetStringArray("Label",defaultStringReturn);
+    std::vector< double > areaArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Area",defaultValReturn);
+    std::vector< double > confArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Confidence",defaultValReturn);
 
-    double LvPidOut = LvPid.Calculate(currentDistance ,0);
-    double AvPidOut = AvPid.Calculate(currentAngle ,0);
-    m_robotDrive.ArcadeDrive(LvPidOut, AvPidOut); 
+  //  currentHeading = frc::SmartDashboard::GetNumber("CurrentHeading", currentHeading);
+  //  currentPitch = frc::SmartDashboard::GetNumber("CurrentPitch", currentPitch);
+    currentHeading = CalculateTheta(xArray[0]);
+    currentPitch = CalculatePhi(yArray[0]);
+
+    frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentHeading);
+    frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentPitch);
+
+    double LvPidOut = LvPid.Calculate(currentPitch ,0);
+    double AvPidOut = AvPid.Calculate(currentHeading ,0);
+
+    m_robotDrive.ArcadeDrive(0.2, AvPidOut); 
+
     frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
     frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
@@ -119,4 +130,16 @@ frc::Pose2d DriveTrain::GetPose(){
 void DriveTrain::ResetEncoders(){ 
   RightEncoder.SetPosition(0); 
   LeftEncoder.SetPosition(0); 
+}
+
+double DriveTrain::CalculatePhi(double current_y){
+  double phi;
+  phi = fov_y*current_y/max_y;
+  return phi;
+}
+
+double DriveTrain::CalculateTheta(double current_x){
+  double theta;
+  theta = current_x*fov_x/max_x;
+  return theta;
 }

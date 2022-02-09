@@ -15,7 +15,8 @@
 #include <units/angle.h>
 #include "Constants.h" 
 #include "frc/controller/PIDController.h"
-
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
 
 class DriveTrain : public frc2::SubsystemBase {
  public:
@@ -44,7 +45,11 @@ class DriveTrain : public frc2::SubsystemBase {
   frc::DifferentialDriveWheelSpeeds GetWheelSpeeds(); 
   void TankDriveVolts(units::volt_t left, units::volt_t right);
 
+  double CalculatePhi(double current_y);
+  double CalculateTheta(double current_x);
+
  private:
+
   double Lvkp = 0.1;
   double Lvki = 0.00;
   double Lvkd = 0;
@@ -55,8 +60,19 @@ class DriveTrain : public frc2::SubsystemBase {
   frc2::PIDController LvPid{Lvkp, Lvki, Lvkd};
   frc2::PIDController AvPid{Avkp, Avki, Avkd};
 
-  double currentAngle = 33;
-  double currentDistance = 8;
+  double currentHeading = 33;
+  double currentPitch = 8;
+
+  double fov_x = 90;
+  double fov_y = 10*fov_x/19;
+
+  double max_x = 640;
+  double max_y = 480;
+
+  //jetson stuff
+  const double defaultValReturn[2] = {0.0, 0.0};
+  const std::string defaultStringReturn[2] = {"not", "found"};
+  
 
 
   // Components (e.g. motor controllers and sensors) should generally be
