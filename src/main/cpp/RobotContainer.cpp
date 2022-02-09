@@ -14,11 +14,18 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-  frc2::JoystickButton(&xbox, 4).WhenHeld(&m_intakeIn); 
-  frc2::JoystickButton(&xbox, 2).WhenHeld(&m_intakeOut); 
-  frc2::JoystickButton(&xbox, 1).WhenHeld(&m_conveyerForward); 
-  frc2::JoystickButton(&stick2, 2).WhenHeld(&m_conveyerBackward); 
+  frc2::JoystickButton(&xbox, 4).WhenPressed(&m_intakeIn); 
+  frc2::JoystickButton(&xbox, 4).WhenReleased(&m_intakeIn); 
 
+  frc2::JoystickButton(&xbox, 2).WhenPressed(&m_intakeOut); 
+  frc2::JoystickButton(&xbox, 2).WhenReleased(&m_intakeOut); 
+
+  frc2::JoystickButton(&xbox, 1).WhenPressed(&m_conveyerForward); 
+  frc2::JoystickButton(&xbox, 1).WhenReleased(&m_conveyerForward); 
+
+  frc2::JoystickButton(&stick2, 2).WhenPressed(&m_conveyerBackward); 
+  frc2::JoystickButton(&stick2, 2).WhenReleased(&m_conveyerBackward); 
+  
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

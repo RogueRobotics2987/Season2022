@@ -23,12 +23,17 @@ class Intake : public frc2::SubsystemBase {
   void Periodic() override;
   void setSolenoidTrue();
   void setSolenoidFalse();
-  void StartConveyor(double percent);
-  void IntakeBall(double setVal);
+  //void StartConveyor(double percent);
+  //void IntakeBall(double setVal);
   void ConveyorForward();
+  void ConveyorForwardRelease();
   void ConveyorBackward();
+  void ConveyorBackwardRelease();
   void IntakeIn();
+  void IntakeInRelease();
   void IntakeOut();
+  void IntakeOutRelease();
+
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -40,11 +45,11 @@ class Intake : public frc2::SubsystemBase {
   bool intakeSigInRelease = false;
   bool intakeSigOutRelease = false;
   bool intakeSigOut = false;
+  int stateIntake = 0; 
 
   bool conveyorSigFwd = false;
   bool conveyorSigBack = false;
   bool conveyorSigFwdReleaase = false;
   bool conveyorSigBackRelease = false;
-  int stateIntake = 0;
   int stateConveyor = 0;
 };

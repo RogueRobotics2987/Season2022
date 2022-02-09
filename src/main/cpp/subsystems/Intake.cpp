@@ -5,8 +5,11 @@
 #include "subsystems/Intake.h"
 
 Intake::Intake() {
-
+    stateIntake = 0;
+    stateConveyor = 0;
 }
+
+//at some point create a reset function that can be called when we enter tele op
 
 void Intake::setSolenoidTrue(){
     intakeSolenoid.Set(frc::DoubleSolenoid::Value::kForward);
@@ -101,24 +104,36 @@ void Intake::IntakeIn(){
    // Set:ConveyorForward
    intakeSigIn = true;
 }
+void Intake::IntakeInRelease(){
+    intakeSigInRelease = true;
+}
 
 void Intake::IntakeOut(){
     intakeSigOut = true;
     //m_intakeMotor.Set(0.5);
 }
+void Intake::IntakeOutRelease(){
+    intakeSigOutRelease = true;
+}
 
 void Intake::ConveyorForward(){
     conveyorSigFwd = true;
+}
+void Intake::ConveyorForwardRelease(){
+    conveyorSigFwdReleaase = true;
 }
 
 void Intake::ConveyorBackward(){
     conveyorSigBack = true;
 }
+void Intake::ConveyorBackwardRelease(){
+    conveyorSigBackRelease = true;
+}
 
-void Intake::IntakeBall(double setVal){
+/*void Intake::IntakeBall(double setVal){
     m_intakeMotor.Set(setVal);
 }
 
 void Intake::StartConveyor(double percent) {
     m_conveyorMotor.Set(percent);
-}
+}*/
