@@ -31,6 +31,7 @@ void Intake::Periodic() {
         m_intakeMotor.Set(0.5); //50% speed 
         intakeSigIn = false;
         stateConveyor = 1;
+
         //exit stateIntakes
         if(intakeSigInRelease) {
             stateIntake = 3;
@@ -56,9 +57,9 @@ void Intake::Periodic() {
         if (intakeSigIn) {
             stateIntake = 1;
         } else if (intakeSigOut){
-            stateIntake = 3;
+            stateIntake = 2;
         }
-    } 
+    }
 
     //conveyor state machine
     if (stateConveyor == 0){
