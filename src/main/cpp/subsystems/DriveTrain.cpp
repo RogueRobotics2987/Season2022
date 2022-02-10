@@ -8,31 +8,57 @@
 
 float rrsDecoder(std::string inputArray) {
         static float output = 0.0;
-        std::string cmString = "";
-        int cmInt = 0;
+        std::string mmString = "";
+        int mmInt = 0;
         // Finds the position of "B" marking the beginning of the range value
         int BIndex = inputArray.find("B");
         BIndex += 1; // Prevents "B" from being added to the return value
         // Adds on to cmString from inputArray until an "E" is reached
         
-        // Converts cmInt string into int, converted to mm as a float
-       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == ","){
-         cmString = "0";
+        // Converts mmInt string into int, converted to mm as a float
+       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == "," || inputArray == "b" || inputArray == "e"){
+         mmString = "0";
        } else {
         while (inputArray[BIndex] != 'E') {
-            cmString += inputArray[BIndex];
+            mmString += inputArray[BIndex];
             BIndex++;
-          }
         }
-        if(!(cmString == "0")) {
-          cmInt = stoi(cmString);
-          output = cmInt/100.0;
+        }
+        if(!(mmString == "0")) {
+          mmInt = stoi(mmString);
+          output = mmInt/100.0;
           std::cout << output << std::endl;
         }
-        frc::SmartDashboard::PutNumber("Range", output);
+        //frc::SmartDashboard::PutNumber("Range", output);
         return output;
 }
 
+float rrsDecoder2(std::string inputArray){
+        static float output = 0.0;
+        std::string mmString = "";
+        int mmInt = 0;
+        // Finds the position of "B" marking the beginning of the range value
+        int BIndex = inputArray.find("b");
+        BIndex += 1; // Prevents "B" from being added to the return value
+        // Adds on to cmString from inputArray until an "E" is reached
+        
+        // Converts mmInt string into int, converted to mm as a float
+       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == "," || inputArray == "b" || inputArray == "e"){
+         mmString = "0";
+       } else {
+        while (inputArray[BIndex] != 'e') {
+            mmString += inputArray[BIndex];
+            BIndex++;
+        }
+        }
+        if(!(mmString == "0")) {
+          mmInt = stoi(mmString);
+          output = mmInt/100.0;
+          std::cout << output << std::endl;
+        }
+        //frc::SmartDashboard::PutNumber("Range 2", output);
+        return output;
+}
 DriveTrain::DriveTrain() {
 
     SetName("DriveTrain");
@@ -83,13 +109,27 @@ void DriveTrain::Periodic() {
     
     char sSenseData[10] = {NULL};
     int bytesRead = 0;
-    bytesRead = m_SerialMXP.Read(sSenseData,9);
+    bytesRead = m_SerialMXP.Read(sSenseData,18);
     sSenseData[9] = NULL;
     std::string soSenseData = sSenseData;
+
+
     float fSenseData = rrsDecoder(soSenseData);
     frc::SmartDashboard::PutString("myKey",sSenseData);
     frc::SmartDashboard::PutNumber("bytesRead",bytesRead);
-    //frc::SmartDashboard::PutNumber("Range", fSenseData);
+    frc::SmartDashboard::PutNumber("Range", fSenseData);
+
+    //Sensor 2
+    // char sSenseData2[10] = {NULL};
+    // int bytesRead2 = 0;
+    // sSenseData2[9] = NULL;
+    // std::string soSenseData2 = sSenseData2;
+
+    // frc::SmartDashboard::PutString("myKey2",sSenseData);
+    // frc::SmartDashboard::PutNumber("bytesRead2",bytesRead);
+    float fSenseData2 = rrsDecoder2(soSenseData);
+ 
+    frc::SmartDashboard::PutNumber("Range", fSenseData2);
 }
 
 void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
