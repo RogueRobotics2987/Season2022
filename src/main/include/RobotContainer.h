@@ -43,16 +43,16 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
   Intake intake;
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
-  frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForwardRelease();}, {&intake}};
+  frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 
   frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
-  frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackwardRelease();}, {&intake}};
+  frc2::InstantCommand m_conveyerBackwardRelease{[this] {intake.ConveyorBackwardRelease();}, {&intake}};
 
   frc2::InstantCommand m_intakeIn{[this] {intake.IntakeIn();}, {&intake}};
-  frc2::InstantCommand m_intakeIn{[this] {intake.IntakeInRelease();}, {&intake}};
+  frc2::InstantCommand m_intakeInRelease{[this] {intake.IntakeInRelease();}, {&intake}};
 
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
-  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOutRelease();}, {&intake}};
+  frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
 
   void ConfigureButtonBindings();
 };
