@@ -54,8 +54,19 @@ void DriveTrain::Periodic() {
     frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentHeading);
     frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentPitch);
 
+    frc::SmartDashboard::PutNumber("ballx", xArray[0]);
+    frc::SmartDashboard::PutNumber("bally", yArray[0]);
+    frc::SmartDashboard::PutNumberArray("ballxArray", xArray);
+
+
     double LvPidOut = LvPid.Calculate(currentPitch ,0);
     double AvPidOut = AvPid.Calculate(currentHeading ,0);
+
+    if (AvPidOut > 0.2){
+      AvPidOut = 0.2;
+    } else if (AvPidOut < -0.2){
+      AvPidOut = -0.2;
+    }
 
     m_robotDrive.ArcadeDrive(0.2, AvPidOut); 
 
