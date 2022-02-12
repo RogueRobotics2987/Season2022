@@ -4,6 +4,7 @@
 
 #include "subsystems/DriveTrain.h"
 #include <iostream>
+#include <cmath>
 
 DriveTrain::DriveTrain() {
 
@@ -40,8 +41,6 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-
-
 
     frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
@@ -133,14 +132,44 @@ void DriveTrain::JetsonControl(){
 
   //  currentHeading = frc::SmartDashboard::GetNumber("CurrentHeading", currentHeading);
   //  currentPitch = frc::SmartDashboard::GetNumber("CurrentPitch", currentPitch);
+
+  //filtering out large changes in x and y
+  if(firstball_x.size()>0 && xArray.size() > 0){
+    if(std::abs(calculateBallAverage(&firstball_x) - xArray[0]) > X_THRESH){
+      xArray.erase(xArray.begin());
+    }
+  }
+
+  if(firstball_y.size()>0 && yArray.size() > 0){
+    if(std::abs(calculateBallAverage(&firstball_y) - yArray[0]) > Y_THRESH){
+      yArray.erase(yArray.begin());
+    }
+  }
+  //calculating rolling average if necessary
   double x_arr_0 = 0;
-  if(xArray.size()>0){
-    x_arr_0 = xArray[0];
+  if(xArray.size()==0){
+    x_arr_0 = calculateBallAverage(&firstball_x);
+    firstball_x.push_back(x_arr_0);
+   }
+   else{
+     firstball_x.push_back(xArray[0]);
+     x_arr_0 = xArray[0];
+   }
+   if(firstball_x.size()>5){
+     firstball_x.erase(firstball_x.begin());
    }
    double y_arr_0 = 0;
-  if(yArray.size()>0){
+  if(yArray.size()==0){
+    y_arr_0 = calculateBallAverage(&firstball_y);
+    firstball_y.push_back(y_arr_0);
+  }
+  else{
+    firstball_y.push_back(yArray[0]);
     y_arr_0 = yArray[0];
   }
+  if(firstball_y.size()>5){
+     firstball_y.erase(firstball_y.begin());
+   }
     currentHeading = CalculateTheta(x_arr_0);
     currentPitch = CalculatePhi(y_arr_0);
 
@@ -171,7 +200,24 @@ void DriveTrain::JetsonControl(){
     frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
     frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
-  std::cout <<AvPidOut<< std::endl;
+  // std::cout <<AvPidOut<< std::endl;
   m_robotDrive.ArcadeDrive(-0.2, AvPidOut); 
 
 }
+
+double DriveTrain::calculateBallAverage(std::vector< double > * ball_Array){
+double ballAverage = 0;
+int arraySize = ball_Array->size();
+if(arraySize>5){
+  arraySize = 5;
+}
+for(int i = ball_Array->size(); i<ball_Array->size() - arraySize; i--){
+  ballAverage += (*ball_Array)[i];
+}
+ballAverage = (double)ballAverage/arraySize;
+
+// ballAverage = (*ball_Array)[0] + (*ball_Array)[1] + (*ball_Array)[2] + (*ball_Array)[3] + (*ball_Array)[4];
+// ballAverage = ballAverage/5;
+std::cout<<ballAverage<< std::endl;
+return ballAverage;
+};

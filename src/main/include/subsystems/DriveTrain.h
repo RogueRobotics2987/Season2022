@@ -49,7 +49,8 @@ class DriveTrain : public frc2::SubsystemBase {
   double CalculateTheta(double current_x);
 
   void JetsonControl();
-
+ 
+  double calculateBallAverage(std::vector< double > * ball_Array);
  private:
 
   double Lvkp = 0.012;
@@ -77,8 +78,18 @@ class DriveTrain : public frc2::SubsystemBase {
   //jetson stuff
   const double defaultValReturn[2] = {0.0, 0.0};
   const std::string defaultStringReturn[2] = {"not", "found"};
-  
 
+  double X_THRESH = 30;
+  double Y_THRESH = 30;
+
+
+  std::vector< double > firstball_x = {};
+  std::vector< double > secondball_x = {};
+  std::vector< double > thirdball_x ={};
+
+  std::vector< double > firstball_y = {};
+  std::vector< double > secondball_y = {};
+  std::vector< double > thirdball_y ={};
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
