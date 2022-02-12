@@ -12,6 +12,7 @@
 #include <frc/Solenoid.h>
 #include <frc/DoubleSolenoid.h>
 #include <iostream>
+#include <frc/SerialPort.h>
 
 class Intake : public frc2::SubsystemBase {
  public:

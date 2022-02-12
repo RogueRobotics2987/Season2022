@@ -7,7 +7,6 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
-  intake.SetDefaultCommand(PickUpBall(intake, xbox, stick2));
   // Configure the button bm_indings
   ConfigureButtonBindings();
 }
