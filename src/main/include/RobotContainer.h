@@ -19,6 +19,10 @@
 
 //random stuff
 
+#include "commands/AimAtTarget.h"
+#include "commands/LimelightSingleTarget.h"
+#include "commands/LimelightTriTarget.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -32,6 +36,8 @@ class RobotContainer {
   
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetTeleopCommand();
+
 
  private:
   // The robot's subsystems and commands are defined here...
@@ -53,6 +59,12 @@ class RobotContainer {
 
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
   frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
+
+  TurretSubsystem m_turret;
+  AimAtTarget m_TeleopCommand{m_turret};
+  // LimelightSingleTarget m_TeleopCommand;
+  // LimelightTriTarget m_TeleopCommand;
+
 
   void ConfigureButtonBindings();
 };

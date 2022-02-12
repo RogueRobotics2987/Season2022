@@ -27,8 +27,13 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&stick2, 2).WhenReleased(&m_conveyerBackwardRelease); 
   
 }
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autonomousCommand; 
+  // return &m_autonomousCommand;
+}
+frc2::Command* RobotContainer::GetTeleopCommand() {
+  // An example command will be run in teleop
+  return &m_TeleopCommand;
 }
 
