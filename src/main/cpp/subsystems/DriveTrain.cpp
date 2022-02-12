@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/DriveTrain.h"
+#include <iostream>
 
 DriveTrain::DriveTrain() {
 
@@ -39,39 +40,6 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-
-    std::vector< double > xArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Left X", defaultValReturn);
-    std::vector< double > yArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Top Y",defaultValReturn);
-    std::vector< std::string > labelArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetStringArray("Label",defaultStringReturn);
-    std::vector< double > areaArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Area",defaultValReturn);
-    std::vector< double > confArray = nt::NetworkTableInstance::GetDefault().GetTable("Jetson")->GetNumberArray("Confidence",defaultValReturn);
-
-  //  currentHeading = frc::SmartDashboard::GetNumber("CurrentHeading", currentHeading);
-  //  currentPitch = frc::SmartDashboard::GetNumber("CurrentPitch", currentPitch);
-    currentHeading = CalculateTheta(xArray[0]);
-    currentPitch = CalculatePhi(yArray[0]);
-
-    frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentHeading);
-    frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentPitch);
-
-    frc::SmartDashboard::PutNumber("ballx", xArray[0]);
-    frc::SmartDashboard::PutNumber("bally", yArray[0]);
-    frc::SmartDashboard::PutNumberArray("ballxArray", xArray);
-
-
-    double LvPidOut = LvPid.Calculate(currentPitch ,0);
-    double AvPidOut = AvPid.Calculate(currentHeading ,0);
-
-    if (AvPidOut > 0.2){
-      AvPidOut = 0.2;
-    } else if (AvPidOut < -0.2){
-      AvPidOut = -0.2;
-    }
-
-    m_robotDrive.ArcadeDrive(0.2, AvPidOut); 
-
-    frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
-    frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
 
 
@@ -153,4 +121,57 @@ double DriveTrain::CalculateTheta(double current_x){
   double theta;
   theta = current_x*fov_x/max_x;
   return theta;
+}
+
+void DriveTrain::JetsonControl(){
+  
+    std::vector< double > xArray = nt::NetworkTableInstance::GetDefault().GetTable("SmartDashboard")->GetNumberArray("Left X", defaultValReturn);
+    std::vector< double > yArray = nt::NetworkTableInstance::GetDefault().GetTable("SmartDashboard")->GetNumberArray("Top Y",defaultValReturn);
+    std::vector< std::string > labelArray = nt::NetworkTableInstance::GetDefault().GetTable("SmartDashboard")->GetStringArray("Label",defaultStringReturn);
+    std::vector< double > areaArray = nt::NetworkTableInstance::GetDefault().GetTable("SmartDashboard")->GetNumberArray("Area",defaultValReturn);
+    std::vector< double > confArray = nt::NetworkTableInstance::GetDefault().GetTable("SmartDashboard")->GetNumberArray("Confidence",defaultValReturn);
+
+  //  currentHeading = frc::SmartDashboard::GetNumber("CurrentHeading", currentHeading);
+  //  currentPitch = frc::SmartDashboard::GetNumber("CurrentPitch", currentPitch);
+  double x_arr_0 = 0;
+  if(xArray.size()>0){
+    x_arr_0 = xArray[0];
+   }
+   double y_arr_0 = 0;
+  if(yArray.size()>0){
+    y_arr_0 = yArray[0];
+  }
+    currentHeading = CalculateTheta(x_arr_0);
+    currentPitch = CalculatePhi(y_arr_0);
+
+    frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentHeading);
+    frc::SmartDashboard::PutNumber("UpdatedCurrentDistance", currentPitch);
+
+    frc::SmartDashboard::PutNumber("ballx", x_arr_0);
+    frc::SmartDashboard::PutNumber("bally", y_arr_0);
+    frc::SmartDashboard::PutNumberArray("ballxArray", xArray);
+
+
+    double LvPidOut = LvPid.Calculate(currentPitch ,fov_x/2.0);
+    double AvPidOut = AvPid.Calculate(currentHeading ,fov_y/2.0);
+
+    if (AvPidOut > 0.4){
+      AvPidOut = 0.4;
+    } else if (AvPidOut < -0.4){
+      AvPidOut = -0.4;
+    }
+
+    if (LvPidOut > 0.25){
+      LvPidOut = 0.25;
+    } else if (LvPidOut < -0.25){
+      LvPidOut = -0.25;
+    }  
+
+
+    frc::SmartDashboard::PutNumber("LvPid", LvPidOut);
+    frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
+
+  std::cout <<AvPidOut<< std::endl;
+  m_robotDrive.ArcadeDrive(-0.2, AvPidOut); 
+
 }

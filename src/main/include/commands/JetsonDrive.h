@@ -16,10 +16,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class TankDrive
-    : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
+class JetsonDrive
+    : public frc2::CommandHelper<frc2::CommandBase, JetsonDrive> {
  public:
-  TankDrive(DriveTrain* drivetrain, frc::Joystick* stick1, frc::Joystick* stick2);
+  JetsonDrive(DriveTrain* drivetrain);
 
   void Initialize() override;
 
@@ -30,7 +30,7 @@ class TankDrive
   bool IsFinished() override;
 
   private:
-    frc::Joystick* m_stick1 = nullptr;
-    frc::Joystick* m_stick2 = nullptr;
+    // frc::Joystick* m_stick1 = nullptr;
+    // frc::Joystick* m_stick2 = nullptr;
     DriveTrain* m_drivetrain = nullptr;
 };

@@ -48,17 +48,22 @@ class DriveTrain : public frc2::SubsystemBase {
   double CalculatePhi(double current_y);
   double CalculateTheta(double current_x);
 
+  void JetsonControl();
+
  private:
 
-  double Lvkp = 0.1;
-  double Lvki = 0.00;
+  double Lvkp = 0.012;
+  double Lvki = 0.0001;
   double Lvkd = 0;
 
-  double Avkp = 0.1;
-  double Avki = 0.00;
+  double Avkp = 0.008;
+  double Avki = 0.0001;
   double Avkd = 0;
   frc2::PIDController LvPid{Lvkp, Lvki, Lvkd};
   frc2::PIDController AvPid{Avkp, Avki, Avkd};
+
+  double AvPidOut = 0;
+  double LvPidOut = 0;
 
   double currentHeading = 33;
   double currentPitch = 8;
