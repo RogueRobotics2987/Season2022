@@ -32,12 +32,13 @@ class Intake : public frc2::SubsystemBase {
   void IntakeInRelease();
   void IntakeOut();
   void IntakeOutRelease();
+  void SensorReset();
 
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(51, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(47, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(48, rev::CANSparkMax::MotorType::kBrushless);
   //frc::DoubleSolenoid intakeSolenoid {frc::PneumaticsModuleType::CTREPCM, 0, 1};
   bool intakeSigIn = false; 
@@ -45,6 +46,7 @@ class Intake : public frc2::SubsystemBase {
   bool intakeSigOutRelease = false;
   bool intakeSigOut = false;
   int stateIntake = 0; 
+  double intakeSpeed = 0.0;
 
   bool conveyorSigFwd = false;
   bool conveyorSigBack = false;
@@ -52,4 +54,10 @@ class Intake : public frc2::SubsystemBase {
   bool conveyorSigBackRelease = false;
   int stateConveyor = 0;
   bool sensorDetectsBall = false;
+
+  double conveyorSpeed = 0.0;
+
+  // Serial port for external Arduino (sensors)
+  frc::SerialPort m_SerialMXP = frc::SerialPort(9600,frc::SerialPort::kMXP,8,frc::SerialPort::kParity_None,frc::SerialPort::kStopBits_One);
+
 };

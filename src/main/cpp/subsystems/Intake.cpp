@@ -91,6 +91,11 @@ float rrsDecoderBall(std::string inputArray){
         //frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
+void Intake::SensorReset() {
+    m_SerialMXP.SetTimeout(units::time::second_t(0.001));
+    m_SerialMXP.SetReadBufferSize(5);
+    m_SerialMXP.Reset();
+}
 
 //at some point create a reset function that can be called when we enter tele op
 
@@ -105,16 +110,42 @@ void Intake::setSolenoidFalse(){
 //intake and conveyor code
 // This method will be called once per scheduler run
 void Intake::Periodic() {
+
+    //lidar
+    /*char sSenseData[10] = {NULL};
+    int bytesRead = 0;
+    bytesRead = m_SerialMXP.Read(sSenseData,18);
+    sSenseData[9] = NULL;
+    std::string soSenseData = sSenseData;*/
+
+    //Sensor 3 (magazine)
+    //float fSenseData3 = rrsDecoderBack(soSenseData);
+    //frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
+    frc::SmartDashboard::PutBoolean("intakeSigIn",intakeSigIn);
+    frc::SmartDashboard::PutBoolean("intakeSigInRelease", intakeSigInRelease);
+    frc::SmartDashboard::PutBoolean("intakeSigOut", intakeSigOut);
+    frc::SmartDashboard::PutBoolean("intakeSigOutReleasee", intakeSigOutRelease);
+    frc::SmartDashboard::PutBoolean("conveyorSigFwd", conveyorSigFwd);
+    frc::SmartDashboard::PutBoolean("conveyorSigFwdRelease", conveyorSigFwdReleaase);
+    frc::SmartDashboard::PutBoolean("conveyorSigBack", conveyorSigBack);
+    frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);   
+    frc::SmartDashboard::PutNumber("Intake speed", intakeSpeed);
+    frc::SmartDashboard::PutNumber("Conveyor Speed", conveyorSpeed);
+    frc::SmartDashboard::PutNumber("Conveyor Speed2", m_intakeMotor.Get());
+  
+
     if (stateIntake == 0) {
         //initialization
         //reset timers
-        m_intakeMotor.Set(0.0); //also put in stateIntake 3
-
+        intakeSpeed = 0.0;
+        m_intakeMotor.Set(intakeSpeed); //also put in stateIntake 3
         //clean up ball counts or bools
         stateIntake = 3; //stopped stateIntake
     } else if (stateIntake == 1) {
         //Intake in with conveyor
-        m_intakeMotor.Set(0.5); //50% speed 
+        
+        intakeSpeed = 0.3;
+        m_intakeMotor.Set(intakeSpeed);  
         intakeSigIn = false;
         stateConveyor = 4; //starts conveyor motor
 
@@ -126,7 +157,8 @@ void Intake::Periodic() {
         }
     } else if (stateIntake == 2) {
         //Intake out
-        m_intakeMotor.Set(-0.5);
+        intakeSpeed = -0.3;
+        m_intakeMotor.Set(intakeSpeed);
         intakeSigOut = false;
         
         //exit statements
@@ -137,7 +169,10 @@ void Intake::Periodic() {
         }
     } else if (stateIntake == 3){
         //stopped intake
-        m_intakeMotor.Set(0.0);
+        intakeSpeed = 0.0;
+        m_intakeMotor.Set(intakeSpeed);
+        intakeSigInRelease = false;
+        intakeSigOutRelease = false;
 
         //exit statements 
         if (intakeSigIn) {
@@ -150,11 +185,13 @@ void Intake::Periodic() {
     //conveyor state machine
     if (stateConveyor == 0){
         //initialization state
-        m_conveyorMotor.Set(0.0);
+        conveyorSpeed = 0.0;
+        m_conveyorMotor.Set(conveyorSpeed);
         stateConveyor = 3;
     } else if (stateConveyor == 1){
         //conveyor forward
-        m_conveyorMotor.Set(0.5); //50% speed
+        conveyorSpeed = 0.3;
+        m_conveyorMotor.Set(conveyorSpeed); 
         conveyorSigFwd = false;
         sensorDetectsBall = false;
 
@@ -165,7 +202,8 @@ void Intake::Periodic() {
         } 
     } else if (stateConveyor == 2){
         //conveyor backward
-        m_conveyorMotor.Set(-0.5);
+        conveyorSpeed = -0.3;
+        m_conveyorMotor.Set(conveyorSpeed);
         conveyorSigBack = false;
 
         if (conveyorSigBackRelease){
@@ -175,7 +213,10 @@ void Intake::Periodic() {
         }
     } else if (stateConveyor == 3){
         //conveyor moter stopped
-        m_conveyorMotor.Set(0.0);
+        conveyorSpeed = 0.0;
+        m_conveyorMotor.Set(conveyorSpeed);
+        conveyorSigFwdReleaase = false;
+        conveyorSigBackRelease = false;
         sensorDetectsBall = false;
 
         if (conveyorSigFwd){
@@ -185,8 +226,14 @@ void Intake::Periodic() {
         }
     } else if (stateConveyor == 4){
         //conveyor forward that stops when ball reaches the shooter
-        m_conveyorMotor.Set(0.5); //50% speed
+        conveyorSpeed = 0.3;
+        m_conveyorMotor.Set(conveyorSpeed); 
         conveyorSigFwd = false;
+
+        /*if (fSenseData3 <= 0.2){
+            //frc::SmartDashboard::PutString("Ball status", "ball ready");
+            sensorDetectsBall = true;
+        } */
 
         if (conveyorSigFwdReleaase){
             stateConveyor = 3;
