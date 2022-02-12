@@ -129,9 +129,8 @@ void Intake::Periodic() {
     frc::SmartDashboard::PutBoolean("conveyorSigFwdRelease", conveyorSigFwdReleaase);
     frc::SmartDashboard::PutBoolean("conveyorSigBack", conveyorSigBack);
     frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);   
-    frc::SmartDashboard::PutNumber("Intake speed", intakeSpeed);
-    frc::SmartDashboard::PutNumber("Conveyor Speed", conveyorSpeed);
-    frc::SmartDashboard::PutNumber("Conveyor Speed2", m_intakeMotor.Get());
+    frc::SmartDashboard::PutNumber("Conveyor Speed", m_conveyorMotor.Get());
+    frc::SmartDashboard::PutNumber("Intake Speed", m_intakeMotor.Get());
   
 
     if (stateIntake == 0) {
