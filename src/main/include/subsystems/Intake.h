@@ -22,8 +22,6 @@ class Intake : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
-  //void setSolenoidTrue();
-  //void setSolenoidFalse();
   void ConveyorForward();
   void ConveyorForwardRelease();
   void ConveyorBackward();
@@ -40,7 +38,6 @@ class Intake : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(47, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(48, rev::CANSparkMax::MotorType::kBrushless);
-  //frc::DoubleSolenoid intakeSolenoid {frc::PneumaticsModuleType::CTREPCM, 0, 1};
   bool intakeSigIn = false; 
   bool intakeSigInRelease = false;
   bool intakeSigOutRelease = false;

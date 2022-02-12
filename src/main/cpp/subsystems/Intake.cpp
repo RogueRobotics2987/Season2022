@@ -97,38 +97,30 @@ void Intake::SensorReset() {
     m_SerialMXP.Reset();
 }
 
-//at some point create a reset function that can be called when we enter tele op
-
-//solenoids no longer needed in intake subsystem, will be moved to climber
-/*void Intake::setSolenoidTrue(){
-    intakeSolenoid.Set(frc::DoubleSolenoid::Value::kForward);
-}
-void Intake::setSolenoidFalse(){
-    intakeSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
-}*/
-
 //intake and conveyor code
 // This method will be called once per scheduler run
 void Intake::Periodic() {
 
-    //lidar
+    //lidar will need to be put back in
     /*char sSenseData[10] = {NULL};
     int bytesRead = 0;
     bytesRead = m_SerialMXP.Read(sSenseData,18);
     sSenseData[9] = NULL;
     std::string soSenseData = sSenseData;*/
 
-    //Sensor 3 (magazine)
+    //Sensor 3 (magazine) will need to be put back in
     //float fSenseData3 = rrsDecoderBack(soSenseData);
     //frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
-    frc::SmartDashboard::PutBoolean("intakeSigIn",intakeSigIn);
+
+    //for tesing purposes only
+    /*frc::SmartDashboard::PutBoolean("intakeSigIn",intakeSigIn);
     frc::SmartDashboard::PutBoolean("intakeSigInRelease", intakeSigInRelease);
     frc::SmartDashboard::PutBoolean("intakeSigOut", intakeSigOut);
     frc::SmartDashboard::PutBoolean("intakeSigOutReleasee", intakeSigOutRelease);
     frc::SmartDashboard::PutBoolean("conveyorSigFwd", conveyorSigFwd);
     frc::SmartDashboard::PutBoolean("conveyorSigFwdRelease", conveyorSigFwdReleaase);
     frc::SmartDashboard::PutBoolean("conveyorSigBack", conveyorSigBack);
-    frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);   
+    frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);*/
     frc::SmartDashboard::PutNumber("Conveyor Speed", m_conveyorMotor.Get());
     frc::SmartDashboard::PutNumber("Intake Speed", m_intakeMotor.Get());
   
@@ -142,7 +134,6 @@ void Intake::Periodic() {
         stateIntake = 3; //stopped stateIntake
     } else if (stateIntake == 1) {
         //Intake in with conveyor
-        
         intakeSpeed = 0.3;
         m_intakeMotor.Set(intakeSpeed);  
         intakeSigIn = false;
@@ -229,6 +220,7 @@ void Intake::Periodic() {
         m_conveyorMotor.Set(conveyorSpeed); 
         conveyorSigFwd = false;
 
+        //takes input from lidar and sets a boolean to true when a ball is detected
         /*if (fSenseData3 <= 0.2){
             //frc::SmartDashboard::PutString("Ball status", "ball ready");
             sensorDetectsBall = true;
@@ -239,7 +231,7 @@ void Intake::Periodic() {
         } else if (conveyorSigBack){
             stateConveyor = 2; 
         } else if (sensorDetectsBall){//ball detected
-            stateConveyor = 3;
+            stateConveyor = 3; //stops the conveyor
         }
     }
 
@@ -248,7 +240,6 @@ void Intake::Periodic() {
 }
 
 void Intake::IntakeIn(){
-   // Set:ConveyorForward
    intakeSigIn = true;
 }
 void Intake::IntakeInRelease(){
@@ -257,7 +248,6 @@ void Intake::IntakeInRelease(){
 
 void Intake::IntakeOut(){
     intakeSigOut = true;
-    //m_intakeMotor.Set(0.5);
 }
 void Intake::IntakeOutRelease(){
     intakeSigOutRelease = true;
