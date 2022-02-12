@@ -145,15 +145,13 @@ def inference(darknet_image_queue, detections_queue, fps_queue, sd):
             labelList.append(label)
             confList.append(confidence)
 
-            sd.putStringArray('Label', labelList) #put x y coords to send to networkTables isr
-            sd.putNumberArray('Left X', xList) #put x y coords to send to networkTables isr
-            #sd.putNumber('Left X', x) #put x y coords to send to networkTables isr
-            #otherNumber = sd.getNumber('otherNumber')
-            sd.putNumberArray('Top Y', yList)
-            sd.putNumberArray('Area', areaList)
-            sd.putNumberArray('Confidence', confList)
+        sd.putStringArray('Label', labelList) #put x y coords to send to networkTables isr
+        sd.putNumberArray('Left X', xList) #put x y coords to send to networkTables isr
+        sd.putNumberArray('Top Y', yList)
+        sd.putNumberArray('Area', areaList)
+        sd.putNumberArray('Confidence', confList)
 
-            sd.putNumber('someNumber', x)
+        #sd.putNumber('someNumber', x) //put test values to smartDashboard
 
 
         fps = int(1/(time.time() - prev_time))
