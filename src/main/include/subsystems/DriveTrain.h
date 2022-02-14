@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-#include "AHRS.h"
+//#include "AHRS.h"
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
 #include <frc2/command/SubsystemBase.h>
@@ -13,7 +13,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/smartdashboard/Field2d.h>
 #include <units/angle.h>
-#include "Constants.h" 
+#include "Constants.h"
+#include <frc2/command/InstantCommand.h>
+
 
 
 class DriveTrain : public frc2::SubsystemBase {
@@ -57,7 +59,7 @@ class DriveTrain : public frc2::SubsystemBase {
 
   
   //for autonomous
-  AHRS myAhrs = AHRS( frc::SerialPort::kMXP); 
+  //AHRS myAhrs = AHRS( frc::SerialPort::kMXP); 
   frc::DifferentialDriveOdometry m_odometry = frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))}; 
   frc::Field2d m_field;
 };

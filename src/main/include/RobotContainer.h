@@ -11,6 +11,9 @@
 #include "rev/CANSparkMax.h"
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
+#include "subsystems/Intake.h"
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/JoystickButton.h>
 
 
 //random stuff
@@ -29,6 +32,7 @@
 class RobotContainer {
  public:
   RobotContainer();
+  
 
   frc2::Command* GetAutonomousCommand();
   frc2::Command* GetTeleopCommand();
@@ -36,12 +40,24 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  DriveTrain m_drivetrain;
+  DriveTrain drivetrain;
+  frc::Joystick xbox{0};
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
+  Intake intake;
+  frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
+  frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 
+  frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
+  frc2::InstantCommand m_conveyerBackwardRelease{[this] {intake.ConveyorBackwardRelease();}, {&intake}};
+
+  frc2::InstantCommand m_intakeIn{[this] {intake.IntakeIn();}, {&intake}};
+  frc2::InstantCommand m_intakeInRelease{[this] {intake.IntakeInRelease();}, {&intake}};
+
+  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
+  frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
 
   TurretSubsystem m_turret;
   AimAtTarget m_TeleopCommand{m_turret};
