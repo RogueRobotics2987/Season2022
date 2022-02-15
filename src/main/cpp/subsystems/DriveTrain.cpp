@@ -148,29 +148,72 @@ void DriveTrain::JetsonControl(){
   //calculating rolling average if necessary
   double x_arr_0 = 0;
   if(xArray.size()==0){
-    x_arr_0 = calculateBallAverage(&firstball_x);
+    if(firstball_x.size()==0){
+      //nothing
+    }
+    else{
+      std::cout<<"i am going to calculate ball average: "<< calculateBallAverage(&firstball_x)<< std::endl;
+      x_arr_0 = calculateBallAverage(&firstball_x);
+      firstball_x.push_back(x_arr_0); 
+        if(firstball_x.size()>5){
+          firstball_x.erase(firstball_x.begin());
+        }
+        std::cout<<"x_arr_0: "<<x_arr_0<<std::endl;
+    }
+  }
+  else {
+    x_arr_0 = xArray[0];
     firstball_x.push_back(x_arr_0);
+      if(firstball_x.size()>5){
+        firstball_x.erase(firstball_x.begin());
    }
-   else{
-     firstball_x.push_back(xArray[0]);
-     x_arr_0 = xArray[0];
-   }
-   if(firstball_x.size()>5){
-     firstball_x.erase(firstball_x.begin());
-   }
-   double y_arr_0 = 0;
-  if(yArray.size()==0){
-    y_arr_0 = calculateBallAverage(&firstball_y);
-    firstball_y.push_back(y_arr_0);
+   std::cout<<"xArray 0: "<<xArray[0]<< std::endl;
+  }
+
+  if(x_arr_0==0){
+    num_x_0 += 1;
+    currentHeading = CalculateTheta(last_x_val);
   }
   else{
-    firstball_y.push_back(yArray[0]);
-    y_arr_0 = yArray[0];
-  }
-  if(firstball_y.size()>5){
-     firstball_y.erase(firstball_y.begin());
-   }
+    last_x_val = x_arr_0;
     currentHeading = CalculateTheta(x_arr_0);
+    num_x_0 = 0;
+  }
+    // for(double val: firstball_x){
+    //   std::cout<<"firstball_x: "<< val << std::endl;
+    // } 
+
+  // if(xArray.size()==0 && firstball_x.size()>0){
+  //   x_arr_0 = calculateBallAverage(&firstball_x);
+  //   std::cout<<"x array 0: "<< x_arr_0<< std::endl;
+    // for(double val: firstball_x){
+    //   std::cout<<"firstball_x: "<< val << std::endl;
+    // } 
+  //   firstball_x.push_back(x_arr_0);
+  //  }
+  //  else if(xArray.size()>0){
+  //    firstball_x.push_back(xArray[0]);
+  //    x_arr_0 = xArray[0];
+  //  }
+  //  if(firstball_x.size()>5){
+  //    firstball_x.erase(firstball_x.begin());
+  //  }
+   double y_arr_0 = 0; 
+  // if(yArray.size()==0 && firstball_y.size()>0){
+  //   y_arr_0 = calculateBallAverage(&firstball_y);
+  //   firstball_y.push_back(y_arr_0);
+  // }
+  // else if(yArray.size()>0){
+  //   firstball_y.push_back(yArray[0]);
+  //   y_arr_0 = yArray[0];
+  // }
+  // if(firstball_y.size()>5){
+  //    firstball_y.erase(firstball_y.begin());
+  //  }
+  //   std::cout<<"first ball x size: "<<firstball_x.size() << std::endl;
+  //   std::cout<<"x array size: "<<xArray.size()<< std::endl;
+
+    // currentHeading = CalculateTheta(x_arr_0);
     currentPitch = CalculatePhi(y_arr_0);
 
     frc::SmartDashboard::PutNumber("UpdatedCurrentAngle", currentHeading);
@@ -181,8 +224,8 @@ void DriveTrain::JetsonControl(){
     frc::SmartDashboard::PutNumberArray("ballxArray", xArray);
 
 
-    double LvPidOut = LvPid.Calculate(currentPitch ,fov_x/2.0);
-    double AvPidOut = AvPid.Calculate(currentHeading ,fov_y/2.0);
+    double LvPidOut = LvPid.Calculate(currentPitch ,fov_y/2.0);
+    double AvPidOut = AvPid.Calculate(currentHeading ,fov_x/2.0);
 
     if (AvPidOut > 0.4){
       AvPidOut = 0.4;
@@ -201,23 +244,35 @@ void DriveTrain::JetsonControl(){
     frc::SmartDashboard::PutNumber("AvPid", AvPidOut);
 
   // std::cout <<AvPidOut<< std::endl;
-  m_robotDrive.ArcadeDrive(-0.2, AvPidOut); 
 
+  if(num_x_0 > max_undetected_iterations){
+  m_robotDrive.ArcadeDrive(0, -.2); //turns in circle and searches 
+  }
+  else{
+    m_robotDrive.ArcadeDrive(-0.2, AvPidOut);
+  }
 }
 
 double DriveTrain::calculateBallAverage(std::vector< double > * ball_Array){
 double ballAverage = 0;
 int arraySize = ball_Array->size();
-if(arraySize>5){
-  arraySize = 5;
+// if(arraySize>=5){
+//   arraySize = 4;
+// }
+std::cout<<"array size: "<< arraySize << std::endl;
+std::cout<<"ball array size: "<<ball_Array->size()<<std::endl;
+// for(int i = ball_Array->size()-1; i>=0; i--){
+//   ballAverage += (*ball_Array)[i];
+//   std::cout<<"adding value "<<(*ball_Array)[i]<<" to get us a total of "<< ballAverage<< std::endl;
+// }
+for(double val: *ball_Array){
+  ballAverage += val;
 }
-for(int i = ball_Array->size(); i<ball_Array->size() - arraySize; i--){
-  ballAverage += (*ball_Array)[i];
-}
+//std::cout<<ballAverage<< std::endl;
 ballAverage = (double)ballAverage/arraySize;
 
 // ballAverage = (*ball_Array)[0] + (*ball_Array)[1] + (*ball_Array)[2] + (*ball_Array)[3] + (*ball_Array)[4];
 // ballAverage = ballAverage/5;
-std::cout<<ballAverage<< std::endl;
+// std::cout<<ballAverage<< std::endl;
 return ballAverage;
 };

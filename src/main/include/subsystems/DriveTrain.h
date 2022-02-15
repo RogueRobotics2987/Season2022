@@ -91,6 +91,10 @@ class DriveTrain : public frc2::SubsystemBase {
   std::vector< double > secondball_y = {};
   std::vector< double > thirdball_y ={};
 
+  int num_x_0 = 0;
+  double last_x_val = 0;
+  double max_undetected_iterations = 5;
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   rev::CANSparkMax LeftBack = rev::CANSparkMax(56, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie
