@@ -56,7 +56,8 @@ void TankDrive::Execute() {
   
   m_drivetrain -> Drive(outSpeedVal, outTurnVal);
    lastTurnVal = outTurnVal;
-  lastSpeedVal = outSpeedVal; }
+  lastSpeedVal = outSpeedVal;
+}
 
 // Called once the command ends or is interrupted.
 void TankDrive::End(bool interrupted) {m_drivetrain->Drive(0,0);}
