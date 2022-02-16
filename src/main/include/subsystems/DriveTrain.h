@@ -58,7 +58,7 @@ class DriveTrain : public frc2::SubsystemBase {
   double Lvkd = 0;
 
   double Avkp = 0.008;
-  double Avki = 0.0001;
+  double Avki = 0.000;
   double Avkd = 0;
   frc2::PIDController LvPid{Lvkp, Lvki, Lvkd};
   frc2::PIDController AvPid{Avkp, Avki, Avkd};

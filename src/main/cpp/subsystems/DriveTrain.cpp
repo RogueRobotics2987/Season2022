@@ -140,18 +140,22 @@ void DriveTrain::JetsonControl(){
     }
   }
 
-  if(firstball_y.size()>0 && yArray.size() > 0){
-    if(std::abs(calculateBallAverage(&firstball_y) - yArray[0]) > Y_THRESH){
-      yArray.erase(yArray.begin());
-    }
-  }
+  frc::SmartDashboard::PutNumberArray("Filtered xArray", xArray);
+
+  // if(firstball_y.size()>0 && yArray.size() > 0){
+  //   if(std::abs(calculateBallAverage(&firstball_y) - yArray[0]) > Y_THRESH){
+  //     yArray.erase(yArray.begin());
+  //   }
+  // }
+
   //calculating rolling average if necessary
   double x_arr_0 = 0;
   if(xArray.size()==0){
+    std::cout<<"No ball detected"<< std::endl;
     if(firstball_x.size()==0){
       //nothing
     }
-    else{
+    else if(num_x_0 < max_undetected_iterations){
       std::cout<<"i am going to calculate ball average: "<< calculateBallAverage(&firstball_x)<< std::endl;
       x_arr_0 = calculateBallAverage(&firstball_x);
       firstball_x.push_back(x_arr_0); 
@@ -159,6 +163,9 @@ void DriveTrain::JetsonControl(){
           firstball_x.erase(firstball_x.begin());
         }
         std::cout<<"x_arr_0: "<<x_arr_0<<std::endl;
+    }
+    else if (num_x_0 >= max_undetected_iterations){
+        firstball_x.clear();
     }
   }
   else {
@@ -179,9 +186,9 @@ void DriveTrain::JetsonControl(){
     currentHeading = CalculateTheta(x_arr_0);
     num_x_0 = 0;
   }
-    // for(double val: firstball_x){
-    //   std::cout<<"firstball_x: "<< val << std::endl;
-    // } 
+    for(double val: firstball_x){
+      std::cout<<"firstball_x: "<< val << std::endl;
+    } 
 
   // if(xArray.size()==0 && firstball_x.size()>0){
   //   x_arr_0 = calculateBallAverage(&firstball_x);
@@ -226,7 +233,7 @@ void DriveTrain::JetsonControl(){
 
     double LvPidOut = LvPid.Calculate(currentPitch ,fov_y/2.0);
     double AvPidOut = AvPid.Calculate(currentHeading ,fov_x/2.0);
-
+    std::cout<<AvPidOut<< std::endl;
     if (AvPidOut > 0.4){
       AvPidOut = 0.4;
     } else if (AvPidOut < -0.4){
@@ -246,10 +253,10 @@ void DriveTrain::JetsonControl(){
   // std::cout <<AvPidOut<< std::endl;
 
   if(num_x_0 > max_undetected_iterations){
-  m_robotDrive.ArcadeDrive(0, -.2); //turns in circle and searches 
+  m_robotDrive.ArcadeDrive(0, 0); //turns in circle and searches 
   }
   else{
-    m_robotDrive.ArcadeDrive(-0.2, AvPidOut);
+    m_robotDrive.ArcadeDrive(0, AvPidOut);
   }
 }
 
@@ -259,20 +266,21 @@ int arraySize = ball_Array->size();
 // if(arraySize>=5){
 //   arraySize = 4;
 // }
-std::cout<<"array size: "<< arraySize << std::endl;
-std::cout<<"ball array size: "<<ball_Array->size()<<std::endl;
+// std::cout<<"array size: "<< arraySize << std::endl;
+// std::cout<<"ball array size: "<<ball_Array->size()<<std::endl;
 // for(int i = ball_Array->size()-1; i>=0; i--){
 //   ballAverage += (*ball_Array)[i];
 //   std::cout<<"adding value "<<(*ball_Array)[i]<<" to get us a total of "<< ballAverage<< std::endl;
 // }
 for(double val: *ball_Array){
   ballAverage += val;
+  // std::cout<<"ball average while adding up: "<<ballAverage<<" plus val: "<<val<< std::endl;
 }
 //std::cout<<ballAverage<< std::endl;
 ballAverage = (double)ballAverage/arraySize;
 
 // ballAverage = (*ball_Array)[0] + (*ball_Array)[1] + (*ball_Array)[2] + (*ball_Array)[3] + (*ball_Array)[4];
 // ballAverage = ballAverage/5;
-// std::cout<<ballAverage<< std::endl;
+// std::cout<<"Ball average: "<<ballAverage<< std::endl;
 return ballAverage;
 };
