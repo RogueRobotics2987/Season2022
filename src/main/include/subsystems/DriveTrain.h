@@ -60,8 +60,7 @@ class DriveTrain : public frc2::SubsystemBase {
   
   //for autonomous
 
-  //AHRS myAhrs = AHRS( frc::SerialPort::kMXP);
-  AHRS myAhrs = AHRS(frc::SerialPort::kUSB1);
+  //AHRS myAhrs = AHRS(frc::SerialPort::kUSB1);
   frc::DifferentialDriveOdometry m_odometry = frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))}; 
   frc::Field2d m_field;
 };
