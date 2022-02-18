@@ -8,6 +8,7 @@
 #include "rev/CANSparkMax.h" 
 #include <frc/Joystick.h>
 #include <iostream>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class TurretSubsystem : public frc2::SubsystemBase {
  public:
@@ -29,8 +30,14 @@ class TurretSubsystem : public frc2::SubsystemBase {
   // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_vTurretMotor{13, rev::CANSparkMax::MotorType::kBrushless}; 
   rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
-  // rev::SparkMaxLimitSwitch ls_turret = m_vTurretMotor.GetForwardLimitSwitch(
-  //                            rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+  rev::SparkMaxLimitSwitch ls_vTurretMotor = m_vTurretMotor.GetForwardLimitSwitch(
+                             rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
+// rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(
+//                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+
+rev::SparkMaxRelativeEncoder re_vTurretMotor = m_vTurretMotor.GetEncoder();
+
+
 
   int actuatorState;
   double cur_stickValV = 0.0;

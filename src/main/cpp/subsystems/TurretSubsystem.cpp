@@ -14,6 +14,10 @@ void TurretSubsystem::setSpeed(float speed) {
 // This method will be called once per scheduler run
 void TurretSubsystem::Periodic() {
 
+    frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotor.Get());
+    frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotor.GetPosition());
+
+
     if(actuatorState == 0){
         m_vTurretMotor.Set(cur_stickValV);
         m_hTurretMotor.Set(cur_stickValH);
