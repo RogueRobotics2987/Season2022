@@ -14,7 +14,7 @@
 #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
-
+#include "subsystems/Shooter.h"
 
 //random stuff
 
@@ -46,6 +46,7 @@ class RobotContainer {
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
+  Shooter m_shooter;
   Intake intake;
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
@@ -58,6 +59,9 @@ class RobotContainer {
 
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
   frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
+
+ frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
+  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
 
   TurretSubsystem m_turret;
   AimAtTarget m_TeleopCommand{m_turret};

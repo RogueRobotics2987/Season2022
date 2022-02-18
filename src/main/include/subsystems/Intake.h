@@ -36,8 +36,8 @@ class Intake : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(47, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(48, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(62, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(6, rev::CANSparkMax::MotorType::kBrushless);
   bool intakeSigIn = false; 
   bool intakeSigInRelease = false;
   bool intakeSigOutRelease = false;
