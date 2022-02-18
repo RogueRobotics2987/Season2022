@@ -93,7 +93,7 @@ void Intake::Periodic() {
     int bytesRead = 0;
     //need to put back in to get data from sensor
     //bytesRead = m_SerialMXP.Read(sSenseData,18); 
-    std::cout << "Serial data: " << sSenseData << std::endl;
+    //std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[19] = NULL;
     std::string soSenseData = sSenseData;
  

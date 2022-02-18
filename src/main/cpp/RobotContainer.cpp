@@ -9,6 +9,7 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   // Configure the button bm_indings
   ConfigureButtonBindings();
+  
 }
 
 void RobotContainer::ConfigureButtonBindings() {

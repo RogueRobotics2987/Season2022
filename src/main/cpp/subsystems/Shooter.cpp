@@ -6,6 +6,7 @@
 
 Shooter::Shooter(){
     int bob = 1;
+    frc::SmartDashboard::PutNumber("Set RPM 2", TargetRPM); 
     frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
     frc::SmartDashboard::PutNumber("Set P", kp); 
     frc::SmartDashboard::PutNumber("Set I", ki); 
@@ -39,7 +40,7 @@ void Shooter::Periodic() {
     kd = frc::SmartDashboard::GetNumber("Set D", kd);
     kff = frc::SmartDashboard::GetNumber("Set FF", kff);
 
-    TargetRPM = frc::SmartDashboard::GetNumber("Set RPM", TargetRPM); 
+    TargetRPM = frc::SmartDashboard::GetNumber("Set RPM 2", TargetRPM); 
     frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
