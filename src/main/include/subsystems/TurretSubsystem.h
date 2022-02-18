@@ -20,7 +20,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
  private:
   // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax m_turret{60, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_turret{14, rev::CANSparkMax::MotorType::kBrushless}; 
 
 
   // Components (e.g. motor controllers and sensors) should generally be

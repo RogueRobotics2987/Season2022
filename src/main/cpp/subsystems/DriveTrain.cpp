@@ -13,6 +13,14 @@ DriveTrain::DriveTrain() {
     RightFront.SetInverted(false); 
     DriveTrain::Reset();
 
+    //SetIdleMode lines were commented out in 2021 code 
+    // LeftFront.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast); 
+    // LeftBack.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast); 
+    // RightFront.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast); 
+    // RightBack.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast); 
+    
+
+
 }
 
 void DriveTrain::Drive(double xSpeed, double zRotation) {
