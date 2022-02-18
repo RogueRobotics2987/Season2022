@@ -16,6 +16,8 @@
 #include "subsystems/Shooter.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "subsystems/Intake.h"
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/button/JoystickButton.h>
 //random stuff
 
 /**
@@ -42,6 +44,8 @@ class RobotContainer {
   ShooterActuator actuator;
   Shooter m_shooter; 
   Intake m_intake;
+  frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
+  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
 
 
 

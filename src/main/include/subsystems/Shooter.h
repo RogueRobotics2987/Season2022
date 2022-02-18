@@ -21,7 +21,7 @@ class Shooter : public frc2::SubsystemBase {
   void Periodic();
   void startShooter();
   void stopShooter();
-  void setShooter(double RPM);
+  void setShooter();
   void setPercent(double percent); 
   double getVelocity(); 
 
@@ -34,13 +34,16 @@ class Shooter : public frc2::SubsystemBase {
   rev::CANSparkMax shooterMotor= rev::CANSparkMax(47, rev::CANSparkMax::MotorType::kBrushless);
   rev::SparkMaxPIDController shooterPID= shooterMotor.GetPIDController();
   rev::SparkMaxRelativeEncoder shooterEncoder= shooterMotor.GetEncoder(); // might be wrong type of encoder
-  double TargetRPM = 4000;
-  double kp = 5E-4; 
+  double TargetRPM = 1000;
+  double kp = 1E-4;
   double ki = 0; 
   double kd = 0;
   double kff = 2.05E-4; //old number 0.7/3500
+  double mMaxV = 4000;
+  double mMaxA = 1000;
+  double mMinVelocityO = 500;
+  double mCloseL = 100;
   const std::string firmwareVersion = "1.8.2"; 
-  frc::Timer myTimer;
-  double Lastkp=0, Lastki=0, Lastkd=0, Lastkff=0;
+    double Lastkp=0, Lastki=0, Lastkd=0, Lastkff=0;
   double arbFF = 0; 
 };

@@ -10,34 +10,27 @@ frc::SmartDashboard::PutNumber("Set P", kp);
     frc::SmartDashboard::PutNumber("Set D", kd); 
     frc::SmartDashboard::PutNumber("Set FF", kff);
     frc::SmartDashboard::PutNumber("Set Arb FF", 0);
+    frc::SmartDashboard::PutNumber("Set MaxVelcity", mMaxV);
+    frc::SmartDashboard::PutNumber("Set MaxAccel", mMaxA);
+    frc::SmartDashboard::PutNumber("Set MinVelocityOut", mMinVelocityO);
+    frc::SmartDashboard::PutNumber("Set ClosedLoop", mCloseL);
 
     shooterPID.SetP(kp); 
     shooterPID.SetI(ki);
     shooterPID.SetD(kd);
-    //shooterPID->SetP(.0016/2); //Ollie motor only
+    shooterPID.SetFF(kff);
     shooterPID.SetOutputRange(-1, 1);
-    shooterPID.SetSmartMotionMaxVelocity(4000);
-    shooterPID.SetSmartMotionMinOutputVelocity(1500);
-    shooterPID.SetSmartMotionMaxAccel(1000.0/1.0);
-    shooterPID.SetSmartMotionAllowedClosedLoopError(0.0);
+    shooterPID.SetSmartMotionMaxVelocity(mMaxV);
+    shooterPID.SetSmartMotionMinOutputVelocity(mMinVelocityO);
+    shooterPID.SetSmartMotionMaxAccel(mMaxA);
+    shooterPID.SetSmartMotionAllowedClosedLoopError(mCloseL);
     shooterPID.SetIZone(800);
-    shooterPID.SetFF(0.7/3500);
 
-    myTimer = frc::Timer();
-    myTimer.Reset();
-    myTimer.Start();
+   
 }
 
 // This method will be called once per scheduler run
-void Shooter::Periodic() {
-    bool shooterWorks = true; 
-
-    units::time::second_t startTime = myTimer.Get();
-
-    if(shooterMotor.GetFirmwareString() != firmwareVersion){
-        shooterWorks = false;
-    }
-    frc::SmartDashboard::PutBoolean("Shooter Works", shooterWorks); 
+void Shooter::Periodic() {  
     arbFF = frc::SmartDashboard::GetNumber("ArbFF", 0); 
     kp = frc::SmartDashboard::GetNumber("Set P", kp); 
     ki = frc::SmartDashboard::GetNumber("Set I", ki);
@@ -52,24 +45,15 @@ void Shooter::Periodic() {
     if(Lastki != ki)   {shooterPID.SetI(ki);   Lastki = ki;}
     if(Lastkd != kd)   {shooterPID.SetD(kd);   Lastkd = kd;}
     if(Lastkff != kff) {shooterPID.SetFF(kff); Lastkff = kff;}
-
-    units::time::second_t EndTime = myTimer.Get();
-    units::time::second_t RunTime= EndTime - startTime;
-    if(0) {
-        std::cout << "Shooter Periodic Time: " << RunTime.value() << std::endl;
-    }
-    
-
 }
 
 double Shooter::getVelocity(){
     return shooterEncoder.GetVelocity(); 
-
 }
+
 void Shooter::setPercent(double percent){
     shooterMotor.Set(percent); 
 }
-
 
 void Shooter::startShooter() {
     shooterMotor.Set(0.2);
@@ -79,7 +63,8 @@ void Shooter::stopShooter() {
     shooterMotor.Set(0);
 }
 
-void Shooter::setShooter(double RPM) {
+void Shooter::setShooter() {
    // shooterPID->SetReference(maxRPM, rev::ControlType::kVelocity);
-    shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
+   // shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
+    shooterPID.SetReference(TargetRPM, rev::ControlType::kSmartVelocity, arbFF);
 }
