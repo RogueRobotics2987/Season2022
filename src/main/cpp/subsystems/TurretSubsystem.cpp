@@ -16,6 +16,7 @@ void TurretSubsystem::Periodic() {
 
     if(actuatorState == 0){
         m_vTurretMotor.Set(cur_stickValV);
+        m_hTurretMotor.Set(cur_stickValH);
         std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
 
         // Temp disable statemachine...
@@ -31,11 +32,30 @@ void TurretSubsystem::Periodic() {
 
 void TurretSubsystem::setAngleV(float l_stickValV) {
     std::cout << "setAngleV run, ";
-    if(fabs(l_stickValV) > 0.1) {
+
+    // Generate Deadzone
+    // double deadzone = 0.15;
+    if(fabs(l_stickValV) > 0.15) {
         cur_stickValV = l_stickValV;
     } else {
         cur_stickValV = 0.0;
     }
+
+}
+
+void TurretSubsystem::setAngleH(float l_stickValH) {
+    std::cout << "setAngleH val " << l_stickValH << ",";
+
+    // Generate Deadzone with Offset-Shift
+    if(l_stickValH > 0.15) {
+        cur_stickValH = 0.25*(l_stickValH - 0.15);
+    } else if (l_stickValH < -0.15 ) {
+        cur_stickValH = 0.25*(l_stickValH + 0.15);
+    } else {
+        cur_stickValH = 0.0;
+    }
+
+    std::cout << "setAngleH val " << cur_stickValH << ",";
 
 }
 
