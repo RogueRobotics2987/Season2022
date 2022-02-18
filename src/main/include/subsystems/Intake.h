@@ -13,6 +13,7 @@
 #include <frc/DoubleSolenoid.h>
 #include <iostream>
 #include <frc/SerialPort.h>
+#include <sstream>
 
 class Intake : public frc2::SubsystemBase {
  public:
@@ -38,6 +39,8 @@ class Intake : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(62, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(6, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax m_loadIntoShooterMotor = rev::CANSparkMax(12, rev::CANSparkMax::MotorType::kBrushless);
+
   bool intakeSigIn = false; 
   bool intakeSigInRelease = false;
   bool intakeSigOutRelease = false;
@@ -55,6 +58,6 @@ class Intake : public frc2::SubsystemBase {
   double conveyorSpeed = 0.0;
 
   // Serial port for external Arduino (sensors)
-  frc::SerialPort m_SerialMXP = frc::SerialPort(9600,frc::SerialPort::kMXP,8,frc::SerialPort::kParity_None,frc::SerialPort::kStopBits_One);
+  frc::SerialPort m_SerialMXP = frc::SerialPort(115200,frc::SerialPort::kMXP,8,frc::SerialPort::kParity_None,frc::SerialPort::kStopBits_One);
 
 };

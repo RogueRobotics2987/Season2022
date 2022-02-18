@@ -7,10 +7,13 @@
 Intake::Intake() {
     stateIntake = 0;
     stateConveyor = 0;
+    m_loadIntoShooterMotor.Follow(m_conveyorMotor);
 }
 
 //lidar code
-float rrsDecoderFront(std::string inputArray) {
+ 
+// Sensor 3 (ball sensor, D11 on Arduino)
+float rrsDecoderBall(std::string inputArray){
         static float output = 0.0;
         std::string mmString = "";
         int mmInt = 0;
@@ -20,77 +23,61 @@ float rrsDecoderFront(std::string inputArray) {
         // Adds on to cmString from inputArray until an "E" is reached
        
         // Converts mmInt string into int, converted to mm as a float
-       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == "," || inputArray == "b" || inputArray == "e"){
-         mmString = "0";
-       } else {
-        while (inputArray[BIndex] != 'E') {
-            mmString += inputArray[BIndex];
-            BIndex++;
-        }
-        }
-        if(!(mmString == "0")) {
-          mmInt = stoi(mmString);
-          output = mmInt/100.0;
-          std::cout << output << std::endl;
-        }
-        //frc::SmartDashboard::PutNumber("Range", output);
-        return output;
-}
-
-float rrsDecoderBack(std::string inputArray){
-        static float output = 0.0;
-        std::string mmString = "";
-        int mmInt = 0;
-        // Finds the position of "B" marking the beginning of the range value
-        int BIndex = inputArray.find("b");
-        BIndex += 1; // Prevents "B" from being added to the return value
-        // Adds on to cmString from inputArray until an "E" is reached
-       
-        // Converts mmInt string into int, converted to mm as a float
-       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == "," || inputArray == "b" || inputArray == "e"){
-         mmString = "0";
-       } else {
-        while (inputArray[BIndex] != 'e') {
-            mmString += inputArray[BIndex];
-            BIndex++;
-        }
-        }
-        if(!(mmString == "0")) {
-          mmInt = stoi(mmString);
-          output = mmInt/100.0;
-          std::cout << output << std::endl;
-        }
-        //frc::SmartDashboard::PutNumber("Range 2", output);
-        return output;
-}
-
-float rrsDecoderBall(std::string inputArray){
-        static float output = 0.0;
-        std::string mmString = "";
-        int mmInt = 0;
-        // Finds the position of "B" marking the beginning of the range value
-        int BIndex = inputArray.find("Z");
-        BIndex += 1; // Prevents "B" from being added to the return value
-        // Adds on to cmString from inputArray until an "E" is reached
-       
-        // Converts mmInt string into int, converted to mm as a float
        if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE"
       || inputArray == "," || inputArray == "b" || inputArray == "e"|| inputArray == "Z" || inputArray == "X"){
          mmString = "0";
        } else {
-        while (inputArray[BIndex] != 'X') {
+        while (inputArray[BIndex] != 'Z') {
             mmString += inputArray[BIndex];
             BIndex++;
         }
         }
-        if(!(mmString == "0")) {
-          mmInt = stoi(mmString);
-          output = mmInt/100.0;
+        if (mmString == "64351"){
+          output = INT_MAX;
+        } else if(!(mmString == "0")) {
+          //mmInt = stoi(mmString);
+          std::stringstream ssString(mmString);
+          ssString >> mmInt;
+          output = mmInt/1000.0;
           std::cout << output << std::endl;
         }
         //frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
+// Sensor 3 (right sensor, D10 on Arduino)
+float rrsDecoderRight(std::string inputArray){
+        static float output = 0.0;
+        std::string mmString = "";
+        int mmInt = 0;
+        // Finds the position of "B" marking the beginning of the range value
+        int BIndex = inputArray.find("R");
+        BIndex += 1; // Prevents "B" from being added to the return value
+        // Adds on to cmString from inputArray until an "E" is reached
+       
+        // Converts mmInt string into int, converted to mm as a float
+       if (inputArray == "" || inputArray == "B" || inputArray == "E" || inputArray == "BB" || inputArray == "BE" || inputArray == "," || inputArray == "b" || inputArray == "e"){
+         mmString = "0";
+       } else {
+        while (inputArray[BIndex] != 'b') {
+            mmString += inputArray[BIndex];
+            BIndex++;
+        }
+        }
+        if (mmString == "64351"){
+          output = INT_MAX;
+        } else if(!(mmString == "0")) {
+          //mmInt = stoi(mmString);
+          std::stringstream ssString(mmString);
+          ssString >> mmInt;
+          output = mmInt/1000.0;
+          std::cout << output << std::endl;
+        }
+        //frc::SmartDashboard::PutNumber("Range 2", output);
+        return output;
+}
+
+ 
+
 void Intake::SensorReset() {
     m_SerialMXP.SetTimeout(units::time::second_t(0.001));
     m_SerialMXP.SetReadBufferSize(5);
@@ -102,15 +89,19 @@ void Intake::SensorReset() {
 void Intake::Periodic() {
 
     //lidar will need to be put back in
-    /*char sSenseData[10] = {NULL};
+    char sSenseData[19] = {NULL};
     int bytesRead = 0;
-    bytesRead = m_SerialMXP.Read(sSenseData,18);
-    sSenseData[9] = NULL;
-    std::string soSenseData = sSenseData;*/
+    //need to put back in to get data from sensor
+    //bytesRead = m_SerialMXP.Read(sSenseData,18); 
+    std::cout << "Serial data: " << sSenseData << std::endl;
+    sSenseData[19] = NULL;
+    std::string soSenseData = sSenseData;
+ 
+    //Sensor 3 (magazine)
+    float fSenseData3 = rrsDecoderBall(soSenseData);
+    frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
+    //std::cout << "Ball range: " << fSenseData3 << std::endl;
 
-    //Sensor 3 (magazine) will need to be put back in
-    //float fSenseData3 = rrsDecoderBack(soSenseData);
-    //frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
 
     //for tesing purposes only
     /*frc::SmartDashboard::PutBoolean("intakeSigIn",intakeSigIn);
@@ -134,7 +125,7 @@ void Intake::Periodic() {
         stateIntake = 3; //stopped stateIntake
     } else if (stateIntake == 1) {
         //Intake in with conveyor
-        intakeSpeed = 0.3;
+        intakeSpeed = -0.4;
         m_intakeMotor.Set(intakeSpeed);  
         intakeSigIn = false;
         stateConveyor = 4; //starts conveyor motor
@@ -147,9 +138,10 @@ void Intake::Periodic() {
         }
     } else if (stateIntake == 2) {
         //Intake out
-        intakeSpeed = -0.3;
+        intakeSpeed = 0.4;
         m_intakeMotor.Set(intakeSpeed);
         intakeSigOut = false;
+        sensorDetectsBall = false;
         
         //exit statements
         if (intakeSigOutRelease){
@@ -195,6 +187,7 @@ void Intake::Periodic() {
         conveyorSpeed = -0.3;
         m_conveyorMotor.Set(conveyorSpeed);
         conveyorSigBack = false;
+        sensorDetectsBall = false;
 
         if (conveyorSigBackRelease){
             stateConveyor = 3;
@@ -221,10 +214,12 @@ void Intake::Periodic() {
         conveyorSigFwd = false;
 
         //takes input from lidar and sets a boolean to true when a ball is detected
-        /*if (fSenseData3 <= 0.2){
-            //frc::SmartDashboard::PutString("Ball status", "ball ready");
-            sensorDetectsBall = true;
-        } */
+        if (fSenseData3 <= 0.2){
+            frc::SmartDashboard::PutString("Ball status", "ball ready");
+        } else if (fSenseData3 > 0.2){
+            frc::SmartDashboard::PutString("Ball status", "ball not detected");
+        }
+
 
         if (conveyorSigFwdReleaase){
             stateConveyor = 3;
@@ -232,7 +227,7 @@ void Intake::Periodic() {
             stateConveyor = 2; 
         } else if (sensorDetectsBall){//ball detected
             stateConveyor = 3; //stops the conveyor
-        }
+        } 
     }
 
 
