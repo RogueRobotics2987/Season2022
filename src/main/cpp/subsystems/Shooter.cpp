@@ -7,7 +7,7 @@
 Shooter::Shooter(){
     int bob = 1;
     frc::SmartDashboard::PutNumber("Set RPM 2", TargetRPM); 
-    frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
+   // frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
     frc::SmartDashboard::PutNumber("Set P", kp); 
     frc::SmartDashboard::PutNumber("Set I", ki); 
     frc::SmartDashboard::PutNumber("Set D", kd); 

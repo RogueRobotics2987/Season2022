@@ -47,6 +47,8 @@ class Intake : public frc2::SubsystemBase {
   bool intakeSigOut = false;
   int stateIntake = 0; 
   double intakeSpeed = 0.0;
+  double intakeSpeedOut = 0.3;
+  double intakeSpeedIn = 0.3;
 
   bool conveyorSigFwd = false;
   bool conveyorSigBack = false;
@@ -56,6 +58,8 @@ class Intake : public frc2::SubsystemBase {
   bool sensorDetectsBall = false;
 
   double conveyorSpeed = 0.0;
+  double conveyorSpeedFwd = 0.3;
+  double conveyorSpeedBack = 0.3;
 
   // Serial port for external Arduino (sensors)
   frc::SerialPort m_SerialMXP = frc::SerialPort(115200,frc::SerialPort::kMXP,8,frc::SerialPort::kParity_None,frc::SerialPort::kStopBits_One);

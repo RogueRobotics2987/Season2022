@@ -12,7 +12,7 @@ TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystic
   SetName("TankDrive");
   AddRequirements({m_drivetrain});
   frc::SmartDashboard::PutBoolean("Acceleration Control", false); 
-  frc::SmartDashboard::PutBoolean("AccelCtrlWorking", false);
+  //frc::SmartDashboard::PutBoolean("AccelCtrlWorking", false);
 }
 
 // Called when the command is initially scheduled.
@@ -44,11 +44,11 @@ void TankDrive::Execute() {
  bool accelCtrl = false; 
  accelCtrl = frc::SmartDashboard::GetBoolean("Acceleration Control", false); 
 
- if (accelCtrl == true){
+ /*if (accelCtrl == true){
    frc::SmartDashboard::PutBoolean("AccelCtrlWorking", true);
  } else {
    frc::SmartDashboard::PutBoolean("AccelCtrlWorking", false);
- }
+ }*/
 
   if (abs(stickTurnVal-lastTurnVal) >maxChange && accelCtrl) {
     outTurnVal = lastTurnVal + copysignf(1.0,stickTurnVal - lastTurnVal)*maxChange;
