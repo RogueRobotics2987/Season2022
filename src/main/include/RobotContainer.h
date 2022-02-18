@@ -16,6 +16,9 @@
 #include <frc2/command/button/JoystickButton.h>
 #include "subsystems/Shooter.h"
 
+#include "subsystems/TurretSubsystem.h"
+#include "commands/TurretCmd.h" 
+
 //random stuff
 
 #include "commands/AimAtTarget.h"
@@ -48,6 +51,7 @@ class RobotContainer {
   ExampleCommand m_autonomousCommand;
   Shooter m_shooter;
   Intake intake;
+  TurretSubsystem m_turret;
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 
@@ -60,11 +64,10 @@ class RobotContainer {
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
   frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
 
- frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
-  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
 
-  TurretSubsystem m_turret;
-  AimAtTarget m_TeleopCommand{m_turret};
+  //DJO: I have no idea what this is...removing...
+  //AimAtTarget m_TeleopCommand{m_turret};
+
   // LimelightSingleTarget m_TeleopCommand;
   // LimelightTriTarget m_TeleopCommand;
 
