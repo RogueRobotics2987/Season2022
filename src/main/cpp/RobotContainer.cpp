@@ -10,6 +10,7 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
   // Configure the button bm_indings
   ConfigureButtonBindings();
+  
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -25,6 +26,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
   frc2::JoystickButton(&stick2, 2).WhenPressed(&m_conveyerBackward); 
   frc2::JoystickButton(&stick2, 2).WhenReleased(&m_conveyerBackwardRelease); 
+
+  frc2::JoystickButton(&xbox, 3).WhenPressed(&m_shooter2000); 
+  frc2::JoystickButton(&xbox, 3).WhenReleased(&m_shooterStop); 
   
 }
 

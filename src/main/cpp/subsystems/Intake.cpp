@@ -8,6 +8,10 @@ Intake::Intake() {
     stateIntake = 0;
     stateConveyor = 0;
     m_loadIntoShooterMotor.Follow(m_conveyorMotor);
+    frc::SmartDashboard::PutNumber("Intake Speed In", intakeSpeedIn);
+    frc::SmartDashboard::PutNumber("Intake Speed Out", intakeSpeedOut);
+    frc::SmartDashboard::PutNumber("Conveyor Speed In", conveyorSpeedFwd);
+    frc::SmartDashboard::PutNumber("Conveyor Speed Out", conveyorSpeedBack);
 }
 
 //lidar code
@@ -125,8 +129,8 @@ void Intake::Periodic() {
         stateIntake = 3; //stopped stateIntake
     } else if (stateIntake == 1) {
         //Intake in with conveyor
-        intakeSpeed = -0.4;
-        m_intakeMotor.Set(intakeSpeed);  
+        intakeSpeedIn = frc::SmartDashboard::GetNumber("Intake Speed In", intakeSpeedIn);
+        m_intakeMotor.Set(-intakeSpeedIn);  
         intakeSigIn = false;
         stateConveyor = 4; //starts conveyor motor
 
@@ -138,8 +142,8 @@ void Intake::Periodic() {
         }
     } else if (stateIntake == 2) {
         //Intake out
-        intakeSpeed = 0.4;
-        m_intakeMotor.Set(intakeSpeed);
+        intakeSpeedOut = frc::SmartDashboard::GetNumber("Intake Speed Out", intakeSpeedOut);
+        m_intakeMotor.Set(intakeSpeedOut);  
         intakeSigOut = false;
         sensorDetectsBall = false;
         
@@ -172,8 +176,8 @@ void Intake::Periodic() {
         stateConveyor = 3;
     } else if (stateConveyor == 1){
         //conveyor forward
-        conveyorSpeed = 0.3;
-        m_conveyorMotor.Set(conveyorSpeed); 
+        conveyorSpeedFwd = frc::SmartDashboard::GetNumber("Conveyor Speed In", conveyorSpeedFwd);
+        m_conveyorMotor.Set(conveyorSpeedFwd); 
         conveyorSigFwd = false;
         sensorDetectsBall = false;
 
@@ -184,8 +188,8 @@ void Intake::Periodic() {
         } 
     } else if (stateConveyor == 2){
         //conveyor backward
-        conveyorSpeed = -0.3;
-        m_conveyorMotor.Set(conveyorSpeed);
+        conveyorSpeedBack = frc::SmartDashboard::GetNumber("Conveyor Speed Out", conveyorSpeedBack);
+        m_conveyorMotor.Set(-conveyorSpeedBack); 
         conveyorSigBack = false;
         sensorDetectsBall = false;
 
