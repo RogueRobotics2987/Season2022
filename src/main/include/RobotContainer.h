@@ -12,13 +12,9 @@
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/Intake.h"
-#include "commands/PickUpBall.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
-
-
-//random stuff
-
+#include "subsystems/Climber.h"
 #include "commands/AimAtTarget.h"
 #include "commands/LimelightSingleTarget.h"
 #include "commands/LimelightTriTarget.h"
@@ -64,7 +60,7 @@ class RobotContainer {
   AimAtTarget m_TeleopCommand{m_turret};
   // LimelightSingleTarget m_TeleopCommand;
   // LimelightTriTarget m_TeleopCommand;
-
+  Climber climber;
 
   void ConfigureButtonBindings();
 };
