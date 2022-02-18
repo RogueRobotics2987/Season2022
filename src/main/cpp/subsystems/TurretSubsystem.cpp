@@ -19,16 +19,19 @@ void TurretSubsystem::Periodic() {
 
 
     if(actuatorState == 0){
-        m_vTurretMotor.Set(cur_stickValV);
-        m_hTurretMotor.Set(cur_stickValH);
         std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
-
+        m_vTurretMotor.Set(0.4);
         // Temp disable statemachine...
-         if(false) { //(ls_turret.Get() == false){
+         if((ls_turret.Get() == true) { //(ls_turret.Get() == false){
             actuatorState = 1;
+            re_vTurretMotor.SetPosition(0);
+
         }
     }
     else if (actuatorState == 1){
+        m_vTurretMotor.Set(cur_stickValV);
+        m_hTurretMotor.Set(cur_stickValH);
+
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
 
     }
