@@ -5,7 +5,9 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter(){
-frc::SmartDashboard::PutNumber("Set P", kp); 
+    int bob = 1;
+    frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
+    frc::SmartDashboard::PutNumber("Set P", kp); 
     frc::SmartDashboard::PutNumber("Set I", ki); 
     frc::SmartDashboard::PutNumber("Set D", kd); 
     frc::SmartDashboard::PutNumber("Set FF", kff);
@@ -37,7 +39,7 @@ void Shooter::Periodic() {
     kd = frc::SmartDashboard::GetNumber("Set D", kd);
     kff = frc::SmartDashboard::GetNumber("Set FF", kff);
 
-    TargetRPM = frc::SmartDashboard::GetNumber("Set RPM", 3800); 
+    TargetRPM = frc::SmartDashboard::GetNumber("Set RPM", TargetRPM); 
     frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
@@ -66,5 +68,5 @@ void Shooter::stopShooter() {
 void Shooter::setShooter() {
    // shooterPID->SetReference(maxRPM, rev::ControlType::kVelocity);
    // shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
-    shooterPID.SetReference(TargetRPM, rev::ControlType::kSmartVelocity, arbFF);
+    shooterPID.SetReference(-TargetRPM, rev::ControlType::kSmartVelocity, arbFF);
 }
