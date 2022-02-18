@@ -9,7 +9,25 @@ TurretSubsystem::TurretSubsystem() {
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
 }
 void TurretSubsystem::setSpeed(float speed) {
-    m_turret.Set(speed);
+    // m_turretMotor.Set(speed);
 }
 // This method will be called once per scheduler run
-void TurretSubsystem::Periodic() {}
+void TurretSubsystem::Periodic() {
+
+    if(actuatorState == 0){
+        m_VerturretMotor.Set(0.2);
+
+    //       bool ls_turret2 = m_VerturretMotor.GetForwardLimitSwitch(
+    // rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed).Get();
+
+
+         if(ls_turret.Get() == false){
+            actuatorState = 1;
+
+        }
+    }
+    else if (actuatorState == 1){
+        m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
+
+    }
+}
