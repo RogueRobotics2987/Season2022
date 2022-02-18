@@ -7,6 +7,7 @@
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
+  m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
   // Configure the button bm_indings
   ConfigureButtonBindings();
 }
@@ -30,9 +31,5 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   // return &m_autonomousCommand;
-}
-frc2::Command* RobotContainer::GetTeleopCommand() {
-  // An example command will be run in teleop
-  return &m_TeleopCommand;
 }
 

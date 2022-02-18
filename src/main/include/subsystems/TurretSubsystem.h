@@ -7,13 +7,14 @@
 #include <frc2/command/SubsystemBase.h>
 #include "rev/CANSparkMax.h" 
 #include <frc/Joystick.h>
+#include <iostream>
 
 class TurretSubsystem : public frc2::SubsystemBase {
  public:
   TurretSubsystem();
   void setSpeed(float speed);
   void setAngleH();
-  void setAngleV();
+  void setAngleV(float l_stickValV);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -22,15 +23,15 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
  private:
 
- frc::Joystick* m_xBox = nullptr;
+   frc::Joystick* m_xBox = nullptr;
 
   // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax m_VerturretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
+  rev::CANSparkMax m_vTurretMotor{13, rev::CANSparkMax::MotorType::kBrushless}; 
+  // rev::SparkMaxLimitSwitch ls_turret = m_vTurretMotor.GetForwardLimitSwitch(
+  //                            rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
 
   int actuatorState;
-
-  rev::SparkMaxLimitSwitch ls_turret = m_VerturretMotor.GetForwardLimitSwitch(
-                             rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+  double cur_stickValV = 0.0;
 
   
 

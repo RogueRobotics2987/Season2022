@@ -15,19 +15,27 @@ void TurretSubsystem::setSpeed(float speed) {
 void TurretSubsystem::Periodic() {
 
     if(actuatorState == 0){
-        m_VerturretMotor.Set(0.2);
+        m_vTurretMotor.Set(cur_stickValV);
+        std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
 
-    //       bool ls_turret2 = m_VerturretMotor.GetForwardLimitSwitch(
-    // rev::CANDigitalInput::LimitSwitchPolarity::kNormallyClosed).Get();
-
-
-         if(ls_turret.Get() == false){
+        // Temp disable statemachine...
+         if(false) { //(ls_turret.Get() == false){
             actuatorState = 1;
-
         }
     }
     else if (actuatorState == 1){
-        m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
+        //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
 
     }
 }
+
+void TurretSubsystem::setAngleV(float l_stickValV) {
+    std::cout << "setAngleV run, ";
+    if(fabs(l_stickValV) > 0.1) {
+        cur_stickValV = l_stickValV;
+    } else {
+        cur_stickValV = 0.0;
+    }
+
+}
+

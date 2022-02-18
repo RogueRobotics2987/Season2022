@@ -89,12 +89,12 @@ void Intake::SensorReset() {
 void Intake::Periodic() {
 
     //lidar will need to be put back in
-    char sSenseData[19] = {NULL};
+    char sSenseData[19] = {'\0'};
     int bytesRead = 0;
     //need to put back in to get data from sensor
     //bytesRead = m_SerialMXP.Read(sSenseData,18); 
-    std::cout << "Serial data: " << sSenseData << std::endl;
-    sSenseData[19] = NULL;
+    //std::cout << "Serial data: " << sSenseData << std::endl;
+    sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
  
     //Sensor 3 (magazine)
