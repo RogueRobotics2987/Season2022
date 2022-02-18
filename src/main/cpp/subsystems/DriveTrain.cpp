@@ -33,7 +33,7 @@ void DriveTrain::autonDrive(){
 
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
-    //frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
+    frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
     frc::SmartDashboard::PutNumber("Output Voltage Right BusVolatage", RightFront.GetBusVoltage());
