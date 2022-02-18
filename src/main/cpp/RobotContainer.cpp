@@ -7,6 +7,8 @@
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   // Configure the button bindings
+  m_turret.SetDefaultCommand(AimAtTarget(m_turret));
+
   ConfigureButtonBindings();
 }
 
@@ -20,6 +22,6 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 }
 frc2::Command* RobotContainer::GetTeleopCommand() {
   // An example command will be run in teleop
-  return &m_TeleopCommand;
+  //return &m_TeleopCommand;
 }
 
