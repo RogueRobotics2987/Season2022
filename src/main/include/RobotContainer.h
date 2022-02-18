@@ -64,6 +64,8 @@ class RobotContainer {
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
   frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
 
+  frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
+  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
 
   //DJO: I have no idea what this is...removing...
   //AimAtTarget m_TeleopCommand{m_turret};
