@@ -83,8 +83,8 @@ float rrsDecoderRight(std::string inputArray){
  
 
 void Intake::SensorReset() {
-    m_SerialMXP.SetTimeout(units::time::second_t(0.001));
-    m_SerialMXP.SetReadBufferSize(5);
+    m_SerialMXP.SetTimeout(units::time::second_t(0.005));
+    m_SerialMXP.SetReadBufferSize(27);
     m_SerialMXP.Reset();
 }
 
@@ -97,13 +97,14 @@ void Intake::Periodic() {
     int bytesRead = 0;
     //need to put back in to get data from sensor
     //bytesRead = m_SerialMXP.Read(sSenseData,18); 
-    //std::cout << "Serial data: " << sSenseData << std::endl;
+    std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
+    frc::SmartDashboard::PutString("zzDJO Sense Data", soSenseData);
  
     //Sensor 3 (magazine)
-    float fSenseData3 = rrsDecoderBall(soSenseData);
-    frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
+    //float fSenseData3 = rrsDecoderBall(soSenseData);
+    //frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
     //std::cout << "Ball range: " << fSenseData3 << std::endl;
 
 
