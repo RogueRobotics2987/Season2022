@@ -43,7 +43,7 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {}
 
-  void Robot::TeleopInit() {
+void Robot::TeleopInit() {
 
   // m_teleopCommand = m_container.GetTeleopCommand();
 
@@ -63,7 +63,7 @@ void Robot::AutonomousPeriodic() {}
   // }
 
   
-  }
+}
 
 
 /**
