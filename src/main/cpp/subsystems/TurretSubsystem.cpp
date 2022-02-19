@@ -6,6 +6,7 @@
 
 TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
+    frc::SmartDashboard::PutNumber("kp_vAim", kp_vAim);
 
     //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
@@ -17,6 +18,8 @@ void TurretSubsystem::setSpeed(float speed) {
 void TurretSubsystem::Periodic() {
 
     kp_hAim = frc::SmartDashboard::GetNumber("kp_hAim", kp_hAim);
+    kp_vAim = frc::SmartDashboard::GetNumber("kp_vAim", kp_vAim);
+
 
     frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotor.Get());
     frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotor.GetPosition());
@@ -46,11 +49,25 @@ void TurretSubsystem::Periodic() {
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("ledMode", 3); 
 
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
         m_hTurretMotor.Set(tx * kp_hAim);
+       // m_vTurretMotor.Set(ty * kp_vAim);
 
 
     }
+
+    
+  if (cur_stickPOV == 0){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
+  } else if (cur_stickPOV == 90){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
+  } else if (cur_stickPOV == 180){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
+  } else if (cur_stickPOV == 270){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 6000);
+  } 
+
 }
 
 void TurretSubsystem::setAngleV(float l_stickValV) {
@@ -88,4 +105,8 @@ void TurretSubsystem::setAutoAimOn() {
 
 void TurretSubsystem::setManuelAimOn() {
     actuatorState = 1;
+}
+
+void TurretSubsystem::setStickPOV(int stickPOV){
+    cur_stickPOV = stickPOV;
 }
