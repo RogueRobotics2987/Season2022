@@ -60,7 +60,7 @@ void TurretSubsystem::Periodic() {
 
         m_hTurretMotor.Set(tx * kp_hAim);
         // m_vTurretMotor.Set(ty * kp_vAim);
-        m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-700)) * kp_vAim);
+        m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-600)) * kp_vAim);
 
 
 
