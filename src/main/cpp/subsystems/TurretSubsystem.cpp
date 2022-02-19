@@ -8,6 +8,8 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
     frc::SmartDashboard::PutNumber("kp_vAim", kp_vAim);
 
+
+
     //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
 }
@@ -17,9 +19,8 @@ void TurretSubsystem::setSpeed(float speed) {
 // This method will be called once per scheduler run
 void TurretSubsystem::Periodic() {
 
-    kp_hAim = frc::SmartDashboard::GetNumber("kp_hAim", kp_hAim);
-    kp_vAim = frc::SmartDashboard::GetNumber("kp_vAim", kp_vAim);
-
+    kp_hAim = frc::SmartDashboard::GetNumber("kp_hAim", kp_hAim); //Horizontal Aim
+    kp_vAim = frc::SmartDashboard::GetNumber("kp_vAim", kp_vAim); //Vertical Aim
 
     frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotor.Get());
     frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotor.GetPosition());
@@ -53,6 +54,14 @@ void TurretSubsystem::Periodic() {
 
         m_hTurretMotor.Set(tx * kp_hAim);
        // m_vTurretMotor.Set(ty * kp_vAim);
+        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        re_vTurretMotor.GetPosition();
+
+
+        m_hTurretMotor.Set(tx * kp_hAim);
+        // m_vTurretMotor.Set(ty * kp_vAim);
+        m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-700)) * kp_vAim);
+
 
 
     }
