@@ -30,6 +30,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&xbox, 3).WhenPressed(&m_shooter2000); 
   frc2::JoystickButton(&xbox, 3).WhenReleased(&m_shooterStop); 
   
+  frc2::JoystickButton(&xbox, 7).WhenPressed(&m_TurtModeAuto); 
+  frc2::JoystickButton(&xbox, 7).WhenReleased(&m_TurtModeManu); 
+  
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

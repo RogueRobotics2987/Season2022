@@ -9,14 +9,18 @@
 #include <frc/Joystick.h>
 #include <iostream>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
 
 class TurretSubsystem : public frc2::SubsystemBase {
  public:
   TurretSubsystem();
   void setSpeed(float speed);
-  void setAngleH();
   void setAngleV(float l_stickValV);
   void setAngleH(float l_stickValH);
+  void setAutoAimOn();
+  void setManuelAimOn();
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -42,6 +46,7 @@ rev::SparkMaxRelativeEncoder re_vTurretMotor = m_vTurretMotor.GetEncoder();
   int actuatorState;
   double cur_stickValV = 0.0;
   double cur_stickValH = 0.0;
+  double kp_hAim = 0.01;
 
   
 

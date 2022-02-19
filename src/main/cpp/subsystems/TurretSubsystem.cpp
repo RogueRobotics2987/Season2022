@@ -5,6 +5,8 @@
 #include "subsystems/TurretSubsystem.h"
 
 TurretSubsystem::TurretSubsystem() {
+    frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
+
     //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
 }
@@ -13,6 +15,8 @@ void TurretSubsystem::setSpeed(float speed) {
 }
 // This method will be called once per scheduler run
 void TurretSubsystem::Periodic() {
+
+    kp_hAim = frc::SmartDashboard::GetNumber("kp_hAim", kp_hAim);
 
     frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotor.Get());
     frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotor.GetPosition());
@@ -33,6 +37,18 @@ void TurretSubsystem::Periodic() {
         m_hTurretMotor.Set(cur_stickValH);
 
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
+
+    }
+    else if (actuatorState == 2){
+        //ledMode 
+        // 3 on 
+        // 0 off 
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("ledMode", 3); 
+
+        float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+
+        m_hTurretMotor.Set(tx * kp_hAim);
+
 
     }
 }
@@ -66,3 +82,10 @@ void TurretSubsystem::setAngleH(float l_stickValH) {
 
 }
 
+void TurretSubsystem::setAutoAimOn() {
+    actuatorState = 2;
+}
+
+void TurretSubsystem::setManuelAimOn() {
+    actuatorState = 1;
+}
