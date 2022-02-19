@@ -103,8 +103,8 @@ void Intake::Periodic() {
     frc::SmartDashboard::PutString("zzDJO Sense Data", soSenseData);
  
     //Sensor 3 (magazine)
-    //float fSenseData3 = rrsDecoderBall(soSenseData);
-    //frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
+    float fSenseData3 = rrsDecoderBall(soSenseData);
+    frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
     //std::cout << "Ball range: " << fSenseData3 << std::endl;
 
 
