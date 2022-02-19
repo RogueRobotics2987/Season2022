@@ -43,7 +43,7 @@ float rrsDecoderBall(std::string inputArray){
           std::stringstream ssString(mmString);
           ssString >> mmInt;
           output = mmInt/1000.0;
-          std::cout << output << std::endl;
+          //std::cout << output << std::endl;
         }
         frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
@@ -83,8 +83,8 @@ float rrsDecoderRight(std::string inputArray){
  
 
 void Intake::SensorReset() {
-    m_SerialMXP.SetTimeout(units::time::second_t(0.005));
-    m_SerialMXP.SetReadBufferSize(27);
+    m_SerialMXP.SetTimeout(units::time::second_t(0.001));
+    m_SerialMXP.SetReadBufferSize(1);
     m_SerialMXP.Reset();
 }
 
@@ -97,7 +97,7 @@ void Intake::Periodic() {
     int bytesRead = 0;
     //need to put back in to get data from sensor
     //bytesRead = m_SerialMXP.Read(sSenseData,18); 
-    std::cout << "Serial data: " << sSenseData << std::endl;
+    //std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
     frc::SmartDashboard::PutString("zzDJO Sense Data", soSenseData);
