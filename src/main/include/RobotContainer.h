@@ -14,11 +14,8 @@
 #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
-<<<<<<< HEAD
 #include "commands/Auto.h"
-=======
 #include "subsystems/Shooter.h"
->>>>>>> 262c3aebe3c49bdbd085cff7f9fa6bfbbb94b449
 
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
@@ -52,12 +49,8 @@ class RobotContainer {
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
-<<<<<<< HEAD
   // ExampleCommand m_autonomousCommand;
-=======
-  ExampleCommand m_autonomousCommand;
   Shooter m_shooter;
->>>>>>> 262c3aebe3c49bdbd085cff7f9fa6bfbbb94b449
   Intake intake;
   TurretSubsystem m_turret;
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
