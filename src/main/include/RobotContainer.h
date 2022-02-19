@@ -14,6 +14,7 @@
 #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
+#include "commands/Auto.h"
 #include "subsystems/Shooter.h"
 
 #include "subsystems/TurretSubsystem.h"
@@ -48,7 +49,7 @@ class RobotContainer {
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
-  ExampleCommand m_autonomousCommand;
+  // ExampleCommand m_autonomousCommand;
   Shooter m_shooter;
   Intake intake;
   TurretSubsystem m_turret;
@@ -77,6 +78,7 @@ class RobotContainer {
   // LimelightSingleTarget m_TeleopCommand;
   // LimelightTriTarget m_TeleopCommand;
 
+  Auto m_autonomousCommand;
 
   void ConfigureButtonBindings();
 };

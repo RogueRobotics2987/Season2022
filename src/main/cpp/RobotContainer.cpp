@@ -4,7 +4,7 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem){
+RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,1.0,-4.0){
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
@@ -41,6 +41,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  // return &m_autonomousCommand;
+  return &m_autonomousCommand;
+//  return Auto(drivetrain, 1.0, -4.0);
 }
 
