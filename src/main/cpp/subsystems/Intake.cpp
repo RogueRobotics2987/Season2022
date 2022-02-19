@@ -45,7 +45,7 @@ float rrsDecoderBall(std::string inputArray){
           output = mmInt/1000.0;
           std::cout << output << std::endl;
         }
-        //frc::SmartDashboard::PutNumber("Range 2", output);
+        frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
 // Sensor 3 (right sensor, D10 on Arduino)
@@ -76,7 +76,7 @@ float rrsDecoderRight(std::string inputArray){
           output = mmInt/1000.0;
           std::cout << output << std::endl;
         }
-        //frc::SmartDashboard::PutNumber("Range 2", output);
+        frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
 
@@ -97,14 +97,14 @@ void Intake::Periodic() {
     int bytesRead = 0;
     //need to put back in to get data from sensor
     //bytesRead = m_SerialMXP.Read(sSenseData,18); 
-    //std::cout << "Serial data: " << sSenseData << std::endl;
+    std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
  
     //Sensor 3 (magazine)
     float fSenseData3 = rrsDecoderBall(soSenseData);
     frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
-    //std::cout << "Ball range: " << fSenseData3 << std::endl;
+    std::cout << "Ball range: " << fSenseData3 << std::endl;
 
 
     //for tesing purposes only
@@ -220,7 +220,7 @@ void Intake::Periodic() {
         //takes input from lidar and sets a boolean to true when a ball is detected
         if (fSenseData3 <= 0.2){
             frc::SmartDashboard::PutString("Ball status", "ball ready");
-        } else if (fSenseData3 > 0.2){
+        } else {
             frc::SmartDashboard::PutString("Ball status", "ball not detected");
         }
 
