@@ -45,10 +45,10 @@ float rrsDecoderBall(std::string inputArray){
           output = mmInt/1000.0;
           //std::cout << output << std::endl;
         }
-        frc::SmartDashboard::PutNumber("Range 2", output);
+        //frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
-// Sensor 3 (right sensor, D10 on Arduino)
+// Sensor 2 (right sensor, D10 on Arduino)
 float rrsDecoderRight(std::string inputArray){
         static float output = 0.0;
         std::string mmString = "";
@@ -74,9 +74,9 @@ float rrsDecoderRight(std::string inputArray){
           std::stringstream ssString(mmString);
           ssString >> mmInt;
           output = mmInt/1000.0;
-          std::cout << output << std::endl;
+          //std::cout << output << std::endl;
         }
-        frc::SmartDashboard::PutNumber("Range 2", output);
+        //frc::SmartDashboard::PutNumber("Range 2", output);
         return output;
 }
 
@@ -84,7 +84,7 @@ float rrsDecoderRight(std::string inputArray){
 
 void Intake::SensorReset() {
     m_SerialMXP.SetTimeout(units::time::second_t(0.001));
-    m_SerialMXP.SetReadBufferSize(1);
+    m_SerialMXP.SetReadBufferSize(18);
     m_SerialMXP.Reset();
 }
 
@@ -96,11 +96,12 @@ void Intake::Periodic() {
     char sSenseData[19] = {'\0'};
     int bytesRead = 0;
     //need to put back in to get data from sensor
-    //bytesRead = m_SerialMXP.Read(sSenseData,18); 
+    bytesRead = m_SerialMXP.Read(sSenseData,18); 
+    m_SerialMXP.Reset();
     //std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
-    frc::SmartDashboard::PutString("zzDJO Sense Data", soSenseData);
+    //frc::SmartDashboard::PutString("zzDJO Sense Data", soSenseData);
  
     //Sensor 3 (magazine)
     float fSenseData3 = rrsDecoderBall(soSenseData);
