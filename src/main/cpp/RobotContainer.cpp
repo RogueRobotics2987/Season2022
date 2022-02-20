@@ -4,7 +4,7 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,1.0,-4.0){
+RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,2.0,-4.0){
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
