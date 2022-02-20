@@ -49,7 +49,8 @@ rev::SparkMaxRelativeEncoder re_vTurretMotor = m_vTurretMotor.GetEncoder();
   double cur_stickValV = 0.0;
   double cur_stickValH = 0.0;
   double kp_hAim = 0.01;
-  double kp_vAim = 0.02;
+  double kp_vAimty = 0.02;
+  double kp_vAimre = 0.02;
 
   
 
