@@ -47,8 +47,8 @@ class Intake : public frc2::SubsystemBase {
   bool intakeSigOut = false;
   int stateIntake = 0; 
   double intakeSpeed = 0.0;
-  double intakeSpeedOut = 0.3;
-  double intakeSpeedIn = 0.3;
+  double intakeSpeedOut = 0.4;
+  double intakeSpeedIn = 0.6;
 
   bool conveyorSigFwd = false;
   bool conveyorSigBack = false;
