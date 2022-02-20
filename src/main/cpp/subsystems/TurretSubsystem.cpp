@@ -30,7 +30,7 @@ void TurretSubsystem::Periodic() {
 
 
     if(actuatorState == 0){
-        std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
+        //std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
         m_vTurretMotor.Set(0.4);
         // Temp disable statemachine...
          if(ls_vTurretMotor.Get() == true) { //(ls_turret.Get() == false){
