@@ -21,8 +21,8 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&xbox, 2).WhenPressed(&m_intakeOut); 
   frc2::JoystickButton(&xbox, 2).WhenReleased(&m_intakeOutRelease); 
 
-  frc2::JoystickButton(&xbox, 1).WhenPressed(&m_conveyerForward); 
-  frc2::JoystickButton(&xbox, 1).WhenReleased(&m_conveyerForwardRelease); 
+  frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
+  frc2::JoystickButton(&xbox, 3).WhenReleased(&m_conveyerForwardRelease); //was xbox 1
 
   frc2::JoystickButton(&stick2, 2).WhenPressed(&m_conveyerBackward); 
   frc2::JoystickButton(&stick2, 2).WhenReleased(&m_conveyerBackwardRelease); 
@@ -30,8 +30,8 @@ void RobotContainer::ConfigureButtonBindings() {
   // frc2::JoystickButton(&xbox, 3).WhenPressed(&m_shooter2000); 
   // frc2::JoystickButton(&xbox, 3).WhenReleased(&m_shooterStop); 
 
-  frc2::JoystickButton(&xbox, 6).WhenPressed(&m_shooter2000); 
-  frc2::JoystickButton(&xbox, 5).WhenPressed(&m_shooterStop); 
+  frc2::JoystickButton(&xbox, 6).WhenPressed(&m_shooter2000); //right bumper
+  frc2::JoystickButton(&xbox, 5).WhenPressed(&m_shooterStop); //left bumper
   
   frc2::JoystickButton(&xbox, 7).WhenPressed(&m_TurtModeAuto); 
   frc2::JoystickButton(&xbox, 7).WhenReleased(&m_TurtModeManu); 
