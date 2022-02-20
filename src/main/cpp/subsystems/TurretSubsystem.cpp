@@ -61,6 +61,18 @@ void TurretSubsystem::Periodic() {
 
 
     }
+
+    
+  if (cur_stickPOV == 0){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
+  } else if (cur_stickPOV == 90){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
+  } else if (cur_stickPOV == 180){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
+  } else if (cur_stickPOV == 270){
+    frc::SmartDashboard::PutNumber("Set RPM 2", 6000);
+  } 
+
 }
 
 void TurretSubsystem::setAngleV(float l_stickValV) {
@@ -98,4 +110,8 @@ void TurretSubsystem::setAutoAimOn() {
 
 void TurretSubsystem::setManuelAimOn() {
     actuatorState = 1;
+}
+
+void TurretSubsystem::setStickPOV(int stickPOV){
+    cur_stickPOV = stickPOV;
 }

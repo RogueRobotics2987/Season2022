@@ -19,7 +19,9 @@ class TurretSubsystem : public frc2::SubsystemBase {
   void setAngleV(float l_stickValV);
   void setAngleH(float l_stickValH);
   void setAutoAimOn();
+  
   void setManuelAimOn();
+  void setStickPOV(int stickPOV);
 
 
   /**
@@ -51,7 +53,7 @@ rev::SparkMaxRelativeEncoder re_vTurretMotor = m_vTurretMotor.GetEncoder();
 
   
 
-
+  int cur_stickPOV = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

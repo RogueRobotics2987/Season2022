@@ -22,6 +22,9 @@ void TurretCmd::Execute() {
   m_turret->setAngleV(m_xbox->GetRawAxis(1));
   m_turret->setAngleH(m_xbox->GetRawAxis(0));
 
+  m_turret->setStickPOV(m_xbox->GetPOV());
+
+
 }
 
 // Called once the command ends or is interrupted.

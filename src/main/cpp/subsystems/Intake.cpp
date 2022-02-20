@@ -133,7 +133,7 @@ void Intake::Periodic() {
         intakeSpeedIn = frc::SmartDashboard::GetNumber("Intake Speed In", intakeSpeedIn);
         m_intakeMotor.Set(-intakeSpeedIn);  
         intakeSigIn = false;
-        stateConveyor = 4; //starts conveyor motor
+        //stateConveyor = 4; //starts conveyor motor
 
         //exit stateIntakes
         if(intakeSigInRelease) {
