@@ -50,13 +50,13 @@ void TurretSubsystem::Periodic() {
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("ledMode", 3); 
 
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
-        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
         re_vTurretMotor.GetPosition();
 
 
         m_hTurretMotor.Set(tx * kp_hAim);
-        // m_vTurretMotor.Set(ty * kp_vAim);
-        m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-700)) * kp_vAim);
+        m_vTurretMotor.Set(ty * kp_vAim);
+        //m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-700)) * kp_vAim);
 
 
 
