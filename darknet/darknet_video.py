@@ -108,6 +108,9 @@ def convert4cropping(image, bbox):
 
 
 def video_capture(frame_queue, darknet_image_queue):
+    countFrames = 0
+    image_path = r'/home/team2987/temp_images/'
+
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -119,6 +122,12 @@ def video_capture(frame_queue, darknet_image_queue):
         img_for_detect = darknet.make_image(darknet_width, darknet_height, 3)
         darknet.copy_image_from_bytes(img_for_detect, frame_resized.tobytes())
         darknet_image_queue.put(img_for_detect)
+
+        if (countFrames % 500 == 0):
+            imagename = image_path + "image" + str(countFrames) + ".png"
+            cv2.imwrite(imagename, frame)
+
+        countFrames = countFrames + 1
     cap.release()
 
 
