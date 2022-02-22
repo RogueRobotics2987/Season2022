@@ -121,8 +121,8 @@ void Intake::Periodic() {
     frc::SmartDashboard::PutBoolean("conveyorSigFwdRelease", conveyorSigFwdReleaase);
     frc::SmartDashboard::PutBoolean("conveyorSigBack", conveyorSigBack);
     frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);*/
-    frc::SmartDashboard::PutNumber("Conveyor Speed", m_conveyorMotor.Get());
-    frc::SmartDashboard::PutNumber("Intake Speed", m_intakeMotor.Get());
+    //frc::SmartDashboard::PutNumber("Conveyor Speed", m_conveyorMotor.Get());
+    //frc::SmartDashboard::PutNumber("Intake Speed", m_intakeMotor.Get());
   
     //conveyor state machine
     if (stateConveyor == 0){
@@ -174,10 +174,10 @@ void Intake::Periodic() {
 
         //takes input from lidar and stops the conveyor when a ball is detected
         if (fSenseData3 < stopBallDistance){
-            frc::SmartDashboard::PutString("Ball status", "ball ready");
+            //frc::SmartDashboard::PutString("Ball status", "ball ready");
             stateConveyor = 3;
         } else {
-            frc::SmartDashboard::PutString("Ball status", "ball not detected");
+            //frc::SmartDashboard::PutString("Ball status", "ball not detected");
         }
 
         if (conveyorSigFwdReleaase){

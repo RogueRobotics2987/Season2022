@@ -12,13 +12,11 @@ TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystic
   SetName("TankDrive");
   AddRequirements({m_drivetrain});
   frc::SmartDashboard::PutBoolean("Acceleration Control", false); 
-  //frc::SmartDashboard::PutBoolean("AccelCtrlWorking", false);
 }
 
 // Called when the command is initially scheduled.
 void TankDrive::Initialize() {
-m_drivetrain->Reset();
-
+  m_drivetrain->Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,21 +32,15 @@ void TankDrive::Execute() {
   double outSpeedVal = 0;
   double maxChange = 0.06; //per unit of time //was 0.04
  
- frc::SmartDashboard::PutNumber("lastTurnVal", lastTurnVal);
- frc::SmartDashboard::PutNumber("stickTurnVal", stickTurnVal);
- frc::SmartDashboard::PutNumber("lastSpeedVal", lastSpeedVal);
- frc::SmartDashboard::PutNumber("stickSpeedVal", stickSpeedVal);
+ //frc::SmartDashboard::PutNumber("lastTurnVal", lastTurnVal);
+ //frc::SmartDashboard::PutNumber("stickTurnVal", stickTurnVal);
+ //frc::SmartDashboard::PutNumber("lastSpeedVal", lastSpeedVal);
+ //frc::SmartDashboard::PutNumber("stickSpeedVal", stickSpeedVal);
  frc::SmartDashboard::GetNumber("maxChange", maxChange); 
  maxChange = frc::SmartDashboard::GetNumber("maxChange", maxChange); 
 
  bool accelCtrl = false; 
  accelCtrl = frc::SmartDashboard::GetBoolean("Acceleration Control", false); 
-
- /*if (accelCtrl == true){
-   frc::SmartDashboard::PutBoolean("AccelCtrlWorking", true);
- } else {
-   frc::SmartDashboard::PutBoolean("AccelCtrlWorking", false);
- }*/
 
   if (abs(stickTurnVal-lastTurnVal) >maxChange && accelCtrl) {
     outTurnVal = lastTurnVal + copysignf(1.0,stickTurnVal - lastTurnVal)*maxChange;

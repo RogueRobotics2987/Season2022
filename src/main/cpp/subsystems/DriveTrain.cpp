@@ -34,12 +34,14 @@ void DriveTrain::autonDrive(){
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {
     //frc::SmartDashboard::PutNumber("Get Heading (ahrs)", myAhrs.GetAngle());
+
+    //taken out to clean up SmartDashboard. Put back in for troubleshooting
     frc::SmartDashboard::PutNumber("Get Heading (converted)", double(GetHeading()));
   
-    frc::SmartDashboard::PutNumber("Output Voltage Right BusVolatage", RightFront.GetBusVoltage());
-    frc::SmartDashboard::PutNumber("Output Voltage Left BusVoltage", LeftFront.GetBusVoltage());
-    frc::SmartDashboard::PutNumber("Output Voltage Right GetApplied", RightFront.GetAppliedOutput());
-    frc::SmartDashboard::PutNumber("Output Voltage Left GetApplied", LeftFront.GetAppliedOutput());
+    //frc::SmartDashboard::PutNumber("Output Voltage Right BusVolatage", RightFront.GetBusVoltage());
+    //frc::SmartDashboard::PutNumber("Output Voltage Left BusVoltage", LeftFront.GetBusVoltage());
+    //frc::SmartDashboard::PutNumber("Output Voltage Right GetApplied", RightFront.GetAppliedOutput());
+    //frc::SmartDashboard::PutNumber("Output Voltage Left GetApplied", LeftFront.GetAppliedOutput());
 
 
     m_odometry.Update(
