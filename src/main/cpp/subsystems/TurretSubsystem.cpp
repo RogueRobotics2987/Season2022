@@ -9,7 +9,7 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
 
-
+    m_vTurretMotor2.Follow(m_vTurretMotor);
 
     //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);

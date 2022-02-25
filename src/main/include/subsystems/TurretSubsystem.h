@@ -35,6 +35,8 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
   // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_vTurretMotor{13, rev::CANSparkMax::MotorType::kBrushless}; 
+  rev::CANSparkMax m_vTurretMotor2{15, rev::CANSparkMax::MotorType::kBrushless}; 
+
   rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
   rev::SparkMaxLimitSwitch ls_vTurretMotor = m_vTurretMotor.GetForwardLimitSwitch(
                              rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
