@@ -16,7 +16,8 @@
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
-<<<<<<< HEAD
+
+    "memory": "cpp",
     "*.tcc": "cpp",
     "optional": "cpp",
     "functional": "cpp",
@@ -27,11 +28,6 @@
     "ostream": "cpp",
     "sstream": "cpp",
     "streambuf": "cpp"
-=======
-    "memory": "cpp",
-    "random": "cpp",
-    "future": "cpp",
-    "optional": "cpp"
->>>>>>> 7134890a39dcee7c10e7779d46d714e21ecb43bf
+
   }
 }

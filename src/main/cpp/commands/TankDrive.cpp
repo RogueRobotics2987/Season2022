@@ -16,8 +16,7 @@ TankDrive::TankDrive(DriveTrain& drivetrain, frc::Joystick& stick1, frc::Joystic
 
 // Called when the command is initially scheduled.
 void TankDrive::Initialize() {
-m_drivetrain->Reset();
-
+  m_drivetrain->Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -31,12 +30,12 @@ void TankDrive::Execute() {
   double stickSpeedVal = m_stick2 -> GetY(); //comment
   double outTurnVal = 0;
   double outSpeedVal = 0;
-  double maxChange = 0.04; //per second
+  double maxChange = 0.06; //per unit of time //was 0.04
  
- //frc::SmartDashboard::PutNumber("lastLeft Value", lastLeft);
- //frc::SmartDashboard::PutNumber("Left value", Left);
- //frc::SmartDashboard::PutNumber("lastRight Value", lastRight);
- //frc::SmartDashboard::PutNumber("Right value", Right);
+ //frc::SmartDashboard::PutNumber("lastTurnVal", lastTurnVal);
+ //frc::SmartDashboard::PutNumber("stickTurnVal", stickTurnVal);
+ //frc::SmartDashboard::PutNumber("lastSpeedVal", lastSpeedVal);
+ //frc::SmartDashboard::PutNumber("stickSpeedVal", stickSpeedVal);
  frc::SmartDashboard::GetNumber("maxChange", maxChange); 
  maxChange = frc::SmartDashboard::GetNumber("maxChange", maxChange); 
 
@@ -56,7 +55,8 @@ void TankDrive::Execute() {
   
   m_drivetrain -> Drive(outSpeedVal, outTurnVal);
    lastTurnVal = outTurnVal;
-  lastSpeedVal = outSpeedVal; }
+  lastSpeedVal = outSpeedVal;
+}
 
 // Called once the command ends or is interrupted.
 void TankDrive::End(bool interrupted) {m_drivetrain->Drive(0,0);}
