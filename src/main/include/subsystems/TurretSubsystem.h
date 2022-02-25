@@ -29,34 +29,37 @@ class TurretSubsystem : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
- private:
+  private:
 
-   frc::Joystick* m_xBox = nullptr;
+    frc::Joystick* m_xBox = nullptr;
 
-  // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax m_vTurretMotor{13, rev::CANSparkMax::MotorType::kBrushless}; 
-  rev::CANSparkMax m_vTurretMotor2{15, rev::CANSparkMax::MotorType::kBrushless}; 
+    // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
+    rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless}; //original motor
+    rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //follower motor
 
-  rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
-  rev::SparkMaxLimitSwitch ls_vTurretMotor = m_vTurretMotor.GetForwardLimitSwitch(
-                             rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
-// rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(
-//                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+    rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
+    rev::SparkMaxLimitSwitch ls_vTurretMotorRight = m_vTurretMotorRight.GetForwardLimitSwitch(
+                              rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
+    rev::SparkMaxLimitSwitch ls_vTurretMotorLeft = m_vTurretMotorLeft.GetForwardLimitSwitch(
+                              rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
+    // rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(
+    //                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
 
-rev::SparkMaxRelativeEncoder re_vTurretMotor = m_vTurretMotor.GetEncoder();
+    rev::SparkMaxRelativeEncoder re_vTurretMotorRight = m_vTurretMotorRight.GetEncoder();
+    rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();
+
+    enum TurretState_t {INIT, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT}; //R_ means retract
+    TurretState_t TurretState = R_BOTH;
+
+    double cur_stickValV = 0.0;
+    double cur_stickValH = 0.0;
+    double kp_hAim = 0.01;
+    double kp_vAimty = 0.02;
+    double kp_vAimre = 0.02;
 
 
 
-  int actuatorState;
-  double cur_stickValV = 0.0;
-  double cur_stickValH = 0.0;
-  double kp_hAim = 0.01;
-  double kp_vAimty = 0.02;
-  double kp_vAimre = 0.02;
-
-  
-
-  int cur_stickPOV = 0;
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+    int cur_stickPOV = 0;
+    // Components (e.g. motor controllers and sensors) should generally be
+    // declared private and exposed only through public methods.
 };

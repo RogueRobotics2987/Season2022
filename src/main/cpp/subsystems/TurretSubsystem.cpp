@@ -9,7 +9,7 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
 
-    m_vTurretMotor2.Follow(m_vTurretMotor);
+    m_vTurretMotorLeft.Follow(m_vTurretMotorRight);
 
     //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
     // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
@@ -25,28 +25,51 @@ void TurretSubsystem::Periodic() {
     kp_vAimre = frc::SmartDashboard::GetNumber("kp_vAimre", kp_vAimre); //Vertical Aim
 
 
-    frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotor.Get());
-    frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotor.GetPosition());
+    frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
+    frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
 
 
-    if(actuatorState == 0){
-        //std::cout << "TurretSubSysPeriod:0," << cur_stickValV << "," << std::endl;
-        m_vTurretMotor.Set(0.4);
-        // Temp disable statemachine...
-         if(ls_vTurretMotor.Get() == true) { //(ls_turret.Get() == false){
-            actuatorState = 1;
-            re_vTurretMotor.SetPosition(0);
+    if(TurretState == R_BOTH){
+        m_vTurretMotorRight.Set(0.2);
+        m_vTurretMotorLeft.Set(0.2);
 
+        if(ls_vTurretMotorRight.Get() == true) { 
+            TurretState = R_LEFT;
+            re_vTurretMotorRight.SetPosition(0);
+        } 
+        if(ls_vTurretMotorLeft.Get() == true) { 
+            TurretState = R_RIGHT;
+            re_vTurretMotorLeft.SetPosition(0);
+        } 
+        
+
+    } else if(TurretState == R_LEFT){
+        m_vTurretMotorRight.Set(0.0);
+        m_vTurretMotorLeft.Set(0.2);
+
+        if(ls_vTurretMotorLeft.Get() == true) { 
+            TurretState = DRIVER_SHOOT; 
+            re_vTurretMotorLeft.SetPosition(0);
+        } 
+        
+
+    } else if(TurretState == R_RIGHT){
+        m_vTurretMotorRight.Set(0.2);
+        m_vTurretMotorLeft.Set(0.0);
+
+        if(ls_vTurretMotorRight.Get() == true) { 
+            TurretState = DRIVER_SHOOT;
+            re_vTurretMotorRight.SetPosition(0);
         }
-    }
-    else if (actuatorState == 1){
-        m_vTurretMotor.Set(cur_stickValV);
-        m_hTurretMotor.Set(cur_stickValH);
+        
+
+    } else if (TurretState == DRIVER_SHOOT){
+        m_vTurretMotorRight.Set(cur_stickValV); 
+        m_hTurretMotor.Set(cur_stickValH); 
 
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
 
-    }
-    else if (actuatorState == 2){
+    } else if (TurretState == AUTO_SHOOT){
         //ledMode 
         // 3 on 
         // 0 off 
@@ -54,17 +77,17 @@ void TurretSubsystem::Periodic() {
 
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
-        re_vTurretMotor.GetPosition();
+        re_vTurretMotorRight.GetPosition();
 
 
         m_hTurretMotor.Set(tx * kp_hAim);
 
             if (true){
-            m_vTurretMotor.Set(ty * kp_vAimty);
+            m_vTurretMotorRight.Set(ty * kp_vAimty);
             }
 
             else {
-            m_vTurretMotor.Set((re_vTurretMotor.GetPosition() - (-700)) * kp_vAimre);
+            m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
             }   
 
 
@@ -115,11 +138,11 @@ void TurretSubsystem::setAngleH(float l_stickValH) {
 }
 
 void TurretSubsystem::setAutoAimOn() {
-    actuatorState = 2;
+    TurretState = AUTO_SHOOT;
 }
 
 void TurretSubsystem::setManuelAimOn() {
-    actuatorState = 1;
+    TurretState = DRIVER_SHOOT;
 }
 
 void TurretSubsystem::setStickPOV(int stickPOV){
