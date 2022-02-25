@@ -27,7 +27,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
-
+    frc::SmartDashboard::PutNumber("TurretState", TurretState);
 
     if(TurretState == R_BOTH){
         m_vTurretMotorRight.Set(0.2);
@@ -126,9 +126,9 @@ void TurretSubsystem::setAngleH(float l_stickValH) {
 
     // Generate Deadzone with Offset-Shift
     if(l_stickValH > 0.15) {
-        cur_stickValH = 0.25*(l_stickValH - 0.15);
+        cur_stickValH = 0.4*(l_stickValH - 0.15); //0.4 was 0.25
     } else if (l_stickValH < -0.15 ) {
-        cur_stickValH = 0.25*(l_stickValH + 0.15);
+        cur_stickValH = 0.4*(l_stickValH + 0.15);
     } else {
         cur_stickValH = 0.0;
     }
