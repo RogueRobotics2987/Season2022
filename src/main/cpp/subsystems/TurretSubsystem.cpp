@@ -8,6 +8,7 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
+    
 
     m_vTurretMotorLeft.Follow(m_vTurretMotorRight);
 }
@@ -22,8 +23,12 @@ void TurretSubsystem::Periodic() {
     kp_vAimre = frc::SmartDashboard::GetNumber("kp_vAimre", kp_vAimre); //Vertical Aim
 
 
-    frc::SmartDashboard::PutBoolean("Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
-    frc::SmartDashboard::PutNumber("Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
+    frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
+    frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
+
+    frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
+    frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
+
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
 
     if(TurretState == R_BOTH){

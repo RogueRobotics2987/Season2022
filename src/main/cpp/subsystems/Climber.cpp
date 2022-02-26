@@ -5,11 +5,14 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-    m_climbMotorLeft.Follow(m_climbMotorRight);
+    m_climbMotorLeft.Follow(m_climbMotorRight, true);
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
+    // climbVal = 0.0;
+    frc::SmartDashboard::PutNumber("climbVal", climbVal);
+
     m_climbMotorRight.Set(climbVal);
 }
 
@@ -24,5 +27,7 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     } else {
         climbVal = 0;
     }
+
+    // climbVal = 0.0;
 
 }

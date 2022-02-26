@@ -13,6 +13,8 @@ Intake::Intake() {
     frc::SmartDashboard::PutNumber("Conveyor Speed In", conveyorSpeedFwd);
     frc::SmartDashboard::PutNumber("Conveyor Speed Out", conveyorSpeedBack);
     frc::SmartDashboard::PutNumber("StopBallDistance", stopBallDistance);
+    frc::SmartDashboard::PutNumber("stateConveyor", stateConveyor);
+    frc::SmartDashboard::PutNumber("stateIntake", stateIntake);
 }
 
 //lidar code
@@ -97,7 +99,7 @@ void Intake::Periodic() {
     char sSenseData[19] = {'\0'};
     int bytesRead = 0;
     //need to put back in to get data from sensor
-    //bytesRead = m_SerialMXP.Read(sSenseData,18); 
+    bytesRead = m_SerialMXP.Read(sSenseData,18); 
     m_SerialMXP.Reset();
     //std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
@@ -187,6 +189,29 @@ void Intake::Periodic() {
         } 
     }
 
+    /*if (autoConveyor){
+        //m_conveyorMotor.Set(0.1);
+    } else {
+        if (conveyorSigFwd){
+            conveyorSpeedFwd = frc::SmartDashboard::GetNumber("Conveyor Speed In", conveyorSpeedFwd);
+            m_conveyorMotor.Set(conveyorSpeedFwd);
+        } else if (conveyorSigBack){
+            conveyorSpeedBack = frc::SmartDashboard::GetNumber("Conveyor Speed Out", conveyorSpeedBack);
+            m_conveyorMotor.Set(-conveyorSpeedBack);
+        } else {
+            m_conveyorMotor.Set(0.0);
+        }
+    }
+
+    if (intakeSigIn){
+        intakeSpeedIn = frc::SmartDashboard::GetNumber("Intake Speed In", intakeSpeedIn);
+        m_intakeMotor.Set(-intakeSpeedIn);
+    } else if (intakeSigOut){
+        intakeSpeedOut = frc::SmartDashboard::GetNumber("Intake Speed Out", intakeSpeedOut);
+        m_intakeMotor.Set(intakeSpeedOut);
+    } else {
+        m_intakeMotor.Set(0.0);
+    }*/
     //intake state machine
     if (stateIntake == 0) {
         //initialization
@@ -239,9 +264,11 @@ void Intake::Periodic() {
 
 void Intake::IntakeIn(){
    intakeSigIn = true;
+   //autoConveyor = true;
 }
 void Intake::IntakeInRelease(){
     intakeSigInRelease = true;
+    //intakeSigIn = false;
 }
 
 void Intake::IntakeOut(){
@@ -249,18 +276,23 @@ void Intake::IntakeOut(){
 }
 void Intake::IntakeOutRelease(){
     intakeSigOutRelease = true;
+    //intakeSigOut = false;
 }
 
 void Intake::ConveyorForward(){
     conveyorSigFwd = true;
+    //autoConveyor = false;
 }
 void Intake::ConveyorForwardRelease(){
     conveyorSigFwdReleaase = true;
+    //conveyorSigFwd = false;
 }
 
 void Intake::ConveyorBackward(){
     conveyorSigBack = true;
+    //autoConveyor = false;
 }
 void Intake::ConveyorBackwardRelease(){
     conveyorSigBackRelease = true;
+    //conveyorSigBack = false;
 }
