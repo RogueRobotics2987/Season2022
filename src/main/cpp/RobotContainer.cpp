@@ -10,7 +10,10 @@ RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,2.0,-4.0){
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
   // Configure the button bm_indings
   ConfigureButtonBindings();
-  
+
+  cameraFishEye = frc::CameraServer::StartAutomaticCapture();
+
+  cameraSelection = nt::NetworkTableInstance::GetDefault().GetTable("")->GetEntry("cameraSeleciton");
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -45,3 +48,23 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 //  return Auto(drivetrain, 1.0, -4.0);
 }
 
+void RobotContainer::updateCameras() {
+
+  if(stick1.GetRawButton(1) == true && lastButtonState == false){
+    
+    if(cameraIsOn == false){
+      // turn on camera
+      cameraSelection.SetString(cameraFishEye.GetName());
+
+    } else if(cameraIsOn == true){
+      // turn off camera
+     cameraSelection.SetString(NULL);
+    }
+    
+    lastButtonState = true;
+
+  } else if(stick1.GetRawButton(1) == false && lastButtonState == true){
+    
+    lastButtonState = false;
+  }
+}

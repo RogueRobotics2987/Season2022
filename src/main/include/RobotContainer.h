@@ -25,6 +25,8 @@
 #include "commands/AimAtTarget.h"
 #include "commands/LimelightSingleTarget.h"
 #include "commands/LimelightTriTarget.h"
+#include <cameraserver/CameraServer.h>
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -40,6 +42,8 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
   frc2::Command* GetTeleopCommand();
+  void updateCameras();
+
 
 
  private:
@@ -81,4 +85,10 @@ class RobotContainer {
   Auto m_autonomousCommand;
 
   void ConfigureButtonBindings();
+
+  cs::UsbCamera cameraFishEye;
+  bool lastButtonState = false; // keeps track of button state
+  bool cameraIsOn = false; // keeps track of if the fish eye camera is on
+  nt::NetworkTableEntry cameraSelection;
+
 };
