@@ -20,6 +20,16 @@
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
 
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/ParallelDeadlineGroup.h>
+#include <frc/trajectory/Trajectory.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc/trajectory/constraint/DifferentialDriveKinematicsConstraint.h>
+
+
+
 //random stuff
 
 #include "commands/AimAtTarget.h"

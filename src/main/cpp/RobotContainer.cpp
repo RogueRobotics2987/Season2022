@@ -39,7 +39,34 @@ void RobotContainer::ConfigureButtonBindings() {
   
 }
 
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
+
+
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+      frc::SimpleMotorFeedforward<units::meters>(
+      DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics, 10_V);
+
+  frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
+  config.SetKinematics(DriveConstants::kDriveKinematics);
+  config.AddConstraint(autoVoltageConstraint);
+
+auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
+      // Start at the origin facing the +X direction
+      frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+      //just go straight forward
+      // {frc::Translation2d(1_m, 0_m)},
+
+     {frc::Translation2d(1.0_m, 0.0_m), 
+      frc::Translation2d(-1.0_m, 0.0_m)},
+
+      frc::Pose2d(0_m, 0_m, frc::Rotation2d(180_deg)),
+
+      // Pass the config 
+      config
+);
+
   // An example command will be run in autonomous
   return &m_autonomousCommand;
 //  return Auto(drivetrain, 1.0, -4.0);
