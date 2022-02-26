@@ -5,16 +5,16 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <frc/smartdashboard/SmartDashboard.h> 
-#include <frc/Timer.h> 
-#include <frc/Solenoid.h> 
-#include <frc/DoubleSolenoid.h>
+#include <frc/Joystick.h>
+#include "rev/CANSparkMax.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+
 
 class Climber : public frc2::SubsystemBase {
  public:
   Climber();
-  void StartCompressor();
-  void StopCompressor();
+  void ClimbUp(double climbUpVal);
+  void ClimbDown(double climbDownVal);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -24,4 +24,6 @@ class Climber : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  rev::CANSparkMax m_climbMotor1{104, rev::CANSparkMax::MotorType::kBrushless}; 
+
 };

@@ -14,10 +14,10 @@
 #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
-#include "subsystems/Climber.h"
 #include "commands/Auto.h"
 #include "subsystems/Shooter.h"
-
+#include "subsystems/Climber.h"
+#include "commands/ClimbCmd.h"
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
 
