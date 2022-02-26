@@ -21,7 +21,7 @@ void TankDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TankDrive::Execute() {
- // m_drivetrain->Drive(m_stick1->GetY(), m_stick1->GetX()); //simple drive code
+  //m_drivetrain->Drive(m_stick1->GetY(), m_stick1->GetX()); //simple drive code
 
   static double lastTurnVal = 0.0; 
   static double lastSpeedVal = 0.0;//speed means drive forward or backwards
@@ -36,25 +36,25 @@ void TankDrive::Execute() {
  //frc::SmartDashboard::PutNumber("stickTurnVal", stickTurnVal);
  //frc::SmartDashboard::PutNumber("lastSpeedVal", lastSpeedVal);
  //frc::SmartDashboard::PutNumber("stickSpeedVal", stickSpeedVal);
- frc::SmartDashboard::GetNumber("maxChange", maxChange); 
- maxChange = frc::SmartDashboard::GetNumber("maxChange", maxChange); 
+  frc::SmartDashboard::GetNumber("maxChange", maxChange); 
+  maxChange = frc::SmartDashboard::GetNumber("maxChange", maxChange); 
 
- bool accelCtrl = false; 
- accelCtrl = frc::SmartDashboard::GetBoolean("Acceleration Control", false); 
+  bool accelCtrl = false; 
+  accelCtrl = frc::SmartDashboard::GetBoolean("Acceleration Control", false); 
 
   if (abs(stickTurnVal-lastTurnVal) >maxChange && accelCtrl) {
     outTurnVal = lastTurnVal + copysignf(1.0,stickTurnVal - lastTurnVal)*maxChange;
-    } else {
-      outTurnVal = stickTurnVal;
+  } else {
+    outTurnVal = stickTurnVal;
   }
   if (abs(stickSpeedVal-lastSpeedVal) >maxChange && accelCtrl) {
     outSpeedVal = lastSpeedVal + copysignf(1.0,stickSpeedVal - lastSpeedVal)*maxChange;
-    } else {
-      outSpeedVal = stickSpeedVal;
+  } else {
+    outSpeedVal = stickSpeedVal;
   }
   
   m_drivetrain -> Drive(outSpeedVal, outTurnVal);
-   lastTurnVal = outTurnVal;
+  lastTurnVal = outTurnVal;
   lastSpeedVal = outSpeedVal;
 }
 

@@ -10,9 +10,6 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
 
     m_vTurretMotorLeft.Follow(m_vTurretMotorRight);
-
-    //Turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-    // Turret(60, rev::CANSparkMax::MotorType::kBrushless);
 }
 void TurretSubsystem::setSpeed(float speed) {
     // m_turretMotor.Set(speed);
@@ -41,7 +38,6 @@ void TurretSubsystem::Periodic() {
             TurretState = R_RIGHT;
             re_vTurretMotorLeft.SetPosition(0);
         } 
-        
 
     } else if(TurretState == R_LEFT){
         m_vTurretMotorRight.Set(0.0);
@@ -52,7 +48,6 @@ void TurretSubsystem::Periodic() {
             re_vTurretMotorLeft.SetPosition(0);
         } 
         
-
     } else if(TurretState == R_RIGHT){
         m_vTurretMotorRight.Set(0.2);
         m_vTurretMotorLeft.Set(0.0);
@@ -62,50 +57,40 @@ void TurretSubsystem::Periodic() {
             re_vTurretMotorRight.SetPosition(0);
         }
         
-
     } else if (TurretState == DRIVER_SHOOT){
         m_vTurretMotorRight.Set(cur_stickValV); 
         m_hTurretMotor.Set(cur_stickValH); 
 
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
-
     } else if (TurretState == AUTO_SHOOT){
         //ledMode 
         // 3 on 
         // 0 off 
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("ledMode", 3); 
-
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
         re_vTurretMotorRight.GetPosition();
-
-
         m_hTurretMotor.Set(tx * kp_hAim);
 
-            if (true){
+        if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
-            }
-
-            else {
+        } else {
             m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
-            }   
-
+        }   
 
     }
 
     
-
+    if (cur_stickPOV == 0){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
+    } else if (cur_stickPOV == 90){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
+    } else if (cur_stickPOV == 180){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
+    } else if (cur_stickPOV == 270){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 6000);
+    } 
     
-  if (cur_stickPOV == 0){
-    frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
-  } else if (cur_stickPOV == 90){
-    frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
-  } else if (cur_stickPOV == 180){
-    frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
-  } else if (cur_stickPOV == 270){
-    frc::SmartDashboard::PutNumber("Set RPM 2", 6000);
-  } 
-
 }
 
 void TurretSubsystem::setAngleV(float l_stickValV) {
