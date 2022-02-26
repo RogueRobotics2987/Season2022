@@ -31,7 +31,9 @@
 #include <frc/controller/PIDController.h>
 #include <frc2/command/RamseteCommand.h>
 #include <frc/controller/RamseteController.h>
-
+#include <wpi/SmallString.h>
+#include <frc/Filesystem.h>
+#include <frc/trajectory/TrajectoryUtil.h>
 
 
 

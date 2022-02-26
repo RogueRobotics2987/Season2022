@@ -66,14 +66,14 @@ void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
   frc::SmartDashboard::PutNumber("Tank Drive Volts Right", double(right));
   // frc::SmartDashboard::PutNumber("AHRS Heading", GetHeading()); 
   
-  LeftFront.SetVoltage(left);
+  LeftFront.SetVoltage(-left);
   RightFront.SetVoltage(-right);
   m_robotDrive.Feed();
 
 }
 units::degree_t DriveTrain::GetHeading() { 
-  //return units::degree_t(-1.0 * myAhrs.GetAngle()); // TODO: Fixed Units
-  return units::degree_t(0.0);
+  return units::degree_t(-1.0 * myAhrs.GetAngle()); // TODO: Fixed Units
+  // return units::degree_t(0.0);
 }
 
 
@@ -87,7 +87,7 @@ frc::DifferentialDriveWheelSpeeds DriveTrain::GetWheelSpeeds() {
   // units::meter_t(LeftEncoder.GetPosition() * 0.044), 
   // units::meter_t(-1.0 * RightEncoder.GetPosition() * 0.044)
   return {(LeftEncoder.GetVelocity() * 1_mps * 0.044 / 60),
-      (-RightEncoder.GetVelocity() * 1_mps * 0.044 / 60)};
+      (RightEncoder.GetVelocity() * 1_mps * 0.044 / 60)};
 }
 
 void DriveTrain::ResetOdometry(frc::Pose2d pose){ 
