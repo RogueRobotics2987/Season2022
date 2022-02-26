@@ -5,27 +5,24 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-
+    m_climbMotorLeft.Follow(m_climbMotorRight);
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
+    m_climbMotorRight.Set(climbVal);
 }
 
-void Climber::ClimbUp(double climbUpVal){
- 
-    if(fabs(climbUpVal) < .08){
-        climbUpVal = 0;
+void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
+    frc::SmartDashboard::PutNumber("climbUpVal", climbUpVal);
+    frc::SmartDashboard::PutNumber("climbDownVal", climbDownVal);
+
+    if((fabs(climbUpVal) > upDeadzone) && (climbDownVal < downDeadzone)){
+        climbVal = climbUpVal - upDeadzone;
+    } else if((fabs(climbDownVal) > downDeadzone) && (climbUpVal < upDeadzone)){
+        climbVal = -(climbDownVal - downDeadzone);
+    } else {
+        climbVal = 0;
     }
- 
-    m_climbMotor1.Set(climbUpVal);
+
 }
- 
-void Climber::ClimbDown(double climbDownVal){
-    if(fabs(climbDownVal) < .08){
-        climbDownVal = 0;
-    }
- 
-    m_climbMotor1.Set(-climbDownVal);
-}
- 

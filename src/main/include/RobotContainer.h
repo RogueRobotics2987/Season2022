@@ -54,6 +54,8 @@ class RobotContainer {
   Shooter m_shooter;
   Intake intake;
   TurretSubsystem m_turret;
+  Climber climber;
+
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 
@@ -78,7 +80,6 @@ class RobotContainer {
 
   // LimelightSingleTarget m_TeleopCommand;
   // LimelightTriTarget m_TeleopCommand;
-  Climber climber;
 
   Auto m_autonomousCommand;
 

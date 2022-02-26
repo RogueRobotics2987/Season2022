@@ -10,6 +10,8 @@ ClimbCmd::ClimbCmd(Climber& climber, frc::Joystick& xbox, frc::Joystick& stick1,
   m_stick1 = &stick1;
   m_stick2 = &stick2;
   m_climber = &climber;
+  AddRequirements({m_climber});
+
 }
 
 // Called when the command is initially scheduled.
@@ -17,8 +19,9 @@ void ClimbCmd::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimbCmd::Execute() {
-  m_climber->ClimbUp(m_xbox->GetRawAxis(3)); //right trigger
-  m_climber->ClimbDown(m_xbox->GetRawAxis(2)); //left trigger
+  //Axis 3 is right trigger
+  //Axis 2 is left trigger
+  m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
 }
 
 // Called once the command ends or is interrupted.
