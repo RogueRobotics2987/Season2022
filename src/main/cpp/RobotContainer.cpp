@@ -43,14 +43,14 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 
 
-  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
-      frc::SimpleMotorFeedforward<units::meters>(
-      DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics, 10_V);
+  // frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+  //     frc::SimpleMotorFeedforward<units::meters>(
+  //     DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+  //     DriveConstants::kDriveKinematics, 10_V);
 
   frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
   config.SetKinematics(DriveConstants::kDriveKinematics);
-  config.AddConstraint(autoVoltageConstraint);
+  // config.AddConstraint(autoVoltageConstraint);
 
 auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
@@ -67,8 +67,34 @@ auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
       config
 );
 
+frc2::RamseteCommand ramseteCommandTrajectoryOne(
+      trajectoryOne, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+          drivetrain.ResetOdometry(trajectoryOne.InitialPose());
+
+
+      frc2::SequentialCommandGroup* trajectoryOneGroup = new frc2::SequentialCommandGroup(
+        std::move(ramseteCommandTrajectoryOne),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+        // Auto Aim
+        //Shooter
+      );
+
+
   // An example command will be run in autonomous
-  return &m_autonomousCommand;
+      return trajectoryOneGroup;
+  // return &m_autonomousCommand;
+
 //  return Auto(drivetrain, 1.0, -4.0);
 }
 
