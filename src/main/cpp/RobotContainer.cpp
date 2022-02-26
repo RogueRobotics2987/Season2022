@@ -56,6 +56,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     // wpi::sys::path::append(startGameFile, "paths/startGame.wpilib.json");
     frc::Trajectory startGame = frc::TrajectoryUtil::FromPathweaverJson(startGameFile);
 
+  std::string circleFile = frc::filesystem::GetDeployDirectory() + "/paths/Circle.wpilib.json";
+    frc::Trajectory circle = frc::TrajectoryUtil::FromPathweaverJson(circleFile);
+
 auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
@@ -99,9 +102,25 @@ frc2::RamseteCommand ramseteCommandStartGame(
       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
       {&drivetrain});
 
+// Circle around the arena
+frc2::RamseteCommand ramseteCommandCircle(
+      circle, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
 
         // drivetrain.ResetOdometry(trajectoryOne.InitialPose());
-        drivetrain.ResetOdometry(startGame.InitialPose());
+        // drivetrain.ResetOdometry(startGame.InitialPose());
+        drivetrain.ResetOdometry(circle.InitialPose());
+
 
 
 
@@ -115,11 +134,18 @@ frc2::RamseteCommand ramseteCommandStartGame(
         std::move(ramseteCommandStartGame),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
       );
+      frc2::SequentialCommandGroup* circleGroup = new frc2::SequentialCommandGroup(
+        std::move(ramseteCommandCircle),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+      );
+
 
 
   // An example command will be run in autonomous
       // return trajectoryOneGroup;
-      return startGameGroup;
+      // return startGameGroup;
+      return circleGroup;
+
   // return &m_autonomousCommand;
 
 //  return Auto(drivetrain, 1.0, -4.0);

@@ -46,11 +46,11 @@ void DriveTrain::Periodic() {
 
     m_odometry.Update(
         frc::Rotation2d(GetHeading()), 
-        units::meter_t(LeftEncoder.GetPosition() * 0.044), 
+        units::meter_t(-1.0 * LeftEncoder.GetPosition() * 0.044), 
         units::meter_t(-1.0 * RightEncoder.GetPosition() * 0.044)
     );
   
-    frc::SmartDashboard::PutNumber("left Encoder Val", LeftEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("left Encoder Val", -1.0 * LeftEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("right Encoder Val", -1.0 * RightEncoder.GetPosition());
 
   m_field.SetRobotPose(m_odometry.GetPose());
