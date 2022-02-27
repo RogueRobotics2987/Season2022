@@ -8,9 +8,10 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
-    
+    m_vTurretMotorLeft.SetOpenLoopRampRate(0.2);
+    m_vTurretMotorRight.SetOpenLoopRampRate(0.2);
 
-    m_vTurretMotorLeft.Follow(m_vTurretMotorRight);
+    //m_vTurretMotorLeft.Follow(m_vTurretMotorLeft);
 }
 void TurretSubsystem::setSpeed(float speed) {
     // m_turretMotor.Set(speed);
@@ -63,7 +64,10 @@ void TurretSubsystem::Periodic() {
         }
         
     } else if (TurretState == DRIVER_SHOOT){
+
         m_vTurretMotorRight.Set(cur_stickValV); 
+        m_vTurretMotorLeft.Set(cur_stickValV); 
+        
         m_hTurretMotor.Set(cur_stickValH); 
 
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
@@ -79,8 +83,12 @@ void TurretSubsystem::Periodic() {
 
         if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
+            m_vTurretMotorLeft.Set(ty * kp_vAimty);
+
         } else {
             m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
+            m_vTurretMotorLeft.Set((re_vTurretMotorLeft.GetPosition() - (-700)) * kp_vAimre);
+
         }   
 
     }
