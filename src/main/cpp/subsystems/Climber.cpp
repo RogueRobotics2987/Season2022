@@ -14,7 +14,23 @@ void Climber::Periodic() {
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
 
     m_climbMotorRight.Set(climbVal);
+     frc::SmartDashboard::PutNumber("RightClimb", RC); 
+    frc::SmartDashboard::PutNumber("LeftClimb", LC); 
+    m_climbMotorLeft.GetOutputCurrent();
+    m_climbMotorRight.GetOutputCurrent();
+    RC = m_climbMotorRight.GetOutputCurrent();
+    LC = m_climbMotorLeft.GetOutputCurrent();
+
+
+   /* double bob = 4.33;  // Amps
+    double bob = m_climbMotorLeft.GetOutputCurrent();  // Amps
+
+    frc::SmartDashboard::PutNumber("LeftClimb", bob); */
+    
+    
 }
+//int myFunc(double in) { return in*3;}
+    
 
 void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     frc::SmartDashboard::PutNumber("climbUpVal", climbUpVal);
