@@ -14,7 +14,7 @@ void Climber::Periodic() {
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
 
     m_climbMotorRight.Set(climbVal);
-     frc::SmartDashboard::PutNumber("RightClimb", RC); 
+    frc::SmartDashboard::PutNumber("RightClimb", RC); 
     frc::SmartDashboard::PutNumber("LeftClimb", LC); 
     m_climbMotorLeft.GetOutputCurrent();
     m_climbMotorRight.GetOutputCurrent();

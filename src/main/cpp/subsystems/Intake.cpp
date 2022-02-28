@@ -170,9 +170,6 @@ void Intake::Periodic() {
         }
     } else if (stateConveyor == 4){
         //conveyor forward that stops when ball reaches the shooter
-        conveyorSpeed = 0.3;
-        m_conveyorMotor.Set(conveyorSpeed); 
-        conveyorSigFwd = false;
 
         //takes input from lidar and stops the conveyor when a ball is detected
         if (fSenseData3 < stopBallDistance){
@@ -181,6 +178,9 @@ void Intake::Periodic() {
         } else {
             //frc::SmartDashboard::PutString("Ball status", "ball not detected");
         }
+        conveyorSpeed = 0.3;
+        m_conveyorMotor.Set(conveyorSpeed); 
+        conveyorSigFwd = false;
 
         if (conveyorSigFwdReleaase){
             stateConveyor = 3;
