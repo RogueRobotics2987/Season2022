@@ -28,8 +28,6 @@ Shooter::Shooter(){
     shooterPID.SetSmartMotionMaxAccel(mMaxA);
     shooterPID.SetSmartMotionAllowedClosedLoopError(mCloseL);
     shooterPID.SetIZone(800);
-
-   
 }
 
 // This method will be called once per scheduler run

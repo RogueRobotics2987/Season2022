@@ -16,7 +16,8 @@
 #include <frc2/command/button/JoystickButton.h>
 #include "commands/Auto.h"
 #include "subsystems/Shooter.h"
-
+#include "subsystems/Climber.h"
+#include "commands/ClimbCmd.h"
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
 
@@ -71,6 +72,8 @@ class RobotContainer {
   Shooter m_shooter;
   Intake intake;
   TurretSubsystem m_turret;
+  Climber climber;
+
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 

@@ -8,6 +8,7 @@ RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,2.0,-4.0){
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
+  climber.SetDefaultCommand(ClimbCmd(climber, xbox, stick1, stick2));
   // Configure the button bm_indings
   ConfigureButtonBindings();
   
@@ -22,7 +23,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&stick1, 1).WhenReleased(&m_intakeOutRelease); 
 
   frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
-  frc2::JoystickButton(&xbox, 3).WhenReleased(&m_conveyerForwardRelease); //was xbox 1
+  frc2::JoystickButton(&xbox, 3).WhenReleased(&m_conveyerForwardRelease); 
 
   frc2::JoystickButton(&xbox, 1).WhenPressed(&m_conveyerBackward); //was stick2 2
   frc2::JoystickButton(&xbox, 1).WhenReleased(&m_conveyerBackwardRelease); 
