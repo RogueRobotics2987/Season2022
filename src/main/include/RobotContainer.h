@@ -55,11 +55,7 @@
 class RobotContainer {
  public:
   RobotContainer();
-  
-
   frc2::Command* GetAutonomousCommand();
-  frc2::Command* GetTeleopCommand();
-
 
  private:
   // The robot's subsystems and commands are defined here...
@@ -68,11 +64,12 @@ class RobotContainer {
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
   ExampleSubsystem m_subsystem;
-  // ExampleCommand m_autonomousCommand;
   Shooter m_shooter;
   Intake intake;
   TurretSubsystem m_turret;
   Climber climber;
+
+  void ConfigureButtonBindings();
 
   frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
@@ -92,14 +89,6 @@ class RobotContainer {
   frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
   frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
 
-
-  //DJO: I have no idea what this is...removing...
-  //AimAtTarget m_TeleopCommand{m_turret};
-
-  // LimelightSingleTarget m_TeleopCommand;
-  // LimelightTriTarget m_TeleopCommand;
-
   frc2::Command* m_autonomousCommand;
 
-  void ConfigureButtonBindings();
 };
