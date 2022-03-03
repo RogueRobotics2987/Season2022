@@ -77,17 +77,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
   // std::string bluePosition1File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition1.wpilib.json";
   //   frc::Trajectory bluePosition1 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition1File);
 
-  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
-    frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
-
-  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
-    frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
-
-  std::string threeBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.3.wpilib.json";
-    frc::Trajectory threeBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_3File);
-
-  std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.4.wpilib.json";
-    frc::Trajectory threeBall1_4 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_4File);
+  
 
   std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/Turn180.wpilib.json";
     frc::Trajectory turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
@@ -234,57 +224,6 @@ frc2::RamseteCommand ramseteCommandTurn180(
 //       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
 //       {&drivetrain});
 
-frc2::RamseteCommand ramseteCommandThreeBall1_1(
-      threeBall1_1, [this]() { return drivetrain.GetPose(); },
-      frc::RamseteController(AutoConstants::kRamseteB,
-                             AutoConstants::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics,
-      [this] { return drivetrain.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
-      {&drivetrain});
-
-frc2::RamseteCommand ramseteCommandThreeBall1_2(
-      threeBall1_2, [this]() { return drivetrain.GetPose(); },
-      frc::RamseteController(AutoConstants::kRamseteB,
-                             AutoConstants::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics,
-      [this] { return drivetrain.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
-      {&drivetrain});
-
-frc2::RamseteCommand ramseteCommandThreeBall1_3(
-      threeBall1_3, [this]() { return drivetrain.GetPose(); },
-      frc::RamseteController(AutoConstants::kRamseteB,
-                             AutoConstants::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics,
-      [this] { return drivetrain.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
-      {&drivetrain});
-
-frc2::RamseteCommand ramseteCommandThreeBall1_4(
-      threeBall1_4, [this]() { return drivetrain.GetPose(); },
-      frc::RamseteController(AutoConstants::kRamseteB,
-                             AutoConstants::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics,
-      [this] { return drivetrain.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
-      {&drivetrain});
 
 
 
@@ -296,8 +235,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         // drivetrain.ResetOdometry(backFromWall.InitialPose());
         // drivetrain.ResetOdometry(BluePosition2.InitialPose());
         // drivetrain.ResetOdometry(BluePosition3.InitialPose());
-        // drivetrain.ResetOdometry(turn180.InitialPose());
-        drivetrain.ResetOdometry(threeBall1_1.InitialPose());
+        drivetrain.ResetOdometry(turn180.InitialPose());
 
 
 
@@ -426,6 +364,94 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         
       );
 
+
+
+  // An example command will be run in autonomous
+      // return trajectoryOneGroup;
+      // return startGameGroup;
+      // return circleGroup;
+      // return bluePosition3Group;
+      // return backFromWallGroup;
+      // return rotate180Group;
+      return pickUpCloseBallGroup;
+
+
+  // return &m_autonomousCommand;
+
+//  return Auto(drivetrain, 1.0, -4.0);
+}
+
+
+frc2::Command* RobotContainer::GetThreeBallAuto(){
+  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
+    frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
+
+  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
+    frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
+
+  std::string threeBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.3.wpilib.json";
+    frc::Trajectory threeBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_3File);
+
+  std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.4.wpilib.json";
+    frc::Trajectory threeBall1_4 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_4File);
+
+  drivetrain.ResetOdometry(threeBall1_1.InitialPose());
+
+
+  frc2::RamseteCommand ramseteCommandThreeBall1_1(
+      threeBall1_1, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_2(
+      threeBall1_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_3(
+      threeBall1_3, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_4(
+      threeBall1_4, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+
+
       frc2::SequentialCommandGroup* pickUp3BallsGroup = new frc2::SequentialCommandGroup(
         // Intake out and move
         Auto(drivetrain, 0.3, 0.5),
@@ -483,26 +509,4 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
 
 
 
-      );
-
-
-
-  // An example command will be run in autonomous
-      // return trajectoryOneGroup;
-      // return startGameGroup;
-      // return circleGroup;
-      // return bluePosition3Group;
-      // return backFromWallGroup;
-      // return rotate180Group;
-      return pickUpCloseBallGroup;
-
-
-  // return &m_autonomousCommand;
-
-//  return Auto(drivetrain, 1.0, -4.0);
-}
-
-
-frc2::Command* RobotContainer::GetThreeBallAuto(){
-  return nullptr;
-}
+      );}
