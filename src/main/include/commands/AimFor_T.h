@@ -6,11 +6,15 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveTrain.h"
-#include <units/voltage.h>
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <memory>
 #include <frc/timer.h>
-#include <iostream>
 
+
+// #include "subsystems/AutoAim.h"
+#include "subsystems/TurretSubsystem.h"
 
 /**
  * An example command.
@@ -19,10 +23,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class Auto
-    : public frc2::CommandHelper<frc2::CommandBase, Auto> {
+class AimFor_T
+    : public frc2::CommandHelper<frc2::CommandBase, AimFor_T> {
  public:
-  Auto(DriveTrain& l_drivetrain, double l_time, double l_volts);
+  AimFor_T(TurretSubsystem& l_turret, double l_time);
 
   void Initialize() override;
 
@@ -33,8 +37,10 @@ class Auto
   bool IsFinished() override;
 
   private:
-    DriveTrain* m_drivetrain = nullptr;
+    float kp;
+    std::shared_ptr<TurretSubsystem> m_turret;
     double m_time = 0.0;
     frc::Timer m_timer;
-    double m_percent = 0.0;
+
+
 };
