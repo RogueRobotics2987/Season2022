@@ -6,10 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveTrain.h"
-#include <units/voltage.h>
 #include <frc/timer.h>
-#include <iostream>
 
 
 /**
@@ -19,10 +16,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class Auto
-    : public frc2::CommandHelper<frc2::CommandBase, Auto> {
+class TimerCMD
+    : public frc2::CommandHelper<frc2::CommandBase, TimerCMD> {
  public:
-  Auto(DriveTrain& l_drivetrain, double l_time, double l_volts);
+  TimerCMD(double l_time);
 
   void Initialize() override;
 
@@ -33,8 +30,7 @@ class Auto
   bool IsFinished() override;
 
   private:
-    DriveTrain* m_drivetrain = nullptr;
     double m_time = 0.0;
     frc::Timer m_timer;
-    double m_percent = 0.0;
+
 };

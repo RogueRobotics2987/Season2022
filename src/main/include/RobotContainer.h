@@ -18,6 +18,8 @@
 #include "commands/ClimbCmd.h"
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
+#include "commands/AimFor_T.h"
+#include "commands/TimerCMD.h"
 
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>
@@ -82,6 +84,8 @@ class RobotContainer {
 
   frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
   frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
+
+  // frc2::InstantCommand m_dropIntake{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
 
   frc2::Command* m_autonomousCommand;
 
