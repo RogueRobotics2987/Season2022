@@ -34,11 +34,7 @@
 #include <frc/Filesystem.h>
 #include <frc/trajectory/TrajectoryUtil.h>
 
-
-
-
-//random stuff
-
+//Sam/Corey(?) stuff
 #include "commands/AimAtTarget.h"
 #include "commands/LimelightSingleTarget.h"
 #include "commands/LimelightTriTarget.h"
