@@ -8,7 +8,7 @@ Auto::Auto(DriveTrain& l_drivetrain, double l_time, double l_percent) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_drivetrain = &l_drivetrain;
   m_time = l_time;
-  m_percent = l_percent;
+  m_percent = -l_percent;
   AddRequirements({m_drivetrain});
 }
 
@@ -20,12 +20,15 @@ void Auto::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Auto::Execute() {
-  m_drivetrain->Drive(m_percent, m_percent);
+  m_drivetrain->Drive(m_percent, 0);
   //std::cout<<"cur_time: " << m_timer.Get().value() << "volts: " << m_volts << std::endl;
 }
 
 // Called once the command ends or is interrupted.
-void Auto::End(bool interrupted) {}
+void Auto::End(bool interrupted) {
+  m_drivetrain->Drive(0, 0);
+  m_drivetrain = nullptr;
+}
 
 // Returns true when the command should end.
 bool Auto::IsFinished() {
