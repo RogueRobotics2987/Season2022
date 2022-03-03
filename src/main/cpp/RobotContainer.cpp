@@ -4,12 +4,14 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autonomousCommand(drivetrain,2.0,-4.0){
+RobotContainer::RobotContainer() {
+
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
   climber.SetDefaultCommand(ClimbCmd(climber, xbox, stick1, stick2));
-  // Configure the button bm_indings
+
+  // Configure the button bindings
   ConfigureButtonBindings();
   
 }
