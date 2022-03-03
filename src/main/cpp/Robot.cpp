@@ -10,8 +10,8 @@
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("None", nullptr);
-  m_chooser.AddOption("Close Ball Auto", m_container.GetAutonomousCommand());
-  m_chooser.AddOption("Three Ball Auto", m_container.GetAutonomousCommand());
+  m_chooser.AddOption("Close Ball Auto", m_container.GetCloseBallAuto());
+  m_chooser.AddOption("Three Ball Auto", m_container.GetThreeBallAuto());
   frc::SmartDashboard::PutData(&m_chooser);
 }
 /**

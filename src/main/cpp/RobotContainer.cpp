@@ -43,7 +43,7 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 
-frc2::Command* RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::GetCloseBallAuto() {
 
 
   // frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
@@ -386,3 +386,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
 //  return Auto(drivetrain, 1.0, -4.0);
 }
 
+
+frc2::Command* RobotContainer::GetThreeBallAuto(){
+  return nullptr;
+}
