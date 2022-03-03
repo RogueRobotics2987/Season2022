@@ -77,6 +77,12 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   std::string bluePosition1File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition1.wpilib.json";
     frc::Trajectory bluePosition1 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition1File);
 
+  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
+    frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
+
+  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
+    frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
+
 
 
 
@@ -353,6 +359,39 @@ frc2::RamseteCommand ramseteCommandBluePosition1(
 
       );
 
+      frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
+        Auto(drivetrain, 0.5, 0.8),
+        Auto(drivetrain, 0.5, 0),
+
+        frc2::ParallelRaceGroup(
+          frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
+          Auto(drivetrain, 3, 0.5),
+          frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter})
+        ),
+        Auto(drivetrain, 0.5, 0),
+        std::move(ramseteCommandRotate180),
+        AimFor_T(m_turret, 1),
+        
+        frc2::ParallelRaceGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        TimerCMD(0.5),
+        
+        frc2::ParallelRaceGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake})
+
+        
+      );
+
+      frc2::SequentialCommandGroup* pickUp3BallsGroup = new frc2::SequentialCommandGroup(
+
+
+      );
 
 
 
@@ -361,8 +400,9 @@ frc2::RamseteCommand ramseteCommandBluePosition1(
       // return startGameGroup;
       // return circleGroup;
       // return bluePosition3Group;
-      return backFromWallGroup;
-      // return rotate180Group
+      // return backFromWallGroup;
+      // return rotate180Group;
+      return pickUpCloseBallGroup;
 
 
   // return &m_autonomousCommand;

@@ -2,38 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/Auto.h"
+#include "commands/TimerCMD.h"
 
-Auto::Auto(DriveTrain& l_drivetrain, double l_time, double l_percent) {
+TimerCMD::TimerCMD(double l_time) {
   // Use addRequirements() here to declare subsystem dependencies.
-  m_drivetrain = &l_drivetrain;
-  m_time = l_time;
-  m_percent = l_percent;
-  AddRequirements({m_drivetrain});
+    m_time = l_time;
+
 }
 
 // Called when the command is initially scheduled.
-void Auto::Initialize() {
+void TimerCMD::Initialize() {
   m_timer.Reset();
   m_timer.Start();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Auto::Execute() {
-  m_drivetrain->Drive(m_percent, m_percent);
-  //std::cout<<"cur_time: " << m_timer.Get().value() << "volts: " << m_volts << std::endl;
-}
+void TimerCMD::Execute() {}
 
 // Called once the command ends or is interrupted.
-void Auto::End(bool interrupted) {}
+void TimerCMD::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool Auto::IsFinished() {
-  // if current time is < m_time, return false, else return true
+bool TimerCMD::IsFinished() {
   if(double(m_timer.Get()) < m_time) {
     return false;
   }  else {
     return true;
   }
-  
-}
+  }
