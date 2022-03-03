@@ -99,7 +99,7 @@ class RobotContainer {
   // LimelightSingleTarget m_TeleopCommand;
   // LimelightTriTarget m_TeleopCommand;
 
-  Auto m_autonomousCommand;
+  frc2::Command* m_autonomousCommand;
 
   void ConfigureButtonBindings();
 };
