@@ -107,7 +107,7 @@ void TurretSubsystem::Periodic() {
 }
 
 void TurretSubsystem::setAngleV(float l_stickValV) {
-    std::cout << "setAngleV run, ";
+    //std::cout << "setAngleV run, ";
 
     // Generate Deadzone
     // double deadzone = 0.15;
@@ -120,7 +120,7 @@ void TurretSubsystem::setAngleV(float l_stickValV) {
 }
 
 void TurretSubsystem::setAngleH(float l_stickValH) {
-    std::cout << "setAngleH val " << l_stickValH << ",";
+    //std::cout << "setAngleH val " << l_stickValH << ",";
 
     // Generate Deadzone with Offset-Shift
     if(l_stickValH > 0.15) {
@@ -131,7 +131,7 @@ void TurretSubsystem::setAngleH(float l_stickValH) {
         cur_stickValH = 0.0;
     }
 
-    std::cout << "setAngleH val " << cur_stickValH << ",";
+    //std::cout << "setAngleH val " << cur_stickValH << ",";
 
 }
 
