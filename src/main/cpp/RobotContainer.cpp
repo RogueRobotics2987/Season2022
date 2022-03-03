@@ -77,11 +77,17 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // std::string bluePosition1File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition1.wpilib.json";
   //   frc::Trajectory bluePosition1 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition1File);
 
-  // std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
-  //   frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
+  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
+    frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
 
-  // std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
-  //   frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
+  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
+    frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
+
+  std::string threeBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.3.wpilib.json";
+    frc::Trajectory threeBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_3File);
+
+  std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.4.wpilib.json";
+    frc::Trajectory threeBall1_4 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_4File);
 
   std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/Turn180.wpilib.json";
     frc::Trajectory turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
@@ -228,6 +234,59 @@ frc2::RamseteCommand ramseteCommandTurn180(
 //       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
 //       {&drivetrain});
 
+frc2::RamseteCommand ramseteCommandThreeBall1_1(
+      threeBall1_1, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_2(
+      threeBall1_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_3(
+      threeBall1_3, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandThreeBall1_4(
+      threeBall1_4, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+
 
 
 
@@ -237,7 +296,8 @@ frc2::RamseteCommand ramseteCommandTurn180(
         // drivetrain.ResetOdometry(backFromWall.InitialPose());
         // drivetrain.ResetOdometry(BluePosition2.InitialPose());
         // drivetrain.ResetOdometry(BluePosition3.InitialPose());
-        drivetrain.ResetOdometry(turn180.InitialPose());
+        // drivetrain.ResetOdometry(turn180.InitialPose());
+        drivetrain.ResetOdometry(threeBall1_1.InitialPose());
 
 
 
@@ -337,16 +397,17 @@ frc2::RamseteCommand ramseteCommandTurn180(
 
       // THERE CANNOT BE INSTANT COMANDS IN PARALLEL RACE GROUPS
       frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
-        Auto(drivetrain, 0.5, 0.8),
+        Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, 0),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         std::move(ramseteCommandTurn180),
-        // Auto(drivetrain, 3, 0.5),
-        // Auto(drivetrain, 0.5, 0),
-        // std::move(ramseteCommandRotate180), // doesnt work
-        AimFor_T(m_turret, 1),
-        
+          frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+        TimerCMD(4)
+        ),
+        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
           TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
@@ -359,15 +420,70 @@ frc2::RamseteCommand ramseteCommandTurn180(
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
         
       );
 
-      // frc2::SequentialCommandGroup* pickUp3BallsGroup = new frc2::SequentialCommandGroup(
+      frc2::SequentialCommandGroup* pickUp3BallsGroup = new frc2::SequentialCommandGroup(
+        // Intake out and move
+        Auto(drivetrain, 0.3, 0.5),
+        Auto(drivetrain, 0.5, 0),
+        frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        std::move(ramseteCommandThreeBall1_1),
+        std::move(ramseteCommandThreeBall1_2),
+        
+        // Auto Aim
+        frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+          TimerCMD(4)
+        ),
+        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+
+        // Shoot Twice
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        TimerCMD(0.5),
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
 
 
-      // );
+        std::move(ramseteCommandThreeBall1_3),
+        std::move(ramseteCommandThreeBall1_4),
+        // Auto Aim Again
+        frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+          TimerCMD(4)
+        ),
+        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+
+        // Shoot Twice Again
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        TimerCMD(0.5),
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
+
+
+
+      );
 
 
 

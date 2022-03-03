@@ -50,6 +50,8 @@ void Robot::TeleopInit() {
     // this line or comment it out.
     if (m_autonomousCommand != nullptr) {
       m_autonomousCommand->Cancel();
+      // delete m_autonomousCommand;
+      // m_autonomousCommand = nullptr;
     }
 }
 

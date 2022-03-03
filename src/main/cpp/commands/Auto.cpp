@@ -27,7 +27,6 @@ void Auto::Execute() {
 // Called once the command ends or is interrupted.
 void Auto::End(bool interrupted) {
   m_drivetrain->Drive(0, 0);
-  m_drivetrain = nullptr;
 }
 
 // Returns true when the command should end.

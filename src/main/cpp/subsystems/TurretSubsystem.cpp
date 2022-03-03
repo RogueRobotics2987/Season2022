@@ -50,7 +50,7 @@ void TurretSubsystem::Periodic() {
         m_vTurretMotorLeft.Set(0.2);
 
         if(ls_vTurretMotorLeft.Get() == true) { 
-            TurretState = DRIVER_SHOOT; 
+            TurretState = PRESHOOT_RAISE; 
             re_vTurretMotorLeft.SetPosition(0);
         } 
         
@@ -59,10 +59,20 @@ void TurretSubsystem::Periodic() {
         m_vTurretMotorLeft.Set(0.0);
 
         if(ls_vTurretMotorRight.Get() == true) { 
-            TurretState = DRIVER_SHOOT;
+            TurretState = PRESHOOT_RAISE;
             re_vTurretMotorRight.SetPosition(0);
         }
+    } else if (TurretState == PRESHOOT_RAISE){
         
+        if(re_vTurretMotorRight.GetPosition() < 700) {
+            m_vTurretMotorRight.Set(-0.2);
+            m_vTurretMotorLeft.Set(-0.2);
+        } else {
+            m_vTurretMotorRight.Set(0.0);
+            m_vTurretMotorLeft.Set(0.0);
+            TurretState = DRIVER_SHOOT;
+        }
+
     } else if (TurretState == DRIVER_SHOOT){
 
         m_vTurretMotorRight.Set(cur_stickValV); 

@@ -48,7 +48,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     rev::SparkMaxRelativeEncoder re_vTurretMotorRight = m_vTurretMotorRight.GetEncoder();
     rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();
 
-    enum TurretState_t {INIT, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT}; //R_ means retract
+    enum TurretState_t {INIT, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE}; //R_ means retract
     TurretState_t TurretState = R_BOTH;
 
     double cur_stickValV = 0.0;
