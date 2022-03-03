@@ -25,12 +25,17 @@ class Climber : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
   rev::CANSparkMax m_climbMotorLeft{9, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+
+  rev::SparkMaxRelativeEncoder re_climbMotorRight = m_climbMotorRight.GetEncoder();
+  rev::SparkMaxRelativeEncoder re_climbMotorLeft = m_climbMotorLeft.GetEncoder();
+
   double climbVal = 0.0;
   double upDeadzone = 0.08;
   double downDeadzone = 0.08;
   double RC = 0.0;
   double LC = 0.0;
-
+  double error;
+  double climbKValue = 0.1;
   
 
 };
