@@ -9,8 +9,6 @@
 #include "commands/TankDrive.h" 
 #include <frc/Joystick.h>
 #include "rev/CANSparkMax.h"
-#include "commands/ExampleCommand.h"
-#include "subsystems/ExampleSubsystem.h"
 #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
@@ -60,14 +58,14 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain drivetrain;
-  frc::Joystick xbox{0};
-  frc::Joystick stick1{1};
-  frc::Joystick stick2{2};
-  ExampleSubsystem m_subsystem;
   Shooter m_shooter;
   Intake intake;
   TurretSubsystem m_turret;
   Climber climber;
+
+  frc::Joystick xbox{0};
+  frc::Joystick stick1{1};
+  frc::Joystick stick2{2};
 
   void ConfigureButtonBindings();
 
