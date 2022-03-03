@@ -9,7 +9,9 @@
 
 
 void Robot::RobotInit() {
-  m_chooser.SetDefaultOption("Position 1", m_container.GetAutonomousCommand());
+  m_chooser.SetDefaultOption("None", nullptr);
+  m_chooser.AddOption("Close Ball Auto", m_container.GetAutonomousCommand());
+  m_chooser.AddOption("Three Ball Auto", m_container.GetAutonomousCommand());
   frc::SmartDashboard::PutData(&m_chooser);
 }
 /**
@@ -38,7 +40,7 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  m_autonomousCommand = m_container.GetAutonomousCommand();
+  m_autonomousCommand = m_chooser.GetSelected();
 
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Schedule();
