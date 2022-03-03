@@ -60,6 +60,24 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   std::string circleFile = frc::filesystem::GetDeployDirectory() + "/paths/Circle.wpilib.json";
     frc::Trajectory circle = frc::TrajectoryUtil::FromPathweaverJson(circleFile);
 
+  std::string bluePosition3File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition3.wpilib.json";
+    frc::Trajectory bluePosition3 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition3File);
+  
+  std::string bluePosition2File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition2.wpilib.json";
+    frc::Trajectory bluePosition2 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition2File);
+
+  std::string bluePosition2_1File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition2.1.wpilib.json";
+    frc::Trajectory bluePosition2_1 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition2_1File);
+
+  std::string bluePosition2_2File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition2.2.wpilib.json";
+    frc::Trajectory bluePosition2_2 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition2_2File);
+
+  std::string bluePosition1File = frc::filesystem::GetDeployDirectory() + "/paths/BluePosition1.wpilib.json";
+    frc::Trajectory bluePosition1 = frc::TrajectoryUtil::FromPathweaverJson(bluePosition1File);
+
+
+
+
 auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
@@ -74,6 +92,22 @@ auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
       // Pass the config 
       config
 );
+
+auto backFromWall = frc::TrajectoryGenerator::GenerateTrajectory(
+  drivetrain.GetPose(),
+  {},
+  drivetrain.GetPose().TransformBy(frc::Transform2d(frc::Translation2d(-1.0_m, 0.0_m), frc::Rotation2d(0_deg))),
+  config
+);
+
+auto rotate180 = frc::TrajectoryGenerator::GenerateTrajectory(
+  drivetrain.GetPose(),
+  {},
+  drivetrain.GetPose().TransformBy(frc::Transform2d(frc::Translation2d(0.0_m, 0.0_m), frc::Rotation2d(180_deg))),
+  config
+);
+
+
 
 // First Test
 frc2::RamseteCommand ramseteCommandTrajectoryOne(
@@ -117,10 +151,110 @@ frc2::RamseteCommand ramseteCommandCircle(
       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
       {&drivetrain});
 
+frc2::RamseteCommand ramseteCommandBluePosition3(
+      bluePosition3, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandBackFromWall(
+      backFromWall, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandRotate180(
+      rotate180, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+// Blue Positions
+frc2::RamseteCommand ramseteCommandBluePosition2(
+      bluePosition2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandBluePosition2_1(
+      bluePosition2_1, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+frc2::RamseteCommand ramseteCommandBluePosition2_2(
+      bluePosition2_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+
+frc2::RamseteCommand ramseteCommandBluePosition1(
+      bluePosition2_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+
+
 
         // drivetrain.ResetOdometry(trajectoryOne.InitialPose());
         // drivetrain.ResetOdometry(startGame.InitialPose());
-        drivetrain.ResetOdometry(circle.InitialPose());
+        // drivetrain.ResetOdometry(circle.InitialPose());
+        drivetrain.ResetOdometry(backFromWall.InitialPose());
+        // drivetrain.ResetOdometry(rotate180.InitialPose());
+        // drivetrain.ResetOdometry(BluePosition2.InitialPose());
+        // drivetrain.ResetOdometry(BluePosition3.InitialPose());
+
 
 
 
@@ -139,13 +273,95 @@ frc2::RamseteCommand ramseteCommandCircle(
         std::move(ramseteCommandCircle),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
       );
+      
+      frc2::SequentialCommandGroup* bluePosition3Group = new frc2::SequentialCommandGroup(
+        
+        frc2::ParallelRaceGroup(
+          std::move(ramseteCommandBluePosition3),
+          frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake})
+        ),
+
+        frc2::ParallelRaceGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret})
+
+        ),
+
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+      );
+
+      frc2::SequentialCommandGroup* backFromWallGroup = new frc2::SequentialCommandGroup(
+        std::move(ramseteCommandBackFromWall),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+      );
+            frc2::SequentialCommandGroup* rotate180Group = new frc2::SequentialCommandGroup(
+        std::move(ramseteCommandRotate180),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
+      );
+
+
+
+      frc2::SequentialCommandGroup* bluePosition2Group = new frc2::SequentialCommandGroup(
+        
+        frc2::ParallelRaceGroup(
+          std::move(ramseteCommandBluePosition2),
+          frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake})
+          ),
+
+        std::move(ramseteCommandRotate180),
+
+        frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),  // ADD find a way to stop shooting
+          frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter})
+        ),
+
+        std::move(ramseteCommandRotate180),
+        
+        frc2::ParallelRaceGroup(
+          std::move(ramseteCommandBluePosition2_1),
+          frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}) // ADD stop the instake
+        ),
+
+        std::move(ramseteCommandBackFromWall),
+        std::move(ramseteCommandRotate180),
+        std::move(ramseteCommandBluePosition2_2),
+        
+        frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),  // ADD find a way to stop shooting
+          frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter})
+        )
+
+
+      );
+
+      frc2::SequentialCommandGroup* bluePosition1Group = new frc2::SequentialCommandGroup(
+      
+        frc2::ParallelRaceGroup(
+        std::move(ramseteCommandBluePosition1),
+        frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake})
+      ),
+      
+      std::move(ramseteCommandBackFromWall),
+      std::move(ramseteCommandRotate180),
+
+      frc2::ParallelCommandGroup(
+        frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),  // ADD find a way to stop shooting
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter})
+      ) 
+
+
+      );
+
 
 
 
   // An example command will be run in autonomous
       // return trajectoryOneGroup;
       // return startGameGroup;
-      return circleGroup;
+      // return circleGroup;
+      // return bluePosition3Group;
+      return backFromWallGroup;
+      // return rotate180Group
+
 
   // return &m_autonomousCommand;
 
