@@ -5,15 +5,28 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-    m_climbMotorLeft.Follow(m_climbMotorRight, true);
+    m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
+    frc::SmartDashboard::PutNumber("climbKValue", climbKValue);
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
     // climbVal = 0.0;
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
+    frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
 
+    //changes from ClimberTweaks branch
+    /*error = re_climbMotorRight.GetPosition() - re_climbMotorLeft.GetPosition();
     m_climbMotorRight.Set(climbVal);
+    if (error > 0.2) {
+        error = 0.2;
+    }
+    if (error < -0.2) {
+        error = -0.2;
+    }
+    m_climbMotorRight.Set(climbVal + error*climbKValue);
+    m_climbMotorLeft.Set(climbVal - error*climbKValue); */
+    
     frc::SmartDashboard::PutNumber("RightClimb", RC); 
     frc::SmartDashboard::PutNumber("LeftClimb", LC); 
     m_climbMotorLeft.GetOutputCurrent();
