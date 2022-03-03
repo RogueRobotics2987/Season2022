@@ -6,6 +6,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "RobotContainer.h"
 
@@ -28,4 +29,7 @@ class Robot : public frc::TimedRobot {
   // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
 
   RobotContainer m_container;
+  frc::SendableChooser<frc2::Command*> m_chooser;
+
+
 };

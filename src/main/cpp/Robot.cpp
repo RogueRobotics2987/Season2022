@@ -7,7 +7,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+
+void Robot::RobotInit() {
+  m_chooser.SetDefaultOption("Position 1", m_container.GetAutonomousCommand());
+  frc::SmartDashboard::PutData(&m_chooser);
+}
 /**
  * This function is called every robot packet, no matter the mode. Use
  * this for items like diagnostics that you want to run during disabled,
@@ -34,7 +38,6 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  // m_autonomousCommand = m_container.GetAutonomousCommand();
 
   // if (m_autonomousCommand != nullptr) {
   //   m_autonomousCommand->Schedule();
