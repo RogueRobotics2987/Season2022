@@ -52,6 +52,8 @@ class RobotContainer {
  public:
   RobotContainer();
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetCloseBallAuto();
+  frc2::Command* GetThreeBallAuto();
 
  private:
   // The robot's subsystems and commands are defined here...

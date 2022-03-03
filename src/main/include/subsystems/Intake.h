@@ -58,6 +58,7 @@ class Intake : public frc2::SubsystemBase {
   //bool sensorDetectsBall = false;
   double stopBallDistance = 0.2;
   bool autoConveyor = false;
+  double timeSinceRead = 0.0;
 
   double conveyorSpeed = 0.0;
   double conveyorSpeedFwd = 0.3;
