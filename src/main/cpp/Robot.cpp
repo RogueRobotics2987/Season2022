@@ -10,9 +10,12 @@
 
 void Robot::RobotInit() {
   m_chooser.AddOption("None", nullptr);
-  m_chooser.AddOption("Close Ball Auto", m_container.GetCloseBallAuto());
-  m_chooser.SetDefaultOption("Three Ball Auto", m_container.GetThreeBallAuto());
+  m_chooser.SetDefaultOption("Close Ball Auto", m_container.GetCloseBallAuto());
+  m_chooser.AddOption("Three Ball Auto", m_container.GetThreeBallAuto());
   frc::SmartDashboard::PutData(&m_chooser);
+
+  // automatically start camera server
+  frc::CameraServer::StartAutomaticCapture();
 }
 /**
  * This function is called every robot packet, no matter the mode. Use

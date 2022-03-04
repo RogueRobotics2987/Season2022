@@ -336,13 +336,14 @@ frc2::RamseteCommand ramseteCommandTurn180(
       // THERE CANNOT BE INSTANT COMANDS IN PARALLEL RACE GROUPS
       frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
         Auto(drivetrain, 0.3, 0.5),
-        Auto(drivetrain, 0.5, 0),
+        Auto(drivetrain, 0.5, -0.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        TimerCMD(3),
         std::move(ramseteCommandTurn180),
           frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-        TimerCMD(4)
+          TimerCMD(2)
         ),
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
@@ -455,7 +456,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       frc2::SequentialCommandGroup* pickUp3BallsGroup = new frc2::SequentialCommandGroup(
         // Intake out and move
         Auto(drivetrain, 0.3, 0.5),
-        Auto(drivetrain, 0.5, 0),
+        Auto(drivetrain, 0.5, -.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         std::move(ramseteCommandThreeBall1_1),
