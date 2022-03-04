@@ -91,4 +91,7 @@ class RobotContainer {
   bool cameraIsOn = false; // keeps track of if the fish eye camera is on
   nt::NetworkTableEntry cameraSelection;
 
+  cs::VideoSink server = frc::CameraServer::GetServer(); // 
+
+
 };

@@ -50,21 +50,33 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
 void RobotContainer::updateCameras() {
 
-  if(stick1.GetRawButton(1) == true && lastButtonState == false){
+  if(stick2.GetRawButton(15) == true && lastButtonState == false){
     
     if(cameraIsOn == false){
       // turn on camera
-      cameraSelection.SetString(cameraFishEye.GetName());
+      // cameraSelection.SetString(cameraFishEye.GetName());
+
+      // server.SetSource(cameraFishEye);
+
+      frc::CameraServer::AddServer(cameraFishEye.GetName());
+
+      cameraIsOn = true;
 
     } else if(cameraIsOn == true){
       // turn off camera
-     cameraSelection.SetString(NULL);
+      // cameraSelection.SetString(NULL);
+
+     frc::CameraServer::RemoveServer(cameraFishEye.GetName());
+
+     cameraIsOn = false;
     }
-    
+
     lastButtonState = true;
 
-  } else if(stick1.GetRawButton(1) == false && lastButtonState == true){
+  } else if(stick2.GetRawButton(15) == false && lastButtonState == true){
     
     lastButtonState = false;
   }
+
+  frc::SmartDashboard::PutBoolean("camera is on?", cameraIsOn);
 }
