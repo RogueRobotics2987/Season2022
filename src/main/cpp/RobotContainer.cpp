@@ -80,7 +80,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
   
 
   std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/Turn180.wpilib.json";
-    frc::Trajectory turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
+  turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
 
 
 
@@ -235,7 +235,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
         // drivetrain.ResetOdometry(backFromWall.InitialPose());
         // drivetrain.ResetOdometry(BluePosition2.InitialPose());
         // drivetrain.ResetOdometry(BluePosition3.InitialPose());
-        drivetrain.ResetOdometry(turn180.InitialPose());
+        // drivetrain.ResetOdometry(turn180.InitialPose());
 
 
 
@@ -340,6 +340,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         TimerCMD(3),
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
         std::move(ramseteCommandTurn180),
           frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
