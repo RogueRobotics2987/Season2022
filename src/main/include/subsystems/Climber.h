@@ -34,7 +34,7 @@ class Climber : public frc2::SubsystemBase {
   double downDeadzone = 0.08;
   double RC = 0.0;
   double LC = 0.0;
-  double error;
+  double error = 0.0;
   double climbKValue = 0.0;
   
 
