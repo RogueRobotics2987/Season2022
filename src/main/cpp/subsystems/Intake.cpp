@@ -102,6 +102,8 @@ void Intake::Periodic() {
     if (m_SerialMXP.GetBytesReceived() >= 36){
         bytesRead = m_SerialMXP.Read(sSenseData,18); 
         m_SerialMXP.Reset(); 
+        SerialTime.Reset();
+        SerialTime.Start();
     } /*else if (m_SerialMXP.GetBytesReceived() == 0 && timeSinceRead > 10.0){
         
     }*/
@@ -112,6 +114,10 @@ void Intake::Periodic() {
  
     //Sensor 3 (magazine)
     float fSenseData3 = rrsDecoderBall(soSenseData);
+
+     if (SerialTime.Get().value() > 1.0){
+        fSenseData3 = 0.0;
+    }
     frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
     stopBallDistance = frc::SmartDashboard::GetNumber("StopBallDistance", stopBallDistance);
 
