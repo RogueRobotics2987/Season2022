@@ -115,9 +115,11 @@ void Intake::Periodic() {
     //Sensor 3 (magazine)
     float fSenseData3 = rrsDecoderBall(soSenseData);
 
-     if (SerialTime.Get().value() > 1.0){
+     if ((SerialTime.Get().value() > 1.0) || (autoConveyorFail == true)){
         fSenseData3 = 0.0;
+        autoConveyorFail = true;
     }
+   
     frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
     stopBallDistance = frc::SmartDashboard::GetNumber("StopBallDistance", stopBallDistance);
 
