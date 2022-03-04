@@ -5,7 +5,7 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-    m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
+    //m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
     frc::SmartDashboard::PutNumber("climbKValue", climbKValue);
 }
 
@@ -14,9 +14,12 @@ void Climber::Periodic() {
     // climbVal = 0.0;
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
     frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
+    frc::SmartDashboard::PutNumber("ClimbRightPosition", re_climbMotorRight.GetPosition());
+    frc::SmartDashboard::PutNumber("ClimbLeftPosition", re_climbMotorLeft.GetPosition());
+    frc::SmartDashboard::PutNumber("ClimbError", error);
 
     //changes from ClimberTweaks branch
-    /*error = re_climbMotorRight.GetPosition() - re_climbMotorLeft.GetPosition();
+    error = (re_climbMotorRight.GetPosition() - re_climbMotorLeft.GetPosition())*climbKValue;
     m_climbMotorRight.Set(climbVal);
     if (error > 0.2) {
         error = 0.2;
@@ -24,11 +27,11 @@ void Climber::Periodic() {
     if (error < -0.2) {
         error = -0.2;
     }
-    m_climbMotorRight.Set(climbVal + error*climbKValue);
-    m_climbMotorLeft.Set(climbVal - error*climbKValue); */
+    m_climbMotorRight.Set(climbVal - error);
+    m_climbMotorLeft.Set(climbVal + error); 
 
-    m_climbMotorRight.Set(climbVal);
-    m_climbMotorLeft.Set(climbVal);
+    //m_climbMotorRight.Set(climbVal);
+    //m_climbMotorLeft.Set(climbVal);
     
     frc::SmartDashboard::PutNumber("RightClimb", RC); 
     frc::SmartDashboard::PutNumber("LeftClimb", LC); 
