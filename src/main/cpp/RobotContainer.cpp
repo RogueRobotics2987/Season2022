@@ -472,7 +472,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         // Auto Aim
         frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(2)
+          TimerCMD(1.5)
         ),
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 
@@ -495,7 +495,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         // Auto Aim Again
         frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(2)
+          TimerCMD(1.5)
         ),
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 

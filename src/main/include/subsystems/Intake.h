@@ -14,6 +14,7 @@
 #include <iostream>
 #include <frc/SerialPort.h>
 #include <sstream>
+#include <frc/Timer.h>
 
 class Intake : public frc2::SubsystemBase {
  public:
@@ -41,6 +42,8 @@ class Intake : public frc2::SubsystemBase {
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(6, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_loadIntoShooterMotor = rev::CANSparkMax(12, rev::CANSparkMax::MotorType::kBrushless);
 
+  frc::Timer SerialTime;
+
   bool intakeSigIn = false; 
   bool intakeSigInRelease = false;
   bool intakeSigOutRelease = false;
@@ -59,6 +62,7 @@ class Intake : public frc2::SubsystemBase {
   double stopBallDistance = 0.25;
   bool autoConveyor = false;
   double timeSinceRead = 0.0;
+  bool autoConveyorFail = false;
 
   double conveyorSpeed = 0.0;
   double conveyorSpeedFwd = 0.3;

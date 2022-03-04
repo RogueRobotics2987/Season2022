@@ -8,6 +8,7 @@
 #include <frc/Joystick.h>
 #include "rev/CANSparkMax.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+//#include <frc/DigitalInput.h>
 
 
 class Climber : public frc2::SubsystemBase {
@@ -25,6 +26,8 @@ class Climber : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
   rev::CANSparkMax m_climbMotorLeft{9, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+  //frc::DigitalInput ls_climbRight{0};
+  //frc::DigitalInput ls_climbLeft{1};
 
   rev::SparkMaxRelativeEncoder re_climbMotorRight = m_climbMotorRight.GetEncoder();
   rev::SparkMaxRelativeEncoder re_climbMotorLeft = m_climbMotorLeft.GetEncoder();
