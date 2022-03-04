@@ -20,6 +20,7 @@
 #include "commands/TurretCmd.h" 
 #include "commands/AimFor_T.h"
 #include "commands/TimerCMD.h"
+#include "commands/SafeBallShoot.h"
 
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>

@@ -365,7 +365,12 @@ frc2::RamseteCommand ramseteCommandTurn180(
 
         
       );
+    
 
+      frc2::SequentialCommandGroup* runShooterTestGroup = new frc2::SequentialCommandGroup (
+        SafeBallShoot(intake, m_shooter, m_turret, 15)
+      );
+ 
 
 
   // An example command will be run in autonomous
@@ -375,7 +380,8 @@ frc2::RamseteCommand ramseteCommandTurn180(
       // return bluePosition3Group;
       // return backFromWallGroup;
       // return rotate180Group;
-      return pickUpCloseBallGroup;
+      // return pickUpCloseBallGroup;
+      return runShooterTestGroup;
 
 
   // return &m_autonomousCommand;
