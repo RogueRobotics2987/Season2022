@@ -57,6 +57,7 @@ class RobotContainer {
   frc2::Command* GetAutonomousCommand();
   frc2::Command* GetCloseBallAuto();
   frc2::Command* GetThreeBallAuto();
+  frc2::Command* Get2BallAuto();
 
  private:
   // The robot's subsystems and commands are defined here...
@@ -95,5 +96,8 @@ class RobotContainer {
   frc2::Command* m_autonomousCommand;
 
   frc::Trajectory turn180;
+  frc::Trajectory twoBall11;
+  frc::Trajectory twoBall12;
+  frc::Trajectory twoBall13;
 
 };

@@ -42,7 +42,108 @@ void RobotContainer::ConfigureButtonBindings() {
   
 }
 
+frc2::Command* RobotContainer::Get2BallAuto() {
+  frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
+  config.SetKinematics(DriveConstants::kDriveKinematics);
 
+  std::string twoBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.1.wpilib.json";
+  frc::Trajectory twoBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_1File);
+
+  std::string twoBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.2.wpilib.json";
+  frc::Trajectory twoBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_2File);
+
+  std::string twoBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.3.wpilib.json";
+  frc::Trajectory twoBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_3File);
+
+  frc2::RamseteCommand ramseteCommandTwoBall11(
+      twoBall1_1, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+      frc2::RamseteCommand ramseteCommandTwoBall12(
+      twoBall1_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+      frc2::RamseteCommand ramseteCommandTwoBall13(
+      twoBall1_3, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+      frc2::SequentialCommandGroup* twoBallGroup = new frc2::SequentialCommandGroup(
+        //shake intake down
+        Auto(drivetrain, 0.3, 0.5),
+        Auto(drivetrain, 0.5, -0.2),
+        //Turn on intake and spin up shooter
+        frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+      
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall11.InitialPose());}),
+        std::move(ramseteCommandTwoBall11),
+        std::move(ramseteCommandTwoBall12),
+          frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+          TimerCMD(1)
+        ),
+        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        TimerCMD(0.5),
+        
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        std::move(ramseteCommandTwoBall13),
+        frc2::ParallelCommandGroup(
+          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+          TimerCMD(1)
+        ),
+        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.5),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.IntakeInRelease();},{&intake}),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
+
+        
+      );
+
+      return twoBallGroup;
+}
 frc2::Command* RobotContainer::GetCloseBallAuto() {
 
 
