@@ -42,7 +42,7 @@ void RobotContainer::ConfigureButtonBindings() {
   
 }
 
-frc2::Command* RobotContainer::Get2BallAuto() {
+frc2::Command* RobotContainer::GetTwoBallAuto() {
   frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
   config.SetKinematics(DriveConstants::kDriveKinematics);
 
