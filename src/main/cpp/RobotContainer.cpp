@@ -131,7 +131,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 
         frc2::ParallelCommandGroup(
-          TimerCMD(0.5),
+          TimerCMD(5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.IntakeInRelease();},{&intake}),
