@@ -10,9 +10,9 @@
 
 void Robot::RobotInit() {
   m_chooser.AddOption("None", nullptr);
-  m_chooser.AddOption("Close Ball Auto", m_container.GetCloseBallAuto());
+  m_chooser.SetDefaultOption("Close Ball Auto", m_container.GetCloseBallAuto());
   m_chooser.AddOption("Three Ball Auto", m_container.GetThreeBallAuto());
-  m_chooser.SetDefaultOption("Two Ball Auto", m_container.GetTwoBallAuto());
+  m_chooser.AddOption("Two Ball Auto", m_container.GetTwoBallAuto());
   frc::SmartDashboard::PutData(&m_chooser);
 
   // automatically start camera server
