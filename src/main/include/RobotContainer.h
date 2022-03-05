@@ -96,8 +96,8 @@ class RobotContainer {
   frc2::Command* m_autonomousCommand;
 
   frc::Trajectory turn180;
-  frc::Trajectory twoBall11;
-  frc::Trajectory twoBall12;
-  frc::Trajectory twoBall13;
+  frc::Trajectory twoBall1_1;
+  frc::Trajectory twoBall1_2;
+  frc::Trajectory twoBall1_3;
 
 };

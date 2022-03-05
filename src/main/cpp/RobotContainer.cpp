@@ -43,19 +43,19 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 frc2::Command* RobotContainer::GetTwoBallAuto() {
-  frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
-  config.SetKinematics(DriveConstants::kDriveKinematics);
+  //frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
+  //config.SetKinematics(DriveConstants::kDriveKinematics);
 
   std::string twoBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.1.wpilib.json";
-  frc::Trajectory twoBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_1File);
+  twoBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_1File);
 
   std::string twoBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.2.wpilib.json";
-  frc::Trajectory twoBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_2File);
+  twoBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_2File);
 
   std::string twoBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/2Ball1.3.wpilib.json";
-  frc::Trajectory twoBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_3File);
+  twoBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(twoBall1_3File);
 
-  frc2::RamseteCommand ramseteCommandTwoBall11(
+  frc2::RamseteCommand ramseteCommandTwoBall1_1(
       twoBall1_1, [this]() { return drivetrain.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
                              AutoConstants::kRamseteZeta),
@@ -68,7 +68,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
       {&drivetrain});
 
-      frc2::RamseteCommand ramseteCommandTwoBall12(
+      frc2::RamseteCommand ramseteCommandTwoBall1_2(
       twoBall1_2, [this]() { return drivetrain.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
                              AutoConstants::kRamseteZeta),
@@ -81,7 +81,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
       {&drivetrain});
 
-      frc2::RamseteCommand ramseteCommandTwoBall13(
+      frc2::RamseteCommand ramseteCommandTwoBall1_3(
       twoBall1_3, [this]() { return drivetrain.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
                              AutoConstants::kRamseteZeta),
@@ -95,16 +95,18 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
       {&drivetrain});
 
       frc2::SequentialCommandGroup* twoBallGroup = new frc2::SequentialCommandGroup(
+       
         //shake intake down
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
         //Turn on intake and spin up shooter
+
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
       
-        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall11.InitialPose());}),
-        std::move(ramseteCommandTwoBall11),
-        std::move(ramseteCommandTwoBall12),
+        std::move(ramseteCommandTwoBall1_1),
+        std::move(ramseteCommandTwoBall1_2),
           frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
           TimerCMD(1)
@@ -123,7 +125,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        std::move(ramseteCommandTwoBall13),
+        std::move(ramseteCommandTwoBall1_3),
         frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
           TimerCMD(1)
@@ -503,7 +505,7 @@ frc2::Command* RobotContainer::GetThreeBallAuto(){
 
   std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.4.wpilib.json";
     frc::Trajectory threeBall1_4 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_4File);
-
+// TODO MOVE THIS to after intake shake
   drivetrain.ResetOdometry(threeBall1_1.InitialPose());
 
 
