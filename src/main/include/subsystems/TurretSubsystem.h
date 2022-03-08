@@ -56,6 +56,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     double kp_hAim = 0.01;
     double kp_vAimty = 1.0;
     double kp_vAimre = 0.02;
+    int cur_pipeline = 3;
 
 
 
