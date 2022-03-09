@@ -12,7 +12,6 @@ ClimbCmd::ClimbCmd(Climber& climber, frc::Joystick& xbox, frc::Joystick& stick1,
   m_climber = &climber;
   AddRequirements({m_climber});
 
-
 }
 
 // Called when the command is initially scheduled.
