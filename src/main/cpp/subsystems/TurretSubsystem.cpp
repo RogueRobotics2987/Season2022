@@ -32,6 +32,8 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
+    frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+
 
 
     if(TurretState == R_BOTH){
@@ -87,9 +89,11 @@ void TurretSubsystem::Periodic() {
         //ledMode 
         // 3 on 
         // 0 off 
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("ledMode", 3); 
+        cur_pipeline = nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr") -> GetNumber("pipeline", cur_pipeline);
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline); 
+
         re_vTurretMotorRight.GetPosition();
         m_hTurretMotor.Set(tx * kp_hAim);
 
@@ -108,6 +112,7 @@ void TurretSubsystem::Periodic() {
     
     if (cur_stickPOV == 0){
         frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
+        cur_pipeline = 0;
     } else if (cur_stickPOV == 90){
         frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
     } else if (cur_stickPOV == 180){
