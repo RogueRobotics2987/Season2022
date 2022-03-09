@@ -31,6 +31,8 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
 
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
+    frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
+
 
     if(TurretState == R_BOTH){
         m_vTurretMotorRight.Set(0.2);
@@ -131,12 +133,12 @@ void TurretSubsystem::setAngleV(float l_stickValV) {
 
 void TurretSubsystem::setAngleH(float l_stickValH) {
     //std::cout << "setAngleH val " << l_stickValH << ",";
-
+    frc::SmartDashboard::GetNumber("turretScaleVal", turretScaleVal);
     // Generate Deadzone with Offset-Shift
     if(l_stickValH > 0.15) {
-        cur_stickValH = 0.4*(l_stickValH - 0.15); //0.4 was 0.25
+        cur_stickValH = turretScaleVal*(l_stickValH - 0.15); //0.4 was 0.25
     } else if (l_stickValH < -0.15 ) {
-        cur_stickValH = 0.4*(l_stickValH + 0.15);
+        cur_stickValH = turretScaleVal*(l_stickValH + 0.15);
     } else {
         cur_stickValH = 0.0;
     }
