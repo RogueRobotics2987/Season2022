@@ -19,6 +19,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
   void setAngleV(float l_stickValV);
   void setAngleH(float l_stickValH);
   void setAutoAimOn();
+  double getHPosition();
   
   void setManuelAimOn();
   void setStickPOV(int stickPOV);
@@ -47,6 +48,8 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
     rev::SparkMaxRelativeEncoder re_vTurretMotorRight = m_vTurretMotorRight.GetEncoder();
     rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();
+
+    rev::SparkMaxRelativeEncoder re_hTurretMotor = m_hTurretMotor.GetEncoder(); 
 
     enum TurretState_t {INIT, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE}; //R_ means retract
     TurretState_t TurretState = R_BOTH;

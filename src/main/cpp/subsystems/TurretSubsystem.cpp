@@ -156,3 +156,7 @@ void TurretSubsystem::setManuelAimOn() {
 void TurretSubsystem::setStickPOV(int stickPOV){
     cur_stickPOV = stickPOV;
 }
+
+double TurretSubsystem::getHPosition() {
+    return re_hTurretMotor.GetPosition();
+}
