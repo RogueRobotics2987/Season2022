@@ -12,9 +12,9 @@ Intake::Intake() {
     frc::SmartDashboard::PutNumber("Intake Speed Out", intakeSpeedOut);
     frc::SmartDashboard::PutNumber("Conveyor Speed In", conveyorSpeedFwd);
     frc::SmartDashboard::PutNumber("Conveyor Speed Out", conveyorSpeedBack);
-    frc::SmartDashboard::PutNumber("StopBallDistance", stopBallDistance);
-    frc::SmartDashboard::PutNumber("stateConveyor", stateConveyor);
-    frc::SmartDashboard::PutNumber("stateIntake", stateIntake);
+    frc::SmartDashboard::PutNumber("Conveyor StopBallDistance", stopBallDistance);
+    frc::SmartDashboard::PutNumber("Conveyor state", stateConveyor);
+    frc::SmartDashboard::PutNumber("Intake state", stateIntake);
 }
 
 //lidar code
@@ -120,8 +120,8 @@ void Intake::Periodic() {
         //autoConveyorFail = true;
     }
    
-    frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
-    stopBallDistance = frc::SmartDashboard::GetNumber("StopBallDistance", stopBallDistance);
+    frc::SmartDashboard::PutNumber("Intake Ball Range", fSenseData3);
+    stopBallDistance = frc::SmartDashboard::GetNumber("Conveyor StopBallDistance", stopBallDistance);
 
     //std::cout << "Ball range: " << fSenseData3 << std::endl;
 
@@ -137,8 +137,8 @@ void Intake::Periodic() {
     frc::SmartDashboard::PutBoolean("conveyorSigBackRelease", conveyorSigBackRelease);*/
     //frc::SmartDashboard::PutNumber("Conveyor Speed", m_conveyorMotor.Get());
     //frc::SmartDashboard::PutNumber("Intake Speed", m_intakeMotor.Get());
-    frc::SmartDashboard::PutNumber("stateConveyor", stateConveyor);
-    frc::SmartDashboard::PutNumber("stateIntake", stateIntake);
+    frc::SmartDashboard::PutNumber("Conveyor state", stateConveyor);
+    frc::SmartDashboard::PutNumber("Intake state", stateIntake);
 
 
     //conveyor state machine
