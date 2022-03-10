@@ -25,7 +25,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&stick1, 1).WhenReleased(&m_intakeOutRelease); 
 
   // configure to PreAngle command
-  frc2::JoystickButton(&stick1, 1).WhenPressed('preAngles'); // stick1||2 5-16 or xbox 8
+  frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 20.0)); // stick1||2 5-16 or xbox 8
 
 
   frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
@@ -191,8 +191,6 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
 
 
 
-
-
 // auto trajectoryOne = frc::TrajectoryGenerator::GenerateTrajectory(
 //       // Start at the origin facing the +X direction
 //       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
@@ -332,10 +330,6 @@ frc2::RamseteCommand ramseteCommandTurn180(
 //       {&drivetrain});
 
 
-
-
-
-
         // drivetrain.ResetOdometry(trajectoryOne.InitialPose());
         // drivetrain.ResetOdometry(startGame.InitialPose());
         // drivetrain.ResetOdometry(circle.InitialPose());
@@ -343,9 +337,6 @@ frc2::RamseteCommand ramseteCommandTurn180(
         // drivetrain.ResetOdometry(BluePosition2.InitialPose());
         // drivetrain.ResetOdometry(BluePosition3.InitialPose());
         // drivetrain.ResetOdometry(turn180.InitialPose());
-
-
-
 
 
       // frc2::SequentialCommandGroup* trajectoryOneGroup = new frc2::SequentialCommandGroup(
