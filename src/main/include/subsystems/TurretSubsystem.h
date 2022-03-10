@@ -58,7 +58,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     double kp_vAimre = 0.02;
     double turretScaleVal = 0.4; //percent of max speed 
 
-
+    int cur_pipeline = 3;
     int cur_stickPOV = 0;
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
