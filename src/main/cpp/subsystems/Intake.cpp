@@ -117,7 +117,7 @@ void Intake::Periodic() {
 
      if ((SerialTime.Get().value() > 1.0) || (autoConveyorFail == true)){
         fSenseData3 = 0.0;
-        autoConveyorFail = true;
+        //autoConveyorFail = true;
     }
    
     frc::SmartDashboard::PutNumber("Ball Range", fSenseData3);
