@@ -253,10 +253,11 @@ void DriveTrain::JetsonControl(){
   // std::cout <<AvPidOut<< std::endl;
 
   if(num_x_0 > max_undetected_iterations){
-  m_robotDrive.ArcadeDrive(0, 0); //turns in circle and searches 
+  m_robotDrive.ArcadeDrive(0.0, 0.0); //turns in circle and searches 
   }
   else{
-    m_robotDrive.ArcadeDrive(0, AvPidOut);
+    // m_robotDrive.ArcadeDrive(0, AvPidOut);
+    m_robotDrive.ArcadeDrive(0.10, 0.0);
   }
 }
 
