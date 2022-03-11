@@ -103,17 +103,17 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         //Turn on intake and spin up shooter
 
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        //frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
       
         std::move(ramseteCommandTwoBall1_1),
-        std::move(ramseteCommandTwoBall1_2),
-          frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1)
-        ),
-        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        // std::move(ramseteCommandTwoBall1_2),
+        //   frc2::ParallelCommandGroup(
+        //   frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+        //   TimerCMD(1)
+        // ),
+        // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
-        frc2::ParallelCommandGroup(
+        /*frc2::ParallelCommandGroup(
           TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
@@ -124,21 +124,22 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
           TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
-        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        std::move(ramseteCommandTwoBall1_3),
-        frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1)
-        ),
-        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),*/
+        // std::move(ramseteCommandTwoBall1_3),
+        // frc2::ParallelCommandGroup(
+        //   frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+        //   TimerCMD(1)
+        // ),
+        // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 
-        frc2::ParallelCommandGroup(
+        /*frc2::ParallelCommandGroup(
           TimerCMD(5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
+        */
         frc2::InstantCommand([this] {intake.IntakeInRelease();},{&intake}),
-        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        //frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        //frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
         
@@ -149,7 +150,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
 frc2::Command* RobotContainer::GetCloseBallAuto() {
 
 
-  // frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+  // frc::DifferentialDriveVoltageConstrant autoVoltageConstraint(
   //     frc::SimpleMotorFeedforward<units::meters>(
   //     DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
   //     DriveConstants::kDriveKinematics, 10_V);
