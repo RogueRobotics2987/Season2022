@@ -13,6 +13,7 @@ SafeBallShoot::SafeBallShoot(Intake& l_intake, Shooter& l_shooter, TurretSubsyst
   AddRequirements({m_intake});
   AddRequirements({m_shooter});
   AddRequirements({m_turret});
+  frc::SmartDashboard::PutBoolean("Target Locked", true);
 }
 
 // Called when the command is initially scheduled.
@@ -29,12 +30,14 @@ void SafeBallShoot::Execute() {
   // if turret speed > 3700 & tx < 1, ty < 1 then conveyor forward
   float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
   float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+  frc::SmartDashboard::PutNumber("Shooter RPM", m_shooter->getVelocity());
 
   if(m_shooter->getVelocity() > 3700 && -5.0 < tx && tx < 5.0 && -5.0 < ty && ty < 5.0) {
     m_intake->ConveyorForward();
     frc::SmartDashboard::PutBoolean("Target Locked", true);
-  }
+  } else {
   frc::SmartDashboard::PutBoolean("Target Locked", false);
+  }
 }
 
 // Called once the command ends or is interrupted.

@@ -35,7 +35,7 @@ class SafeBallShoot
     Intake* m_intake = nullptr;
     Shooter* m_shooter = nullptr;
     TurretSubsystem* m_turret = nullptr;
-    double stopTime = 0.0;
+    double stopTime = 20.0;
     frc::Timer m_timer;
     
 };

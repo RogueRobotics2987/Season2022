@@ -621,3 +621,11 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       return pickUp3BallsGroup;
       
       }
+
+
+frc2::Command* RobotContainer::GetLimelightLockOn(){
+  frc2::SequentialCommandGroup* lockOnGroup = new frc2::SequentialCommandGroup{
+    SafeBallShoot(intake, m_shooter, m_turret, 20)
+  };
+  return lockOnGroup;
+}
