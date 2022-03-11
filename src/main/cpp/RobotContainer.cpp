@@ -565,14 +565,14 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        // frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         std::move(ramseteCommandThreeBall1_1),
         std::move(ramseteCommandThreeBall1_2),
         
         // Auto Aim
         frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1.5)
+          TimerCMD(0.5) // was 1.5
         ),
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 
@@ -595,7 +595,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         // Auto Aim Again
         frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1.5)
+          TimerCMD(0.5) // was 1.5
         ),
         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
 
@@ -611,7 +611,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        // frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
         frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
