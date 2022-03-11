@@ -9,8 +9,10 @@ PreAngles::PreAngles(TurretSubsystem& l_turret, double l_TPosition) {
 
   m_turret = &l_turret; 
   position = l_TPosition; 
-  
+
   AddRequirements({m_turret});
+  
+  SetName("pre-angles");
 
 }
 
