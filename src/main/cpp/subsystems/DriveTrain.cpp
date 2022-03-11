@@ -50,8 +50,8 @@ void DriveTrain::Periodic() {
         units::meter_t(-1.0 * RightEncoder.GetPosition() * 0.044)
     );
   
-    frc::SmartDashboard::PutNumber("left Encoder Val", -1.0 * LeftEncoder.GetPosition());
-    frc::SmartDashboard::PutNumber("right Encoder Val", -1.0 * RightEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Drive Encoder Val Left", -1.0 * LeftEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Drive Encoder Val Right", -1.0 * RightEncoder.GetPosition());
 
   m_field.SetRobotPose(m_odometry.GetPose());
   frc::SmartDashboard::PutData("Field", &m_field);
@@ -60,8 +60,8 @@ void DriveTrain::Periodic() {
 void DriveTrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
 //   // if(left > units::volt_t(.25)){ left = units::volt_t(.25); }
 //   // if(right > units::volt_t(.25)){ right = units::volt_t(.25); }
-  frc::SmartDashboard::PutNumber("Left Distance", LeftEncoder.GetPosition());
-  frc::SmartDashboard::PutNumber("Right Distance", RightEncoder.GetPosition());
+  frc::SmartDashboard::PutNumber("Drive Left Distance", LeftEncoder.GetPosition());
+  frc::SmartDashboard::PutNumber("Drive Right Distance", RightEncoder.GetPosition());
   frc::SmartDashboard::PutNumber("Tank Drive Volts Left", double(left));
   frc::SmartDashboard::PutNumber("Tank Drive Volts Right", double(right));
   // frc::SmartDashboard::PutNumber("AHRS Heading", GetHeading()); 
