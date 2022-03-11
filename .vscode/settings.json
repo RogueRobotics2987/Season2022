@@ -78,6 +78,7 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "matrixfunctions": "cpp"
+    "matrixfunctions": "cpp",
+    "*.inc": "cpp"
   }
 }
