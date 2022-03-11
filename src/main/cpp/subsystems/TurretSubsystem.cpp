@@ -35,6 +35,8 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
 
+    frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
+
     if(TurretState == R_BOTH){
         m_vTurretMotorRight.Set(0.2);
         m_vTurretMotorLeft.Set(0.2);

@@ -33,5 +33,6 @@ class PreAngles
   private: 
   TurretSubsystem* m_turret = nullptr;
   double position = 0.0;
+  frc::Timer m_timer;
 
 };
