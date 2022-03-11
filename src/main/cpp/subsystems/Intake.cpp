@@ -102,7 +102,9 @@ void Intake::Periodic() {
     if (m_SerialMXP.GetBytesReceived() >= 36){
         bytesRead = m_SerialMXP.Read(sSenseData,18); 
         m_SerialMXP.Reset(); 
-    }
+    } /*else if (m_SerialMXP.GetBytesReceived() == 0 && timeSinceRead > 10.0){
+        
+    }*/
     //std::cout << "Serial data: " << sSenseData << std::endl;
     sSenseData[18] = '\0';
     std::string soSenseData = sSenseData;
