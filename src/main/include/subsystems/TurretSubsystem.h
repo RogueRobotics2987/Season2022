@@ -20,7 +20,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
   void setAngleH(float l_stickValH);
   void setAutoAimOn();
   double getHPosition();
-  
+  double getVPosition();
   void setManuelAimOn();
   void setStickPOV(int stickPOV);
 

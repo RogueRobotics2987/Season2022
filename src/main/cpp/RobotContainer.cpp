@@ -26,7 +26,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // configure to PreAngle command
   frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 20.0)); // stick1||2 5-16 or xbox 8
-
+  
+  //The 5.0 needs to be changed. No idea the correct value
+  frc2::JoystickButton(&xbox, 8).WhenPressed(TurretSetAngleCmd(m_turret, 5.0, 20.0)); //next to select button on xbox 
 
   frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
   frc2::JoystickButton(&xbox, 3).WhenReleased(&m_conveyerForwardRelease); 

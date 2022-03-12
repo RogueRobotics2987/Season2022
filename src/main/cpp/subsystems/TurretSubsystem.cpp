@@ -168,3 +168,7 @@ void TurretSubsystem::setStickPOV(int stickPOV){
 double TurretSubsystem::getHPosition() {
     return re_hTurretMotor.GetPosition();
 }
+
+double TurretSubsystem::getVPosition() {
+    return re_vTurretMotorRight.GetPosition();
+}
