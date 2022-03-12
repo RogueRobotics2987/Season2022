@@ -25,7 +25,8 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&stick1, 1).WhenReleased(&m_intakeOutRelease); 
 
   // configure to PreAngle command
-  frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 20.0)); // stick1||2 5-16 or xbox 8
+  frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 0.0)); // stick1||2 5-16 or xbox 8
+  frc2::JoystickButton(&stick1, 6).WhenPressed(PreAngles(m_turret, 45.0));
 
 
   frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
@@ -435,6 +436,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
       frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
+        PreAngles(m_turret, 90.0),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         TimerCMD(3),
