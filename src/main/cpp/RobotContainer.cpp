@@ -491,16 +491,16 @@ frc2::RamseteCommand ramseteCommandTurn180(
 
 
 frc2::Command* RobotContainer::GetThreeBallAuto(){
-  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.1.wpilib.json";
+  std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/output/3Ball1.1.wpilib.json";
     frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
 
-  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.2.wpilib.json";
+  std::string threeBall1_2File = frc::filesystem::GetDeployDirectory() + "/paths/output/3Ball1.2.wpilib.json";
     frc::Trajectory threeBall1_2 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_2File);
 
-  std::string threeBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.3.wpilib.json";
+  std::string threeBall1_3File = frc::filesystem::GetDeployDirectory() + "/paths/output/3Ball1.3.wpilib.json";
     frc::Trajectory threeBall1_3 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_3File);
 
-  std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/3Ball1.4.wpilib.json";
+  std::string threeBall1_4File = frc::filesystem::GetDeployDirectory() + "/paths/output/3Ball1.4.wpilib.json";
     frc::Trajectory threeBall1_4 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_4File);
 // TODO MOVE THIS to after intake shake
   drivetrain.ResetOdometry(threeBall1_1.InitialPose());
