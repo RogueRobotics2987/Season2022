@@ -21,7 +21,7 @@
 class SafeBallShoot
     : public frc2::CommandHelper<frc2::CommandBase, SafeBallShoot> {
  public:
-  SafeBallShoot(Intake& l_intake, Shooter& l_shooter, TurretSubsystem& l_turret, double l_stopTime);
+  SafeBallShoot(TurretSubsystem& l_turret, double l_stopTime);
 
   void Initialize() override;
 
@@ -32,10 +32,11 @@ class SafeBallShoot
   bool IsFinished() override;
 
   private:
-    Intake* m_intake = nullptr;
-    Shooter* m_shooter = nullptr;
+    // Intake* m_intake = nullptr;
+    // Shooter* m_shooter = nullptr;
     TurretSubsystem* m_turret = nullptr;
     double stopTime = 20.0;
     frc::Timer m_timer;
+    bool m_LockedOn = false;
     
 };

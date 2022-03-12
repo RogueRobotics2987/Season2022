@@ -442,11 +442,13 @@ frc2::RamseteCommand ramseteCommandTurn180(
         TimerCMD(3),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
         std::move(ramseteCommandTurn180),
-          frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(2)
+        //   frc2::ParallelCommandGroup(
+        //   frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+        //   TimerCMD(2)
+        // ),
+        // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        SafeBallShoot(m_turret, 5
         ),
-        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
           TimerCMD(0.5),
@@ -623,9 +625,16 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       }
 
 
-frc2::Command* RobotContainer::GetLimelightLockOn(){
-  frc2::SequentialCommandGroup* lockOnGroup = new frc2::SequentialCommandGroup{
-    SafeBallShoot(intake, m_shooter, m_turret, 20)
-  };
-  return lockOnGroup;
-}
+// frc2::Command* RobotContainer::GetLimelightLockOn(){
+//   frc2::SequentialCommandGroup* lockOnGroup = new frc2::SequentialCommandGroup{
+//     SafeBallShoot(m_turret, 20), 
+//     frc2::ParallelCommandGroup(
+//       TimerCMD(0.5),
+//       frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+//     ),
+//     frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+
+//   };
+//   return lockOnGroup;
+// }
+
