@@ -164,7 +164,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
   config.SetKinematics(DriveConstants::kDriveKinematics);
   // config.AddConstraint(autoVoltageConstraint);
 
-  std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/startGame.wpilib.json";
+  std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/output/startGame.wpilib.json";
     // wpi::sys::path::append(startGameFile, "paths/startGame.wpilib.json");
     frc::Trajectory startGame = frc::TrajectoryUtil::FromPathweaverJson(startGameFile);
 
