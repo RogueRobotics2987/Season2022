@@ -31,8 +31,11 @@ void PreAngles::Execute() {
   if(m_turret->getHPosition() > calcPosition) {
     m_turret->setAngleH(-0.6);
 
-  } else if (calcPosition-5 < m_turret->getHPosition() && m_turret->getHPosition() < calcPosition+5 /*m_turret->getHPosition() == calcPosition*/) { //find proper margin
+  } /*else if (position-5 < m_turret->getHPosition() && m_turret->getHPosition() < position+5 ){
     m_turret->setAngleH(0.0);
+
+  }*/ else if (calcPosition-5 < m_turret->getHPosition() && m_turret->getHPosition() < calcPosition+5 /*m_turret->getHPosition() == calcPosition */) { //find proper margin
+    m_turret->setAngleH(0.0); 
 
   } else {
     m_turret->setAngleH(0.6);
