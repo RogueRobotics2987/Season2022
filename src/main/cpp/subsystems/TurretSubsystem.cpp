@@ -8,8 +8,8 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
-    m_vTurretMotorLeft.SetOpenLoopRampRate(0.2);
-    m_vTurretMotorRight.SetOpenLoopRampRate(0.2);
+    // m_vTurretMotorLeft.SetOpenLoopRampRate(0.2);
+    // m_vTurretMotorRight.SetOpenLoopRampRate(0.2);
 
     //m_vTurretMotorLeft.Follow(m_vTurretMotorLeft);
 }
@@ -24,11 +24,12 @@ void TurretSubsystem::Periodic() {
     kp_vAimre = frc::SmartDashboard::GetNumber("kp_vAimre", kp_vAimre); //Vertical Aim
 
 
-    frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
+    /* frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
 
     frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
+    */
 
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
@@ -37,7 +38,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
 
-    if(TurretState == R_BOTH){
+    /* if(TurretState == R_BOTH){
         m_vTurretMotorRight.Set(0.2);
         m_vTurretMotorLeft.Set(0.2);
 
@@ -78,10 +79,10 @@ void TurretSubsystem::Periodic() {
             TurretState = DRIVER_SHOOT;
         }
 
-    } else if (TurretState == DRIVER_SHOOT){
+    } else */ if (TurretState == DRIVER_SHOOT){
 
-        m_vTurretMotorRight.Set(cur_stickValV); 
-        m_vTurretMotorLeft.Set(cur_stickValV); 
+        // m_vTurretMotorRight.Set(cur_stickValV); 
+        // m_vTurretMotorLeft.Set(cur_stickValV); 
         
         m_hTurretMotor.Set(cur_stickValH); 
 
@@ -95,10 +96,10 @@ void TurretSubsystem::Periodic() {
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
         nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
 
-        re_vTurretMotorRight.GetPosition();
+        // re_vTurretMotorRight.GetPosition();
         m_hTurretMotor.Set(tx * kp_hAim);
 
-        if (true){
+        /* if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
             m_vTurretMotorLeft.Set(ty * kp_vAimty);
 
@@ -106,7 +107,7 @@ void TurretSubsystem::Periodic() {
             m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
             m_vTurretMotorLeft.Set((re_vTurretMotorLeft.GetPosition() - (-700)) * kp_vAimre);
 
-        }   
+        }  */ 
 
     }
 

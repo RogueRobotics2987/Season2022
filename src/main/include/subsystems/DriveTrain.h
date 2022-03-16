@@ -48,10 +48,10 @@ class DriveTrain : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  rev::CANSparkMax LeftBack = rev::CANSparkMax(3, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie
-  rev::CANSparkMax LeftFront = rev::CANSparkMax(4, rev::CANSparkMax::MotorType::kBrushless);//49 on Howie
-  rev::CANSparkMax RightBack = rev::CANSparkMax(16, rev::CANSparkMax::MotorType::kBrushless);//50 on Howie
-  rev::CANSparkMax RightFront = rev::CANSparkMax(1, rev::CANSparkMax::MotorType::kBrushless);//46 on Howie
+  rev::CANSparkMax LeftBack = rev::CANSparkMax(56, rev::CANSparkMax::MotorType::kBrushless);//56 on Howie, 3 on Jaws
+  rev::CANSparkMax LeftFront = rev::CANSparkMax(49, rev::CANSparkMax::MotorType::kBrushless);//49 on Howie, 4 on Jaws
+  rev::CANSparkMax RightBack = rev::CANSparkMax(50, rev::CANSparkMax::MotorType::kBrushless);//50 on Howie, 16 on Jaws
+  rev::CANSparkMax RightFront = rev::CANSparkMax(46, rev::CANSparkMax::MotorType::kBrushless);//46 on Howie, 1 on Jaws
   frc::DifferentialDrive m_robotDrive{LeftFront, RightFront};
 
   rev::SparkMaxRelativeEncoder LeftEncoder = LeftFront.GetEncoder();
@@ -60,7 +60,7 @@ class DriveTrain : public frc2::SubsystemBase {
   
   //for autonomous
 
-  AHRS myAhrs = AHRS(frc::SerialPort::kUSB1);
+  // AHRS myAhrs = AHRS(frc::SerialPort::kUSB1);
   frc::DifferentialDriveOdometry m_odometry = frc::DifferentialDriveOdometry{frc::Rotation2d(units::degree_t(GetHeading()))}; 
   frc::Field2d m_field;
 };

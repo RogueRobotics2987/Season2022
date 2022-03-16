@@ -9,7 +9,7 @@ RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
-  climber.SetDefaultCommand(ClimbCmd(climber, xbox, stick1, stick2));
+  // climber.SetDefaultCommand(ClimbCmd(climber, xbox, stick1, stick2));
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -18,11 +18,11 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
-  frc2::JoystickButton(&stick2, 1).WhenPressed(&m_intakeIn); //wwas xbox 4
+  /* frc2::JoystickButton(&stick2, 1).WhenPressed(&m_intakeIn); //wwas xbox 4
   frc2::JoystickButton(&stick2, 1).WhenReleased(&m_intakeInRelease); 
 
   frc2::JoystickButton(&stick1, 1).WhenPressed(&m_intakeOut); //was xbox 2
-  frc2::JoystickButton(&stick1, 1).WhenReleased(&m_intakeOutRelease); 
+  frc2::JoystickButton(&stick1, 1).WhenReleased(&m_intakeOutRelease);  */
 
 
   // configure to PreAngle command
@@ -32,17 +32,17 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&stick1, 6).WhenPressed(PreAngles(m_turret, 45.0)); 
 
 
-  frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
+  /* frc2::JoystickButton(&xbox, 3).WhenPressed(&m_conveyerForward); //was xbox 1
   frc2::JoystickButton(&xbox, 3).WhenReleased(&m_conveyerForwardRelease); 
 
   frc2::JoystickButton(&xbox, 1).WhenPressed(&m_conveyerBackward); //was stick2 2
-  frc2::JoystickButton(&xbox, 1).WhenReleased(&m_conveyerBackwardRelease); 
+  frc2::JoystickButton(&xbox, 1).WhenReleased(&m_conveyerBackwardRelease);  */
 
   // frc2::JoystickButton(&xbox, 3).WhenPressed(&m_shooter2000); 
   // frc2::JoystickButton(&xbox, 3).WhenReleased(&m_shooterStop); 
 
-  frc2::JoystickButton(&xbox, 6).WhenPressed(&m_shooter2000); //right bumper
-  frc2::JoystickButton(&xbox, 5).WhenPressed(&m_shooterStop); //left bumper
+  // frc2::JoystickButton(&xbox, 6).WhenPressed(&m_shooter2000); //right bumper
+  // frc2::JoystickButton(&xbox, 5).WhenPressed(&m_shooterStop); //left bumper
   
   frc2::JoystickButton(&xbox, 7).WhenPressed(&m_TurtModeAuto); 
   frc2::JoystickButton(&xbox, 7).WhenReleased(&m_TurtModeManu); 
@@ -50,7 +50,8 @@ void RobotContainer::ConfigureButtonBindings() {
   
 }
 
-frc2::Command* RobotContainer::GetTwoBallAuto() {
+// commented out lines 54 - 627
+/* frc2::Command* RobotContainer::GetTwoBallAuto() {
   //frc::TrajectoryConfig config{AutoConstants::kMaxSpeed, AutoConstants::kMaxAcceleration}; 
   //config.SetKinematics(DriveConstants::kDriveKinematics);
 
@@ -623,4 +624,4 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       );
       return pickUp3BallsGroup;
       
-      }
+      } */ // starts at line 54

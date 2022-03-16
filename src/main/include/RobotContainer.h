@@ -9,18 +9,18 @@
 #include "commands/TankDrive.h" 
 #include <frc/Joystick.h>
 #include "rev/CANSparkMax.h"
-#include "subsystems/Intake.h"
+// #include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
 #include "commands/Auto.h"
-#include "subsystems/Shooter.h"
-#include "subsystems/Climber.h"
-#include "commands/ClimbCmd.h"
+// #include "subsystems/Shooter.h"
+// #include "subsystems/Climber.h"
+// #include "commands/ClimbCmd.h"
 #include "subsystems/TurretSubsystem.h"
 #include "commands/TurretCmd.h" 
-#include "commands/AimFor_T.h"
+// #include "commands/AimFor_T.h"
 #include "commands/TimerCMD.h"
-#include "commands/SafeBallShoot.h"
+// #include "commands/SafeBallShoot.h"
 
 #include "commands/PreAngles.h"
 
@@ -40,9 +40,9 @@
 #include <frc/trajectory/TrajectoryUtil.h>
 
 //Sam/Corey(?) stuff
-#include "commands/AimAtTarget.h"
-#include "commands/LimelightSingleTarget.h"
-#include "commands/LimelightTriTarget.h"
+// #include "commands/AimAtTarget.h"
+// #include "commands/LimelightSingleTarget.h"
+// #include "commands/LimelightTriTarget.h"
 
 #include <cameraserver/CameraServer.h>
 
@@ -64,10 +64,10 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain drivetrain;
-  Shooter m_shooter;
-  Intake intake;
+  // Shooter m_shooter;
+  // Intake intake;
   TurretSubsystem m_turret;
-  Climber climber;
+  // Climber climber;
 
   frc::Joystick xbox{0};
   frc::Joystick stick1{1};
@@ -75,7 +75,7 @@ class RobotContainer {
 
   void ConfigureButtonBindings();
 
-  frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
+  /* frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
   frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
 
   frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
@@ -85,10 +85,10 @@ class RobotContainer {
   frc2::InstantCommand m_intakeInRelease{[this] {intake.IntakeInRelease();}, {&intake}};
 
   frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
-  frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
+  frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}}; 
 
   frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
-  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
+  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};  */
 
   frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
   frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};

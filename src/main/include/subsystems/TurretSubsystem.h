@@ -35,12 +35,12 @@ class TurretSubsystem : public frc2::SubsystemBase {
     frc::Joystick* m_xBox = nullptr;
 
     // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-    rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless}; //original motor
-    rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //follower motor
+    // rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless}; //original motor
+    // rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //follower motor
 
     rev::CANSparkMax m_hTurretMotor{61, rev::CANSparkMax::MotorType::kBrushless}; // 14 on Jaws, used 61 on Howie to test
 
-    rev::SparkMaxLimitSwitch ls_vTurretMotorRight = m_vTurretMotorRight.GetForwardLimitSwitch(
+    /* rev::SparkMaxLimitSwitch ls_vTurretMotorRight = m_vTurretMotorRight.GetForwardLimitSwitch(
                               rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
     rev::SparkMaxLimitSwitch ls_vTurretMotorLeft = m_vTurretMotorLeft.GetForwardLimitSwitch(
                               rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
@@ -48,7 +48,8 @@ class TurretSubsystem : public frc2::SubsystemBase {
     //                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
 
     rev::SparkMaxRelativeEncoder re_vTurretMotorRight = m_vTurretMotorRight.GetEncoder();
-    rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();
+    rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();  
+    */
 
     rev::SparkMaxRelativeEncoder re_hTurretMotor = m_hTurretMotor.GetEncoder(); 
 
