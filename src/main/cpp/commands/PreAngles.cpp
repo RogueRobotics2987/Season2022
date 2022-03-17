@@ -24,6 +24,7 @@ void PreAngles::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void PreAngles::Execute() {
+  // turns to the approximate angle
 
   // calculates position value in angles to motor turret value  
   calcPosition = position * 18/45; // fix slope

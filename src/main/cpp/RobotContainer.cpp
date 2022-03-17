@@ -26,8 +26,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 
   // configure to PreAngle command
-  // frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 35.0)); // stick1||2 5-16 or xbox 8
-  
+  // frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 35.0)); // stick1||2 5-16 or xbox 8 // original with encoder value
   frc2::JoystickButton(&stick1, 5).WhenPressed(PreAngles(m_turret, 0.0)); // buttons to test conversion from degrees to encoder revolution
   frc2::JoystickButton(&stick1, 6).WhenPressed(PreAngles(m_turret, 45.0)); 
 
