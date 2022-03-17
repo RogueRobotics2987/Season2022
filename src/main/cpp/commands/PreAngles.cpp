@@ -24,15 +24,15 @@ void PreAngles::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void PreAngles::Execute() {
-  // turns to the approximate angle
+  // turns to the approximate angle, off by -3 degrees
 
   // calculates position value in angles to motor turret value  
-  calcPosition = position * 18/45; // fix slope
+  calcPosition = position * 18/45;
 
   if(m_turret->getHPosition() > calcPosition) {
     m_turret->setAngleH(-0.6);
 
-  } /*else if (position-5 < m_turret->getHPosition() && m_turret->getHPosition() < position+5 ){
+  } /*else if (position-5 < m_turret->getHPosition() && m_turret->getHPosition() < position+5 ){ // original
     m_turret->setAngleH(0.0);
 
   }*/ else if (calcPosition-5 < m_turret->getHPosition() && m_turret->getHPosition() < calcPosition+5 /*m_turret->getHPosition() == calcPosition */) { //find proper margin
