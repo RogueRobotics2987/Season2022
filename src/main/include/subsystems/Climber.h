@@ -8,6 +8,7 @@
 #include <frc/Joystick.h>
 #include "rev/CANSparkMax.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/Servo.h>
 //#include <frc/DigitalInput.h>
 
 
@@ -15,6 +16,8 @@ class Climber : public frc2::SubsystemBase {
  public:
   Climber();
   void ClimbFunction(double climbUpVal, double climbDownVal);
+  void ClimbServoLock();
+  void ClimbServoUnlock();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -28,6 +31,8 @@ class Climber : public frc2::SubsystemBase {
   rev::CANSparkMax m_climbMotorLeft{9, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
   //frc::DigitalInput ls_climbRight{0};
   //frc::DigitalInput ls_climbLeft{1};
+  frc::Servo m_climbServoRight {1}; //don't know the number
+  frc::Servo m_climbServoLeft {2}; //don't knwo the number
 
   rev::SparkMaxRelativeEncoder re_climbMotorRight = m_climbMotorRight.GetEncoder();
   rev::SparkMaxRelativeEncoder re_climbMotorLeft = m_climbMotorLeft.GetEncoder();
