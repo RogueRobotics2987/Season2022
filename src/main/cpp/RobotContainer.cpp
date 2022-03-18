@@ -112,10 +112,11 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
       
         std::move(ramseteCommandTwoBall1_1),
         std::move(ramseteCommandTwoBall1_2),
-          frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1)
-        ),
+        //   frc2::ParallelCommandGroup(
+        //   frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+        //   TimerCMD(1)
+        // ),
+        SafeBallShoot(m_turret, 5), //  TODO FIX 2 BALL AUTO
         // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         /*frc2::ParallelCommandGroup(
@@ -623,6 +624,10 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       return pickUp3BallsGroup;
       
       }
+
+
+
+
 
 
 frc2::Command* RobotContainer::GetLimelightLockOn(){
