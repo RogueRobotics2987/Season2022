@@ -133,12 +133,17 @@ void TurretSubsystem::Periodic() {
         //default settings
         frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
         cur_pipeline = 7; //Mura close settings
+        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
     } else if (cur_stickPOV == 90){
         frc::SmartDashboard::PutNumber("Set RPM 2", 3100);
-        cur_pipeline = 6; //Mura power port
+        cur_pipeline = 6; //Mura launch pad
+        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
         cur_pipeline = 4; //Mura human player spot
+        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+
     } else if (cur_stickPOV == 270){
         frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
     } 
