@@ -444,7 +444,6 @@ frc2::RamseteCommand ramseteCommandTurn180(
         Auto(drivetrain, 0.5, -0.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
-        TimerCMD(3),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
         std::move(ramseteCommandTurn180),
         //   frc2::ParallelCommandGroup(
