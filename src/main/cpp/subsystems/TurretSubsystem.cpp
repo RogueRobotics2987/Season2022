@@ -131,13 +131,16 @@ void TurretSubsystem::Periodic() {
     
     if (cur_stickPOV == 0){
         frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
-        //cur_pipeline = 0;
+        cur_pipeline = 7;
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
+        cur_pipeline = 4;
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
+
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 3700);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 3100);
+        cur_pipeline = 6;
     } 
     
 }
