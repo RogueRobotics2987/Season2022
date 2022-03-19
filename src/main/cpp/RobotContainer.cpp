@@ -5,15 +5,14 @@
 #include "RobotContainer.h"
 
 RobotContainer::RobotContainer() {
-
   // Initialize all of your commands and subsystems here
+  
   drivetrain.SetDefaultCommand(TankDrive(drivetrain, stick1, stick2));
   m_turret.SetDefaultCommand(TurretCmd(m_turret, stick1, stick2, xbox));
   climber.SetDefaultCommand(ClimbCmd(climber, xbox, stick1, stick2));
 
   // Configure the button bindings
   ConfigureButtonBindings();
-  
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -45,8 +44,6 @@ void RobotContainer::ConfigureButtonBindings() {
 
   frc2::JoystickButton(&xbox, 2).WhenPressed(&m_ClimbServoLock); 
   frc2::JoystickButton(&xbox, 4).WhenPressed(&m_ClimbServoUnlock); 
-
-  
 }
 
 frc2::Command* RobotContainer::GetTwoBallAuto() {

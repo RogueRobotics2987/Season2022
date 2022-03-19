@@ -30,8 +30,6 @@ void Climber::Periodic() {
         error_kp = -0.2;
     }
 
-
-
     frc::SmartDashboard::PutNumber("ClimbErrorBase", base_error);
     frc::SmartDashboard::PutNumber("ClimbErrorToMotor", error_kp);
 
@@ -57,17 +55,13 @@ void Climber::Periodic() {
     RC = m_climbMotorRight.GetOutputCurrent();
     LC = m_climbMotorLeft.GetOutputCurrent();
 
-
    /* double bob = 4.33;  // Amps
     double bob = m_climbMotorLeft.GetOutputCurrent();  // Amps
 
     frc::SmartDashboard::PutNumber("LeftClimb", bob); */
-    
-    
 }
 //int myFunc(double in) { return in*3;}
     
-
 void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     frc::SmartDashboard::PutNumber("climbUpVal", climbUpVal);
     frc::SmartDashboard::PutNumber("climbDownVal", climbDownVal);
@@ -80,8 +74,7 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
         climbVal = 0;
     }
 
-    // climbVal = 0.0;
-
+    // climbVal = 0.0
 }
 void Climber::ClimbServoLock(){
     m_climbServoRight.SetAngle(90); //don't know on angles
