@@ -21,7 +21,8 @@ void ClimbCmd::Initialize() {}
 void ClimbCmd::Execute() {
   //Axis 3 is right trigger
   //Axis 2 is left trigger
-  m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
+  //climber commented out temporarily
+  //m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
 }
 
 // Called once the command ends or is interrupted.
