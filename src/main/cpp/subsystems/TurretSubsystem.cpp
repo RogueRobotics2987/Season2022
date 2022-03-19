@@ -130,17 +130,17 @@ void TurretSubsystem::Periodic() {
 
     
     if (cur_stickPOV == 0){
+        //default settings
         frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
-        cur_pipeline = 7;
+        cur_pipeline = 7; //Mura close settings
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
-        cur_pipeline = 4;
-    } else if (cur_stickPOV == 180){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
-
-    } else if (cur_stickPOV == 270){
         frc::SmartDashboard::PutNumber("Set RPM 2", 3100);
-        cur_pipeline = 6;
+        cur_pipeline = 6; //Mura power port
+    } else if (cur_stickPOV == 180){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
+        cur_pipeline = 4; //Mura human player spot
+    } else if (cur_stickPOV == 270){
+        frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
     } 
     
 }
