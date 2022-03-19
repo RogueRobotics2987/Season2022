@@ -130,7 +130,7 @@ void TurretSubsystem::Periodic() {
 
     
     if (cur_stickPOV == 0){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
         //cur_pipeline = 0;
     } else if (cur_stickPOV == 90){
         frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
