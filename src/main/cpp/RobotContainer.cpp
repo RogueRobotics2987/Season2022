@@ -43,6 +43,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&xbox, 7).WhenPressed(&m_TurtModeAuto); 
   frc2::JoystickButton(&xbox, 7).WhenReleased(&m_TurtModeManu); 
 
+  frc2::JoystickButton(&xbox, 2).WhenPressed(&m_ClimbServoLock); 
+  frc2::JoystickButton(&xbox, 4).WhenPressed(&m_ClimbServoUnlock); 
+
   
 }
 
@@ -108,17 +111,18 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         //Turn on intake and spin up shooter
 
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
-        //frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
       
         std::move(ramseteCommandTwoBall1_1),
         std::move(ramseteCommandTwoBall1_2),
-          frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(1)
-        ),
-        // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
-        //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
-        /*frc2::ParallelCommandGroup(
+        /*   frc2::ParallelCommandGroup(
+           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
+           TimerCMD(1)
+         ),*/
+        SafeBallShoot(m_turret, 5), //  TODO FIX 2 BALL AUTO
+        //frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
+        frc2::ParallelCommandGroup(
           TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
@@ -129,22 +133,23 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
           TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
-        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),*/
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
         std::move(ramseteCommandTwoBall1_3),
-        frc2::ParallelCommandGroup(
+       /* frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
           TimerCMD(1)
         ),
-        // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
-
-        /*frc2::ParallelCommandGroup(
+         frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        */ 
+        SafeBallShoot(m_turret,5),
+        frc2::ParallelCommandGroup(
           TimerCMD(5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
-        */
+        
         frc2::InstantCommand([this] {intake.IntakeInRelease();},{&intake}),
-        //frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        //frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
         
@@ -164,7 +169,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
   config.SetKinematics(DriveConstants::kDriveKinematics);
   // config.AddConstraint(autoVoltageConstraint);
 
-  std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/output/startGame.wpilib.json";
+  std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/output/StartGame.wpilib.json";
     // wpi::sys::path::append(startGameFile, "paths/startGame.wpilib.json");
     frc::Trajectory startGame = frc::TrajectoryUtil::FromPathweaverJson(startGameFile);
 
@@ -623,6 +628,10 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       return pickUp3BallsGroup;
       
       }
+
+
+
+
 
 
 frc2::Command* RobotContainer::GetLimelightLockOn(){
