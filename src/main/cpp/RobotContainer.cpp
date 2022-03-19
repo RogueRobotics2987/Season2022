@@ -104,14 +104,15 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
       frc2::SequentialCommandGroup* twoBallGroup = new frc2::SequentialCommandGroup(
        
         //shake intake down
-        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
+        //frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
         //Turn on intake and spin up shooter
 
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+       
       
         std::move(ramseteCommandTwoBall1_1),
         std::move(ramseteCommandTwoBall1_2),
@@ -123,7 +124,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         //frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
-          TimerCMD(0.5),
+          TimerCMD(1.0),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
@@ -133,6 +134,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
           TimerCMD(1.0),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
+        //TimerCMD(0.5),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
         std::move(ramseteCommandTwoBall1_3),
        /* frc2::ParallelCommandGroup(
@@ -571,17 +573,13 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
-        // frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         std::move(ramseteCommandThreeBall1_1),
         std::move(ramseteCommandThreeBall1_2),
         
         // Auto Aim
-        frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(0.5) // was 1.5
-        ),
-        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
-
+        SafeBallShoot(m_turret, 5),
+       
         // Shoot Twice
         frc2::ParallelCommandGroup(
           TimerCMD(0.5),
@@ -599,11 +597,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         std::move(ramseteCommandThreeBall1_3),
         std::move(ramseteCommandThreeBall1_4),
         // Auto Aim Again
-        frc2::ParallelCommandGroup(
-          frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
-          TimerCMD(0.5) // was 1.5
-        ),
-        frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
+        SafeBallShoot(m_turret, 5),
 
         // Shoot Twice Again
         frc2::ParallelCommandGroup(
