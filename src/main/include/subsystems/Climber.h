@@ -27,15 +27,15 @@ class Climber : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
-  rev::CANSparkMax m_climbMotorLeft{9, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+  //rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
+  //rev::CANSparkMax m_climbMotorLeft{9, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
   //frc::DigitalInput ls_climbRight{0};
   //frc::DigitalInput ls_climbLeft{1};
-  frc::Servo m_climbServoRight {1}; //don't know the number
-  frc::Servo m_climbServoLeft {2}; //don't knwo the number
+  frc::Servo m_climbServoRight {0};
+  // frc::Servo m_climbServoLeft {0};
 
-  rev::SparkMaxRelativeEncoder re_climbMotorRight = m_climbMotorRight.GetEncoder();
-  rev::SparkMaxRelativeEncoder re_climbMotorLeft = m_climbMotorLeft.GetEncoder();
+  //rev::SparkMaxRelativeEncoder re_climbMotorRight = m_climbMotorRight.GetEncoder();
+  //rev::SparkMaxRelativeEncoder re_climbMotorLeft = m_climbMotorLeft.GetEncoder();
 
   double climbVal = 0.0;
   double upDeadzone = 0.08;

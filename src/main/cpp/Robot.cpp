@@ -9,14 +9,8 @@
 
 
 void Robot::RobotInit() {
-  m_chooser.AddOption("None", nullptr);
-  m_chooser.AddOption("Close Ball Auto", m_container.GetCloseBallAuto());
-  m_chooser.SetDefaultOption("Three Ball Auto", m_container.GetThreeBallAuto());
-  m_chooser.AddOption("Two Ball Auto", m_container.GetTwoBallAuto());
-  frc::SmartDashboard::PutData(&m_chooser);
-
   // automatically start camera server
-  frc::CameraServer::StartAutomaticCapture();
+  // frc::CameraServer::StartAutomaticCapture();
 }
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -46,11 +40,7 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  m_autonomousCommand = m_chooser.GetSelected();
-
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Schedule();
-  }
+  
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -60,11 +50,11 @@ void Robot::TeleopInit() {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != nullptr) {
-      m_autonomousCommand->Cancel();
+    //if (m_autonomousCommand != nullptr) {
+    //  m_autonomousCommand->Cancel();
       // delete m_autonomousCommand;
       // m_autonomousCommand = nullptr;
-    }
+    //}
 }
 
 

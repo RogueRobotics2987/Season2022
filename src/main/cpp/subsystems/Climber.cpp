@@ -14,51 +14,7 @@ void Climber::Periodic() {
     // climbVal = 0.0;
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
     climbKValue = frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
-    frc::SmartDashboard::PutNumber("ClimbRightPosition", re_climbMotorRight.GetPosition());
-    frc::SmartDashboard::PutNumber("ClimbLeftPosition", re_climbMotorLeft.GetPosition());
-   // frc::SmartDashboard::PutBoolean("Climb Left Limit",ls_climbLeft.Get());
-    //frc::SmartDashboard::PutBoolean("Climb Right Limit", ls_climbRight.Get());
 
-    //changes from ClimberTweaks branch
-    double base_error = re_climbMotorRight.GetPosition() - re_climbMotorLeft.GetPosition();
-    double error_kp = climbKValue*base_error;
-    //m_climbMotorRight.Set(climbVal);
-    if (error_kp > 0.2) {
-        error_kp = 0.2;
-    }
-    if (error_kp < -0.2) {
-        error_kp = -0.2;
-    }
-
-    frc::SmartDashboard::PutNumber("ClimbErrorBase", base_error);
-    frc::SmartDashboard::PutNumber("ClimbErrorToMotor", error_kp);
-
-    /*if (ls_climbRight.Get() != true) {
-        m_climbMotorRight.Set(climbVal - error_kp);
-    } else {
-        m_climbMotorRight.Set(0);
-    }
-    if (ls_climbLeft.Get() != true) {
-        m_climbMotorLeft.Set(climbVal + error_kp); //comment out
-
-    }*/
-    m_climbMotorRight.Set(climbVal - error_kp); // comment out
-    m_climbMotorLeft.Set(climbVal + error_kp); //comment out
-
-    //m_climbMotorRight.Set(climbVal);
-    //m_climbMotorLeft.Set(climbVal);
-    
-    frc::SmartDashboard::PutNumber("ClimbRight", RC); 
-    frc::SmartDashboard::PutNumber("ClimbLeft", LC); 
-    m_climbMotorLeft.GetOutputCurrent();
-    m_climbMotorRight.GetOutputCurrent();
-    RC = m_climbMotorRight.GetOutputCurrent();
-    LC = m_climbMotorLeft.GetOutputCurrent();
-
-   /* double bob = 4.33;  // Amps
-    double bob = m_climbMotorLeft.GetOutputCurrent();  // Amps
-
-    frc::SmartDashboard::PutNumber("LeftClimb", bob); */
 }
 //int myFunc(double in) { return in*3;}
     
@@ -77,10 +33,10 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     // climbVal = 0.0
 }
 void Climber::ClimbServoLock(){
-    m_climbServoRight.SetAngle(90); //don't know on angles
-    m_climbServoLeft.SetAngle(90);
+    m_climbServoRight.SetAngle(270); //don't know on angles
+    // m_climbServoLeft.SetAngle(90);
 }
 void Climber::ClimbServoUnlock(){
     m_climbServoRight.SetAngle(0); //don't know on angles
-    m_climbServoLeft.SetAngle(0);
+    // m_climbServoLeft.SetAngle(0);
 }

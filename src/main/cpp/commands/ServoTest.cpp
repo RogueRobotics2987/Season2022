@@ -15,6 +15,8 @@ ServoTest::ServoTest(Climber& climber, double l_time) {
 void ServoTest::Initialize() {
   m_timer.Reset();
   m_timer.Start();
+
+  m_climber->ClimbServoUnlock();
 }
 
 // Called repeatedly when this Command is scheduled to run

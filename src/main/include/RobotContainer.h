@@ -5,24 +5,12 @@
 #pragma once
 
 #include <frc2/command/Command.h>
-#include "subsystems/DriveTrain.h"
-#include "commands/TankDrive.h" 
 #include <frc/Joystick.h>
 #include "rev/CANSparkMax.h"
-#include "subsystems/Intake.h"
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/button/JoystickButton.h>
-#include "commands/Auto.h"
-#include "subsystems/Shooter.h"
 #include "subsystems/Climber.h"
-#include "commands/ClimbCmd.h"
-#include "subsystems/TurretSubsystem.h"
-#include "commands/TurretCmd.h" 
-#include "commands/AimFor_T.h"
-#include "commands/TimerCMD.h"
-#include "commands/SafeBallShoot.h"
 
-#include "commands/PreAngles.h"
 #include "commands/ServoTest.h"
 
 #include <frc2/command/ParallelCommandGroup.h>
@@ -40,10 +28,6 @@
 #include <frc/Filesystem.h>
 #include <frc/trajectory/TrajectoryUtil.h>
 
-//Sam/Corey(?) stuff
-#include "commands/AimAtTarget.h"
-#include "commands/LimelightSingleTarget.h"
-#include "commands/LimelightTriTarget.h"
 
 #include <cameraserver/CameraServer.h>
 
@@ -65,47 +49,10 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  DriveTrain drivetrain;
-  Shooter m_shooter;
-  Intake intake;
-  TurretSubsystem m_turret;
   Climber climber;
 
   frc::Joystick xbox{0};
   frc::Joystick stick1{1};
   frc::Joystick stick2{2};
-
-  void ConfigureButtonBindings();
-
-  frc2::InstantCommand m_conveyerForward{[this] {intake.ConveyorForward();}, {&intake}};
-  frc2::InstantCommand m_conveyerForwardRelease{[this] {intake.ConveyorForwardRelease();}, {&intake}};
-
-  frc2::InstantCommand m_conveyerBackward{[this] {intake.ConveyorBackward();}, {&intake}};
-  frc2::InstantCommand m_conveyerBackwardRelease{[this] {intake.ConveyorBackwardRelease();}, {&intake}};
-
-  frc2::InstantCommand m_intakeIn{[this] {intake.IntakeIn();}, {&intake}};
-  frc2::InstantCommand m_intakeInRelease{[this] {intake.IntakeInRelease();}, {&intake}};
-
-  frc2::InstantCommand m_intakeOut{[this] {intake.IntakeOut();}, {&intake}};
-  frc2::InstantCommand m_intakeOutRelease{[this] {intake.IntakeOutRelease();}, {&intake}};
-
-  frc2::InstantCommand m_shooter2000{[this] {m_shooter.setShooter();}, {&m_shooter}};
-  frc2::InstantCommand m_shooterStop{[this] {m_shooter.stopShooter();}, {&m_shooter}};
-
-  frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
-  frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
-
-  frc2::InstantCommand m_ClimbServoLock{[this] {climber.ClimbServoLock();}, {&climber}};
-  frc2::InstantCommand m_ClimbServoUnlock{[this] {climber.ClimbServoUnlock();}, {&climber}};
-
-
-  // frc2::InstantCommand m_dropIntake{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
-
-  frc2::Command* m_autonomousCommand;
-
-  frc::Trajectory turn180;
-  frc::Trajectory twoBall1_1;
-  frc::Trajectory twoBall1_2;
-  frc::Trajectory twoBall1_3;
 
 };
