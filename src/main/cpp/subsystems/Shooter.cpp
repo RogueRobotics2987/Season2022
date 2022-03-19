@@ -5,7 +5,7 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter(){
-    shooterMotor2.Follow(shooterMotor,true);
+    shooterMotor2.Follow(shooterMotor,false);
     frc::SmartDashboard::PutNumber("Set RPM 2", TargetRPM); 
    // frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
     frc::SmartDashboard::PutNumber("Set P", kp); 
