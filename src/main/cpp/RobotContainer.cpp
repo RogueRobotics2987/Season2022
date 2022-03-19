@@ -466,7 +466,6 @@ frc2::RamseteCommand ramseteCommandTurn180(
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
         
