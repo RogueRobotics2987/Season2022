@@ -154,7 +154,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
 
         
       );
-
+      //std::cout<<twoBall1_1File<<std::endl;
       return twoBallGroup;
 }
 frc2::Command* RobotContainer::GetCloseBallAuto() {
@@ -169,9 +169,9 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
   config.SetKinematics(DriveConstants::kDriveKinematics);
   // config.AddConstraint(autoVoltageConstraint);
 
-  std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/output/StartGame.wpilib.json";
+  //std::string startGameFile = frc::filesystem::GetDeployDirectory() + "/paths/output/StartGame.wpilib.json";
     // wpi::sys::path::append(startGameFile, "paths/startGame.wpilib.json");
-    frc::Trajectory startGame = frc::TrajectoryUtil::FromPathweaverJson(startGameFile);
+    //frc::Trajectory startGame = frc::TrajectoryUtil::FromPathweaverJson(startGameFile);
 
   // std::string circleFile = frc::filesystem::GetDeployDirectory() + "/paths/Circle.wpilib.json";
   //   frc::Trajectory circle = frc::TrajectoryUtil::FromPathweaverJson(circleFile);
@@ -193,7 +193,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
 
   
 
-  std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/Turn180.wpilib.json";
+  std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/output/Turn180.wpilib.json";
   turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
 
 
@@ -229,7 +229,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
 //       {&drivetrain});
 
 // First Pathweaver Test
-frc2::RamseteCommand ramseteCommandStartGame(
+/*frc2::RamseteCommand ramseteCommandStartGame(
       startGame, [this]() { return drivetrain.GetPose(); },
       frc::RamseteController(AutoConstants::kRamseteB,
                              AutoConstants::kRamseteZeta),
@@ -240,7 +240,7 @@ frc2::RamseteCommand ramseteCommandStartGame(
       frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
       frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
       [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
-      {&drivetrain});
+      {&drivetrain});*/
 
 // Circle around the arena
 // frc2::RamseteCommand ramseteCommandCircle(
@@ -352,10 +352,10 @@ frc2::RamseteCommand ramseteCommandTurn180(
       //   // Auto Aim
       //   //Shooter
       // );
-      frc2::SequentialCommandGroup* startGameGroup = new frc2::SequentialCommandGroup(
+      /*frc2::SequentialCommandGroup* startGameGroup = new frc2::SequentialCommandGroup(
         std::move(ramseteCommandStartGame),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
-      );
+      );*/
       // frc2::SequentialCommandGroup* circleGroup = new frc2::SequentialCommandGroup(
       //   std::move(ramseteCommandCircle),
       //   frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {})
@@ -487,6 +487,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
       // return bluePosition3Group;
       // return backFromWallGroup;
       // return rotate180Group;
+      //std::cout<<turn180File<<std::endl;
       return pickUpCloseBallGroup;
       // return runShooterTestGroup;
 
@@ -625,6 +626,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
 
 
       );
+      //std::cout<< threeBall1_1File<<std::endl;
       return pickUp3BallsGroup;
       
       }
