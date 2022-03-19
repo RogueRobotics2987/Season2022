@@ -26,7 +26,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
-    // frc::SmartDashboard::PutBoolean("Target Locked", false);
+    frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
 
     frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
@@ -81,18 +81,18 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == DRIVER_SHOOT){
 
-        // float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
-        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
         m_vTurretMotorRight.Set(cur_stickValV); 
         m_vTurretMotorLeft.Set(cur_stickValV); 
 
-        // if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            // frc::SmartDashboard::PutBoolean("Target Locked", true);
-    // }
-        // else {
-            // frc::SmartDashboard::PutBoolean("Target Locked", false);
-        // }
+        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+    }
+        else {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+        }
 
         m_hTurretMotor.Set(cur_stickValH); 
 
@@ -108,6 +108,13 @@ void TurretSubsystem::Periodic() {
 
         re_vTurretMotorRight.GetPosition();
         m_hTurretMotor.Set(tx * kp_hAim);
+
+        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+        }
+        else {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+        }
 
         if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
