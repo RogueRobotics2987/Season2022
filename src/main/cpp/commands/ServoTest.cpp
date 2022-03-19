@@ -20,12 +20,12 @@ void ServoTest::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ServoTest::Execute() {
   
-  if(double(m_timer.Get()) < m_time) {
+  /*if(double(m_timer.Get()) < m_time) {
     m_climber->ClimbServoLock();
 
   } else {
     m_climber->ClimbServoUnlock();
-  }
+  }*/
 
 }
 

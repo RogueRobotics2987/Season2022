@@ -15,13 +15,20 @@ ClimbCmd::ClimbCmd(Climber& climber, frc::Joystick& xbox, frc::Joystick& stick1,
 }
 
 // Called when the command is initially scheduled.
-void ClimbCmd::Initialize() {}
+void ClimbCmd::Initialize() {
+  matchTimer.Reset();
+  matchTimer.Start();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimbCmd::Execute() {
   //Axis 3 is right trigger
   //Axis 2 is left trigger
   m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
+
+  if((150 - matchTimer.Get() < .5) /*&& climb lock is disabled*/){
+    m_climber->ClimbServoLock(); 
+  }
 }
 
 // Called once the command ends or is interrupted.

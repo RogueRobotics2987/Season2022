@@ -8,6 +8,9 @@
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Climber.h"
 
+#include <frc/timer.h>
+
+
 /**
  * An example command.
  *
@@ -33,4 +36,7 @@ class ClimbCmd
     frc::Joystick* m_xbox = nullptr;
     frc::Joystick* m_stick1 = nullptr;
     frc::Joystick* m_stick2 = nullptr;
+
+    double m_time = 0.0;
+    frc::Timer matchTimer;
 };
