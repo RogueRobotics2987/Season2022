@@ -121,19 +121,19 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
          ),*/
         SafeBallShoot(m_turret, 5), //  TODO FIX 2 BALL AUTO
         //frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
-        frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
+        //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
-          TimerCMD(1.0),
+          TimerCMD(0.5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
         TimerCMD(0.5),
         
-        /*frc2::ParallelCommandGroup(
-          TimerCMD(0.5),
+        frc2::ParallelCommandGroup(
+          TimerCMD(1.0),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
-        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),*/
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
         std::move(ramseteCommandTwoBall1_3),
        /* frc2::ParallelCommandGroup(
           frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
