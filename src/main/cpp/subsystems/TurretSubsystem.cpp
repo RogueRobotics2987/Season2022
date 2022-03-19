@@ -26,7 +26,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
-    frc::SmartDashboard::PutBoolean("Target Locked", false);
+    frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
 
     frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
@@ -88,10 +88,10 @@ void TurretSubsystem::Periodic() {
         m_vTurretMotorLeft.Set(cur_stickValV); 
 
         if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            frc::SmartDashboard::PutBoolean("Target Locked", true);
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
     }
         else {
-            frc::SmartDashboard::PutBoolean("Target Locked", false);
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
         }
 
         m_hTurretMotor.Set(cur_stickValH); 
