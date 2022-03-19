@@ -109,6 +109,13 @@ void TurretSubsystem::Periodic() {
         re_vTurretMotorRight.GetPosition();
         m_hTurretMotor.Set(tx * kp_hAim);
 
+        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+        }
+        else {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+        }
+
         if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
             m_vTurretMotorLeft.Set(ty * kp_vAimty);
