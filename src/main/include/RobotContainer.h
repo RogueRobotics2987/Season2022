@@ -23,6 +23,7 @@
 #include "commands/SafeBallShoot.h"
 
 #include "commands/PreAngles.h"
+#include "commands/ServoTest.h"
 
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>
