@@ -63,6 +63,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
     int cur_pipeline = 3;
     int cur_stickPOV = 0;
+    // bool m_onTarget = false;
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
 };

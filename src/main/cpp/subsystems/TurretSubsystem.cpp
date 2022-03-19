@@ -26,6 +26,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
+    // frc::SmartDashboard::PutBoolean("Target Locked", false);
 
     frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
@@ -80,9 +81,19 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == DRIVER_SHOOT){
 
+        // float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+
         m_vTurretMotorRight.Set(cur_stickValV); 
         m_vTurretMotorLeft.Set(cur_stickValV); 
-        
+
+        // if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            // frc::SmartDashboard::PutBoolean("Target Locked", true);
+    // }
+        // else {
+            // frc::SmartDashboard::PutBoolean("Target Locked", false);
+        // }
+
         m_hTurretMotor.Set(cur_stickValH); 
 
         //m_VerturretMotor.Set(m_xBox->GetRawAxis(1));
