@@ -80,6 +80,7 @@ void TurretSubsystem::Periodic() {
         }
 
     } else if (TurretState == DRIVER_SHOOT){
+        cur_pipeline = nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr") -> GetNumber("pipeline", cur_pipeline);
 
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
@@ -132,17 +133,15 @@ void TurretSubsystem::Periodic() {
     if (cur_stickPOV == 0){
         //default settings
         frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
-        cur_pipeline = 7; //Mura close settings
-        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+        //cur_pipeline = 0; in Sam's code
+        frc::SmartDashboard::PutNumber("pipeline", 7);//Mura close settings
     } else if (cur_stickPOV == 90){
         frc::SmartDashboard::PutNumber("Set RPM 2", 3100);
-        cur_pipeline = 6; //Mura launch pad
-        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+        frc::SmartDashboard::PutNumber("pipeline", 6);//Mura launch pad
 
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
-        cur_pipeline = 4; //Mura human player spot
-        frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+        frc::SmartDashboard::PutNumber("pipeline", 4);//Mura human player spot
 
     } else if (cur_stickPOV == 270){
         frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
