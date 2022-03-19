@@ -5,7 +5,7 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter(){
-    shooterMotor2.Follow(shooterMotor,false);
+    shooterMotor2.Follow(shooterMotor,false); //false means it is not inverted
     frc::SmartDashboard::PutNumber("Set RPM 2", TargetRPM); 
    // frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
     frc::SmartDashboard::PutNumber("Set P", kp); 

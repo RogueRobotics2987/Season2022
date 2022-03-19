@@ -37,7 +37,7 @@ class Shooter : public frc2::SubsystemBase {
   rev::CANSparkMax shooterMotor2= rev::CANSparkMax(11, rev::CANSparkMax::MotorType::kBrushless);
   rev::SparkMaxPIDController shooterPID= shooterMotor.GetPIDController();
   rev::SparkMaxRelativeEncoder shooterEncoder= shooterMotor.GetEncoder(); // might be wrong type of encoder
-  double TargetRPM = 4000;
+  double TargetRPM = 2500;
   double kp = 1E-4;
   double ki = 0; 
   double kd = 0;

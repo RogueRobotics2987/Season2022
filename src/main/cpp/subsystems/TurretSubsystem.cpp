@@ -70,7 +70,7 @@ void TurretSubsystem::Periodic() {
         }
     } else if (TurretState == PRESHOOT_RAISE){
         
-        if(re_vTurretMotorRight.GetPosition() > -400) {
+        if(re_vTurretMotorRight.GetPosition() > -200) {//was -400
             m_vTurretMotorRight.Set(-1.0);
             m_vTurretMotorLeft.Set(-1.0);
         } else {
