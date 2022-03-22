@@ -26,7 +26,7 @@ void TurretSubsystem::Periodic() {
 
     frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
-    // frc::SmartDashboard::PutBoolean("Target Locked", false);
+    frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
 
     frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
@@ -34,7 +34,8 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
 
-    frc::SmartDashboard::PutNumber("pipeline", cur_pipeline);
+    //nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
+
 
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
 
@@ -70,7 +71,7 @@ void TurretSubsystem::Periodic() {
         }
     } else if (TurretState == PRESHOOT_RAISE){
         
-        if(re_vTurretMotorRight.GetPosition() > -400) {
+        if(re_vTurretMotorRight.GetPosition() > -200) {//was -400
             m_vTurretMotorRight.Set(-1.0);
             m_vTurretMotorLeft.Set(-1.0);
         } else {
@@ -81,18 +82,18 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == DRIVER_SHOOT){
 
-        // float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
-        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
         m_vTurretMotorRight.Set(cur_stickValV); 
         m_vTurretMotorLeft.Set(cur_stickValV); 
 
-        // if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            // frc::SmartDashboard::PutBoolean("Target Locked", true);
-    // }
-        // else {
-            // frc::SmartDashboard::PutBoolean("Target Locked", false);
-        // }
+        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+    }
+        else {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+        }
 
         m_hTurretMotor.Set(cur_stickValH); 
 
@@ -101,13 +102,19 @@ void TurretSubsystem::Periodic() {
         //ledMode 
         // 3 on 
         // 0 off 
-        cur_pipeline = nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr") -> GetNumber("pipeline", cur_pipeline);
+        //cur_pipeline = nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr") -> GetNumber("pipeline", cur_pipeline);
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
-        nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
 
         re_vTurretMotorRight.GetPosition();
         m_hTurretMotor.Set(tx * kp_hAim);
+
+        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+        }
+        else {
+            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+        }
 
         if (true){
             m_vTurretMotorRight.Set(ty * kp_vAimty);
@@ -123,14 +130,20 @@ void TurretSubsystem::Periodic() {
 
     
     if (cur_stickPOV == 0){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
-        cur_pipeline = 0;
+        //default settings
+        frc::SmartDashboard::PutNumber("Set RPM 2", 2500);//was 4000
+        //cur_pipeline = 0; in Sam's code
+        cur_pipeline = 7;//Mura close settings
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 4500);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 3100);
+        cur_pipeline = 6;//Mura launch pad
+
     } else if (cur_stickPOV == 180){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 5200);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 3900);
+        cur_pipeline = 4;//Mura human player spot
+
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Set RPM 2", 3700);
+        frc::SmartDashboard::PutNumber("Set RPM 2", 4000);
     } 
     
 }

@@ -51,7 +51,7 @@ class Intake : public frc2::SubsystemBase {
   int stateIntake = 0; 
   double intakeSpeed = 0.0;
   double intakeSpeedOut = 0.4;
-  double intakeSpeedIn = 0.6;
+  double intakeSpeedIn = 0.7;//original was 0.6
 
   bool conveyorSigFwd = false;
   bool conveyorSigBack = false;
