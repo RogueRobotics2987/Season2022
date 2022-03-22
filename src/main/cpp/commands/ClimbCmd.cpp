@@ -25,7 +25,7 @@ void ClimbCmd::Initialize() {
 void ClimbCmd::Execute() {
   //Axis 3 is right trigger
   //Axis 2 is left trigger
-  m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
+  //m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
 
   /*if((150 - matchTimer.Get() < .5) /*&& climb lock is disabled*){
     m_climber->ClimbServoLock();
