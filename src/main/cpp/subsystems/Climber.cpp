@@ -77,10 +77,10 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     // climbVal = 0.0
 }
 void Climber::ClimbServoLock(){
-    m_climbServoRight.SetAngle(120); //don't know on angles
+    m_climbServoRight.SetAngle(120);
     m_climbServoLeft.SetAngle(120);
 }
 void Climber::ClimbServoUnlock(){
-    m_climbServoRight.SetAngle(0); //don't know on angles
+    m_climbServoRight.SetAngle(0);
     m_climbServoLeft.SetAngle(0);
 }
