@@ -26,9 +26,9 @@ void ClimbCmd::Execute() {
   //Axis 2 is left trigger
   m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
 
-  if((150 - matchTimer.Get() < .5) /*&& climb lock is disabled*/){
+  /*if((150 - matchTimer.Get() < .5) /*&& climb lock is disabled*){
     m_climber->ClimbServoLock(); 
-  }
+  }*/
 }
 
 // Called once the command ends or is interrupted.
