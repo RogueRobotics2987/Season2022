@@ -7,6 +7,9 @@
 Climber::Climber(){
     //m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
     frc::SmartDashboard::PutNumber("climbKValue", climbKValue);
+    frc::SmartDashboard::PutBoolean("Climb Servo Enable", enableServo);
+    frc::SmartDashboard::PutBoolean("Climb Servo Unlock", servoUnlock);
+    frc::SmartDashboard::PutBoolean("Climber Enable", enableClimber);
 }
 
 // This method will be called once per scheduler run
@@ -31,6 +34,8 @@ void Climber::Periodic() {
     }
 
 
+    enableServo = frc::SmartDashboard::GetBoolean("Climb Servo Enable", enableServo); 
+    enableClimber = frc::SmartDashboard::GetBoolean("Climber Enable", enableClimber);
 
     frc::SmartDashboard::PutNumber("ClimbErrorBase", base_error);
     frc::SmartDashboard::PutNumber("ClimbErrorToMotor", error_kp);
@@ -72,9 +77,9 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     frc::SmartDashboard::PutNumber("climbUpVal", climbUpVal);
     frc::SmartDashboard::PutNumber("climbDownVal", climbDownVal);
 
-    if((fabs(climbUpVal) > upDeadzone) && (climbDownVal < downDeadzone)){
+    if((fabs(climbUpVal) > upDeadzone) && (climbDownVal < downDeadzone) && (enableClimber == true)){
         climbVal = climbUpVal - upDeadzone;
-    } else if((fabs(climbDownVal) > downDeadzone) && (climbUpVal < upDeadzone)){
+    } else if((fabs(climbDownVal) > downDeadzone) && (climbUpVal < upDeadzone) && (enableClimber == true)){
         climbVal = -(climbDownVal - downDeadzone);
     } else {
         climbVal = 0;
@@ -84,10 +89,16 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
 
 }
 void Climber::ClimbServoLock(){
-   // m_climbServoRight.SetAngle(120);
-    //m_climbServoLeft.SetAngle(120);
+    frc::SmartDashboard::PutBoolean("Climb Servo Unlock", false); //red is locked
+    if (enableServo == true){
+        m_climbServoRight.SetAngle(120);
+        m_climbServoLeft.SetAngle(120);
+   }
 }
 void Climber::ClimbServoUnlock(){
-   // m_climbServoRight.SetAngle(0);
-    //m_climbServoLeft.SetAngle(0);
+    frc::SmartDashboard::PutBoolean("Climb Servo Unlock", true); //green is unlocked
+    if (enableServo == true){
+        m_climbServoRight.SetAngle(0);
+        m_climbServoLeft.SetAngle(0);
+    }
 }

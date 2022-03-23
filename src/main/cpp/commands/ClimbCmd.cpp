@@ -11,7 +11,7 @@ ClimbCmd::ClimbCmd(Climber& climber, frc::Joystick& xbox, frc::Joystick& stick1,
   m_stick2 = &stick2;
   m_climber = &climber;
   AddRequirements({m_climber});
-
+  //frc::SmartDashboard::PutBoolean("Climb Enable AutoLock", climbAutoLock);
 }
 
 // Called when the command is initially scheduled.
@@ -25,9 +25,10 @@ void ClimbCmd::Initialize() {
 void ClimbCmd::Execute() {
   //Axis 3 is right trigger
   //Axis 2 is left trigger
-  //m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
+  //climbAutoLock = frc::SmartDashboard::GetBoolean("Climb Enable AutoLock", climbAutoLock);
+  m_climber->ClimbFunction(m_xbox->GetRawAxis(3), m_xbox->GetRawAxis(2));
 
-  /*if((150 - matchTimer.Get() < .5) /*&& climb lock is disabled*){
+  /*if((150 - matchTimer.Get() < .5) && (climbAutoLock == true)){
     m_climber->ClimbServoLock();
   }*/
 }

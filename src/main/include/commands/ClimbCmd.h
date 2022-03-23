@@ -38,4 +38,6 @@ class ClimbCmd
 
     double m_time = 0.0;
     frc::Timer matchTimer;
+    bool climbAutoLock = false;
+    bool servoUnlockVar = false;
 };

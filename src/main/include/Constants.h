@@ -13,7 +13,8 @@ namespace DriveConstants{
     constexpr auto ka = 0.27535 * 1_V * 1_s * 1_s / 1_m; 
     // constexpr double kPDriveVel = 1.69; 
     constexpr double kPDriveVel = 0.00001; 
-    constexpr auto trackWidth = 0.784_m; 
+    constexpr auto trackWidth = 0.58_m; 
+    //constexpr auto trackWidth = 0.784_m; //February 2022
     extern const frc::DifferentialDriveKinematics kDriveKinematics;
     constexpr int kEncoderCPR = 1024; 
 

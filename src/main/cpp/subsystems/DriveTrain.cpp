@@ -42,7 +42,8 @@ void DriveTrain::Periodic() {
     //frc::SmartDashboard::PutNumber("Output Voltage Left BusVoltage", LeftFront.GetBusVoltage());
     //frc::SmartDashboard::PutNumber("Output Voltage Right GetApplied", RightFront.GetAppliedOutput());
     //frc::SmartDashboard::PutNumber("Output Voltage Left GetApplied", LeftFront.GetAppliedOutput());
-
+    frc::SmartDashboard::PutNumber("Drive Left Applied Output", LeftFront.GetAppliedOutput());
+    frc::SmartDashboard::PutNumber("Drive Right Applied Output", RightFront.GetAppliedOutput());
 
     m_odometry.Update(
         frc::Rotation2d(GetHeading()), 

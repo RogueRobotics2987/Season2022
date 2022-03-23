@@ -44,6 +44,8 @@ class Climber : public frc2::SubsystemBase {
   double LC = 0.0;
   double error = 0.0;
   double climbKValue = 0.0;
-  
+  bool enableServo = false;
+  bool enableClimber = true;
+  bool servoUnlock = false;
 
 };
