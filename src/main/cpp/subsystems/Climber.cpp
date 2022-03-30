@@ -92,13 +92,13 @@ void Climber::ClimbServoLock(){
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", false); //red is locked
     if (enableServo == true){
         m_climbServoRight.SetAngle(120);
-        m_climbServoLeft.SetAngle(120);
+        m_climbServoLeft.SetAngle(0);
    }
 }
 void Climber::ClimbServoUnlock(){
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", true); //green is unlocked
     if (enableServo == true){
         m_climbServoRight.SetAngle(0);
-        m_climbServoLeft.SetAngle(0);
+        m_climbServoLeft.SetAngle(120);
     }
 }
