@@ -40,7 +40,7 @@ class Intake : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_intakeMotor = rev::CANSparkMax(62, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax m_conveyorMotor = rev::CANSparkMax(6, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax m_loadIntoShooterMotor = rev::CANSparkMax(12, rev::CANSparkMax::MotorType::kBrushless);
+  // rev::CANSparkMax m_loadIntoShooterMotor = rev::CANSparkMax(12, rev::CANSparkMax::MotorType::kBrushless);
 
   frc::Timer SerialTime;
 
