@@ -8,8 +8,9 @@ TurretSubsystem::TurretSubsystem() {
     frc::SmartDashboard::PutNumber("kp_hAim", kp_hAim);
     frc::SmartDashboard::PutNumber("kp_vAimty", kp_vAimty);
     frc::SmartDashboard::PutNumber("kp_vAimre", kp_vAimre);
-    m_vTurretMotorLeft.SetOpenLoopRampRate(0.2);
-    m_vTurretMotorRight.SetOpenLoopRampRate(0.2);
+    // m_vTurretMotorLeft.SetOpenLoopRampRate(0.2);
+    // m_vTurretMotorRight.SetOpenLoopRampRate(0.2);
+    m_vTurretMotorCenter.SetOpenLoopRampRate(0.2);
 
     //m_vTurretMotorLeft.Follow(m_vTurretMotorLeft);
 }
@@ -24,12 +25,14 @@ void TurretSubsystem::Periodic() {
     kp_vAimre = frc::SmartDashboard::GetNumber("kp_vAimre", kp_vAimre); //Vertical Aim
 
 
-    frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
-    frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
+    frc::SmartDashboard::PutBoolean("Turret Center Limit Switch Vert", ls_vTurretMotorCenter.Get());
+    // frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
+    // frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
     frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
 
-    frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
-    frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
+    frc::SmartDashboard::PutNumber("Right Encoder for vert shooter", re_vTurretMotorCenter.GetPosition());
+    // frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
+    // frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
 
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
@@ -40,43 +43,53 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
 
     if(TurretState == R_BOTH){
-        m_vTurretMotorRight.Set(0.2);
-        m_vTurretMotorLeft.Set(0.2);
+        // m_vTurretMotorRight.Set(0.2);
+        // m_vTurretMotorLeft.Set(0.2);
 
-        if(ls_vTurretMotorRight.Get() == true) { 
-            TurretState = R_LEFT;
-            re_vTurretMotorRight.SetPosition(0);
-        } 
-        if(ls_vTurretMotorLeft.Get() == true) { 
-            TurretState = R_RIGHT;
-            re_vTurretMotorLeft.SetPosition(0);
-        } 
+        // if(ls_vTurretMotorRight.Get() == true) { 
+        //     TurretState = R_LEFT;
+        //     re_vTurretMotorRight.SetPosition(0);
+        // } 
+        // if(ls_vTurretMotorLeft.Get() == true) { 
+        //     TurretState = R_RIGHT;
+        //     re_vTurretMotorLeft.SetPosition(0);
+        // } 
 
-    } else if(TurretState == R_LEFT){
-        m_vTurretMotorRight.Set(0.0);
-        m_vTurretMotorLeft.Set(0.2);
+    } else if(TurretState == R_CENTER){
+        m_vTurretMotorCenter.Set(-0.2);
 
-        if(ls_vTurretMotorLeft.Get() == true) { 
+        if(ls_vTurretMotorCenter.Get() == true) { 
             TurretState = PRESHOOT_RAISE; 
-            re_vTurretMotorLeft.SetPosition(0);
+            re_vTurretMotorCenter.SetPosition(0);
         } 
+        
+    } else if(TurretState == R_LEFT){
+        // m_vTurretMotorRight.Set(0.0);
+        // m_vTurretMotorLeft.Set(0.2);
+
+        // if(ls_vTurretMotorLeft.Get() == true) { 
+        //     TurretState = PRESHOOT_RAISE; 
+        //     re_vTurretMotorLeft.SetPosition(0);
+        // } 
         
     } else if(TurretState == R_RIGHT){
-        m_vTurretMotorRight.Set(0.2);
-        m_vTurretMotorLeft.Set(0.0);
+        // m_vTurretMotorRight.Set(0.2);
+        // m_vTurretMotorLeft.Set(0.0);
 
-        if(ls_vTurretMotorRight.Get() == true) { 
-            TurretState = PRESHOOT_RAISE;
-            re_vTurretMotorRight.SetPosition(0);
-        }
+        // if(ls_vTurretMotorRight.Get() == true) { 
+        //     TurretState = PRESHOOT_RAISE;
+        //     re_vTurretMotorRight.SetPosition(0);
+        // }
     } else if (TurretState == PRESHOOT_RAISE){
         
-        if(re_vTurretMotorRight.GetPosition() > -200) {//was -400
-            m_vTurretMotorRight.Set(-1.0);
-            m_vTurretMotorLeft.Set(-1.0);
+        if(re_vTurretMotorCenter.GetPosition() > -200) {//was -400
+            m_vTurretMotorCenter.Set(1.0);
+            // m_vTurretMotorRight.Set(-1.0);
+            // m_vTurretMotorLeft.Set(-1.0);
         } else {
-            m_vTurretMotorRight.Set(0.0);
-            m_vTurretMotorLeft.Set(0.0);
+            m_vTurretMotorCenter.Set(0.0);
+            // m_vTurretMotorRight.Set(0.0);
+            // m_vTurretMotorLeft.Set(0.0);
             TurretState = DRIVER_SHOOT;
         }
 
@@ -85,8 +98,9 @@ void TurretSubsystem::Periodic() {
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
-        m_vTurretMotorRight.Set(cur_stickValV); 
-        m_vTurretMotorLeft.Set(cur_stickValV); 
+        m_vTurretMotorCenter.Set(-cur_stickValV); 
+        // m_vTurretMotorRight.Set(cur_stickValV); 
+        // m_vTurretMotorLeft.Set(cur_stickValV); 
 
         if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
             frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
@@ -106,7 +120,7 @@ void TurretSubsystem::Periodic() {
         float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
-        re_vTurretMotorRight.GetPosition();
+        // re_vTurretMotorRight.GetPosition();  // Orser removed 3/26, shouldn't do anything?
         m_hTurretMotor.Set(tx * kp_hAim);
 
         if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
@@ -117,12 +131,14 @@ void TurretSubsystem::Periodic() {
         }
 
         if (true){
-            m_vTurretMotorRight.Set(ty * kp_vAimty);
-            m_vTurretMotorLeft.Set(ty * kp_vAimty);
+            m_vTurretMotorCenter.Set(-1.0 * ty * kp_vAimty);
+            // m_vTurretMotorRight.Set(ty * kp_vAimty);
+            // m_vTurretMotorLeft.Set(ty * kp_vAimty);
 
         } else {
-            m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
-            m_vTurretMotorLeft.Set((re_vTurretMotorLeft.GetPosition() - (-700)) * kp_vAimre);
+            m_vTurretMotorCenter.Set(-1.0 * (re_vTurretMotorCenter.GetPosition() - (-700)) * kp_vAimre);
+            // m_vTurretMotorRight.Set((re_vTurretMotorRight.GetPosition() - (-700)) * kp_vAimre);
+            // m_vTurretMotorLeft.Set((re_vTurretMotorLeft.GetPosition() - (-700)) * kp_vAimre);
 
         }   
 
