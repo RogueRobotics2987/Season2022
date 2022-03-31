@@ -5,7 +5,7 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-    //m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
+    //m_climbMotorLeft.Follow(m_climbMotorRight, true);
     m_climbMotorLeft.SetInverted(true);
     m_climbMotorRight.SetInverted(false);
     m_pitchMotorLeft.SetInverted(true);
@@ -23,7 +23,7 @@ void Climber::Periodic() {
     climbKValue = frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
     frc::SmartDashboard::PutNumber("ClimbRightPosition", re_climbMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("ClimbLeftPosition", re_climbMotorLeft.GetPosition());
-   // frc::SmartDashboard::PutBoolean("Climb Left Limit",ls_climbLeft.Get());
+    //frc::SmartDashboard::PutBoolean("Climb Left Limit",ls_climbLeft.Get());
     //frc::SmartDashboard::PutBoolean("Climb Right Limit", ls_climbRight.Get());
 
     //changes from ClimberTweaks branch
@@ -98,17 +98,6 @@ void Climber::ClimbPitch(double forwardSpeed){
 
     m_pitchMotorRight.Set(forwardSpeed);
     m_pitchMotorLeft.Set(forwardSpeed);
-
-    // if((fabs(climbUpVal) > upDeadzone) && (climbDownVal < downDeadzone) && (enableClimber == true)){
-    //     climbVal = climbUpVal - upDeadzone;
-    // } else if((fabs(climbDownVal) > downDeadzone) && (climbUpVal < upDeadzone) && (enableClimber == true)){
-    //     climbVal = -(climbDownVal - downDeadzone);
-    // } else {
-    //     climbVal = 0;
-    // }
-
-    // climbVal = 0.0;
-
 }
 
 void Climber::ClimbServoLock(){

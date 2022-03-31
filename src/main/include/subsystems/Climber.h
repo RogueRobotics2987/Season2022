@@ -29,9 +29,9 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
-  rev::CANSparkMax m_climbMotorLeft{5, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
-  rev::CANSparkMax m_pitchMotorRight{2, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
-  rev::CANSparkMax m_pitchMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+  rev::CANSparkMax m_climbMotorLeft{5, rev::CANSparkMax::MotorType::kBrushless}; //was #9, changed to 5
+  rev::CANSparkMax m_pitchMotorRight{2, rev::CANSparkMax::MotorType::kBrushless}; 
+  rev::CANSparkMax m_pitchMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; 
   //frc::DigitalInput ls_climbRight{0};
   //frc::DigitalInput ls_climbLeft{1};
   frc::Servo m_climbServoRight {1}; //don't know the number

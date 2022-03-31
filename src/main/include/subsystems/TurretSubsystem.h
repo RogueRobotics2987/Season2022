@@ -34,10 +34,9 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
     frc::Joystick* m_xBox = nullptr;
 
-    // rev::CANSparkMax m_turret = rev::CANSparkMax(60, rev::CANSparkMax::MotorType::kBrushless);
-    // rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless}; //original motor
-    // rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //follower motor
-    rev::CANSparkMax m_vTurretMotorCenter{12, rev::CANSparkMax::MotorType::kBrushless}; //follower motor
+    // rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless};
+    // rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax m_vTurretMotorCenter{12, rev::CANSparkMax::MotorType::kBrushless}; 
 
     rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
     // rev::SparkMaxLimitSwitch ls_vTurretMotorRight = m_vTurretMotorRight.GetForwardLimitSwitch(

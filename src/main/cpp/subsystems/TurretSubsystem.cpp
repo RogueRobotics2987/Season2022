@@ -28,14 +28,14 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutBoolean("Turret Center Limit Switch Vert", ls_vTurretMotorCenter.Get());
     // frc::SmartDashboard::PutBoolean("Right Limit switch for vert shooter, ", ls_vTurretMotorRight.Get());
     // frc::SmartDashboard::PutBoolean("Left Limit switch for vert shooter, ", ls_vTurretMotorLeft.Get());
-    frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+    frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", false);
 
-    frc::SmartDashboard::PutNumber("Right Encoder for vert shooter", re_vTurretMotorCenter.GetPosition());
+    frc::SmartDashboard::PutNumber("Turret Vert Encoder", re_vTurretMotorCenter.GetPosition());
     // frc::SmartDashboard::PutNumber("Right Encoder for vert shooter, ", re_vTurretMotorRight.GetPosition());
     // frc::SmartDashboard::PutNumber("Left Encoder for vert shooter, ", re_vTurretMotorLeft.GetPosition());
 
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
-    frc::SmartDashboard::PutNumber("turretScaleVal", turretScaleVal);
+    frc::SmartDashboard::PutNumber("TurretScaleVal", turretScaleVal);
 
     //nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
 
@@ -83,7 +83,7 @@ void TurretSubsystem::Periodic() {
     } else if (TurretState == PRESHOOT_RAISE){
         
         if(re_vTurretMotorCenter.GetPosition() > -200) {//was -400
-            m_vTurretMotorCenter.Set(1.0);
+            m_vTurretMotorCenter.Set(1.0); //might be inverted
             // m_vTurretMotorRight.Set(-1.0);
             // m_vTurretMotorLeft.Set(-1.0);
         } else {
@@ -103,10 +103,10 @@ void TurretSubsystem::Periodic() {
         // m_vTurretMotorLeft.Set(cur_stickValV); 
 
         if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", true);
     }
         else {
-            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", false);
         }
 
         m_hTurretMotor.Set(cur_stickValH); 
@@ -124,10 +124,10 @@ void TurretSubsystem::Periodic() {
         m_hTurretMotor.Set(tx * kp_hAim);
 
         if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            frc::SmartDashboard::PutBoolean("Manual Target Locked", true);
+            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", true);
         }
         else {
-            frc::SmartDashboard::PutBoolean("Manual Target Locked", false);
+            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", false);
         }
 
         if (true){
@@ -179,7 +179,7 @@ void TurretSubsystem::setAngleV(float l_stickValV) {
 
 void TurretSubsystem::setAngleH(float l_stickValH) {
     //std::cout << "setAngleH val " << l_stickValH << ",";
-    frc::SmartDashboard::GetNumber("turretScaleVal", turretScaleVal);
+    frc::SmartDashboard::GetNumber("TurretScaleVal", turretScaleVal);
     // Generate Deadzone with Offset-Shift
     if(l_stickValH > 0.15) {
         cur_stickValH = turretScaleVal*(l_stickValH - 0.15); //0.4 was 0.25
