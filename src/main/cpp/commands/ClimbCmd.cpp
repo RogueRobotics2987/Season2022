@@ -33,7 +33,7 @@ void ClimbCmd::Execute() {
   }*/
 
   double deadzone = 0.2;
-  double pitchVal = m_xbox->GetRawAxis(5);
+  double pitchVal = m_xbox->GetRawAxis(5); //right y axis
 
   if(pitchVal > deadzone) {
     m_climber->ClimbPitch(pitchVal-deadzone);
