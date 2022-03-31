@@ -5,7 +5,11 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber(){
-    //m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
+    //m_climbMotorLeft.Follow(m_climbMotorRight, true);
+    m_climbMotorLeft.SetInverted(true);
+    m_climbMotorRight.SetInverted(false);
+    m_pitchMotorLeft.SetInverted(true);
+    m_climbMotorRight.SetInverted(false);
     frc::SmartDashboard::PutNumber("climbKValue", climbKValue);
     frc::SmartDashboard::PutBoolean("Climb Servo Enable", enableServo);
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", servoUnlock);
@@ -19,7 +23,7 @@ void Climber::Periodic() {
     climbKValue = frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
     frc::SmartDashboard::PutNumber("ClimbRightPosition", re_climbMotorRight.GetPosition());
     frc::SmartDashboard::PutNumber("ClimbLeftPosition", re_climbMotorLeft.GetPosition());
-   // frc::SmartDashboard::PutBoolean("Climb Left Limit",ls_climbLeft.Get());
+    //frc::SmartDashboard::PutBoolean("Climb Left Limit",ls_climbLeft.Get());
     //frc::SmartDashboard::PutBoolean("Climb Right Limit", ls_climbRight.Get());
 
     //changes from ClimberTweaks branch
@@ -88,17 +92,25 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     // climbVal = 0.0;
 
 }
+
+void Climber::ClimbPitch(double forwardSpeed){
+    frc::SmartDashboard::PutNumber("climbPitchForwardSpd", forwardSpeed);
+
+    m_pitchMotorRight.Set(forwardSpeed);
+    m_pitchMotorLeft.Set(forwardSpeed);
+}
+
 void Climber::ClimbServoLock(){
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", false); //red is locked
     if (enableServo == true){
         m_climbServoRight.SetAngle(120);
-        m_climbServoLeft.SetAngle(120);
+        m_climbServoLeft.SetAngle(0);
    }
 }
 void Climber::ClimbServoUnlock(){
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", true); //green is unlocked
     if (enableServo == true){
         m_climbServoRight.SetAngle(0);
-        m_climbServoLeft.SetAngle(0);
+        m_climbServoLeft.SetAngle(120);
     }
 }

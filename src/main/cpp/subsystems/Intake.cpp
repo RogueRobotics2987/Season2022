@@ -7,7 +7,7 @@
 Intake::Intake() {
     stateIntake = 0;
     stateConveyor = 0;
-    m_loadIntoShooterMotor.Follow(m_conveyorMotor);
+    //m_loadIntoShooterMotor.Follow(m_conveyorMotor);
     frc::SmartDashboard::PutNumber("Intake Speed In", intakeSpeedIn);
     frc::SmartDashboard::PutNumber("Intake Speed Out", intakeSpeedOut);
     frc::SmartDashboard::PutNumber("Conveyor Speed In", conveyorSpeedFwd);
