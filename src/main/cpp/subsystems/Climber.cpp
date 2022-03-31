@@ -6,6 +6,10 @@
 
 Climber::Climber(){
     //m_climbMotorLeft.Follow(m_climbMotorRight, true); //comment out
+    m_climbMotorLeft.SetInverted(true);
+    m_climbMotorRight.SetInverted(false);
+    m_pitchMotorLeft.SetInverted(true);
+    m_climbMotorRight.SetInverted(false);
     frc::SmartDashboard::PutNumber("climbKValue", climbKValue);
     frc::SmartDashboard::PutBoolean("Climb Servo Enable", enableServo);
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", servoUnlock);
@@ -88,6 +92,25 @@ void Climber::ClimbFunction(double climbUpVal, double climbDownVal){
     // climbVal = 0.0;
 
 }
+
+void Climber::ClimbPitch(double forwardSpeed){
+    frc::SmartDashboard::PutNumber("climbPitchForwardSpd", forwardSpeed);
+
+    m_pitchMotorRight.Set(forwardSpeed);
+    m_pitchMotorLeft.Set(forwardSpeed);
+
+    // if((fabs(climbUpVal) > upDeadzone) && (climbDownVal < downDeadzone) && (enableClimber == true)){
+    //     climbVal = climbUpVal - upDeadzone;
+    // } else if((fabs(climbDownVal) > downDeadzone) && (climbUpVal < upDeadzone) && (enableClimber == true)){
+    //     climbVal = -(climbDownVal - downDeadzone);
+    // } else {
+    //     climbVal = 0;
+    // }
+
+    // climbVal = 0.0;
+
+}
+
 void Climber::ClimbServoLock(){
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", false); //red is locked
     if (enableServo == true){

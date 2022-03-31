@@ -31,6 +31,18 @@ void ClimbCmd::Execute() {
   /*if((150 - matchTimer.Get() < .5) && (climbAutoLock == true)){
     m_climber->ClimbServoLock();
   }*/
+
+  double deadzone = 0.2;
+  double pitchVal = m_xbox->GetRawAxis(5);
+
+  if(pitchVal > deadzone) {
+    m_climber->ClimbPitch(pitchVal-deadzone);
+  } else if (pitchVal < -deadzone) {
+    m_climber->ClimbPitch(pitchVal+deadzone);
+  } else {
+    m_climber->ClimbPitch(0.0);
+  }
+
 }
 
 // Called once the command ends or is interrupted.

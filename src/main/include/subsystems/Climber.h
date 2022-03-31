@@ -16,6 +16,7 @@ class Climber : public frc2::SubsystemBase {
  public:
   Climber();
   void ClimbFunction(double climbUpVal, double climbDownVal);
+  void ClimbPitch(double forwardSpeed);
   void ClimbServoLock();
   void ClimbServoUnlock();
 
@@ -29,6 +30,8 @@ class Climber : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   rev::CANSparkMax m_climbMotorRight{8, rev::CANSparkMax::MotorType::kBrushless}; //#8 on climber
   rev::CANSparkMax m_climbMotorLeft{5, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+  rev::CANSparkMax m_pitchMotorRight{2, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
+  rev::CANSparkMax m_pitchMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless}; //#9 on climber
   //frc::DigitalInput ls_climbRight{0};
   //frc::DigitalInput ls_climbLeft{1};
   frc::Servo m_climbServoRight {1}; //don't know the number
