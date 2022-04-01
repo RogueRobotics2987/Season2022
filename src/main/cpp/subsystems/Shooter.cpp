@@ -6,46 +6,84 @@
 
 Shooter::Shooter(){
     shooterMotor2.Follow(shooterMotor,false); //false means it is not inverted
-    frc::SmartDashboard::PutNumber("Set RPM 2", TargetRPM); 
-   // frc::SmartDashboard::PutNumber("Set RPM", TargetRPM); 
-    frc::SmartDashboard::PutNumber("Set P", kp); 
-    frc::SmartDashboard::PutNumber("Set I", ki); 
-    frc::SmartDashboard::PutNumber("Set D", kd); 
-    frc::SmartDashboard::PutNumber("Set FF", kff);
-    frc::SmartDashboard::PutNumber("Set Arb FF", 0);
-    frc::SmartDashboard::PutNumber("Set MaxVelcity", mMaxV);
-    frc::SmartDashboard::PutNumber("Set MaxAccel", mMaxA);
-    frc::SmartDashboard::PutNumber("Set MinVelocityOut", mMinVelocityO);
-    frc::SmartDashboard::PutNumber("Set ClosedLoop", mCloseL);
+    frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", FTargetRPM); 
+    frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", BTargetRPM); 
+    //F is for front. B is for back
+    frc::SmartDashboard::PutNumber("Shooter F Set P", Fkp); 
+    frc::SmartDashboard::PutNumber("Shooter F Set I", Fki); 
+    frc::SmartDashboard::PutNumber("Shooter F Set D", Fkd); 
+    frc::SmartDashboard::PutNumber("Shooter F Set FF", Fkff);
+    frc::SmartDashboard::PutNumber("Shooter F Set Arb FF", 0);
+    frc::SmartDashboard::PutNumber("Shooter F Set MaxVelcity", FmMaxV);
+    frc::SmartDashboard::PutNumber("Shooter F Set MaxAccel", FmMaxA);
+    frc::SmartDashboard::PutNumber("Shooter F Set MinVelocityOut", FmMinVelocityO);
+    frc::SmartDashboard::PutNumber("Shooter F Set ClosedLoop", FmCloseL);
 
-    shooterPID.SetP(kp); 
-    shooterPID.SetI(ki);
-    shooterPID.SetD(kd);
-    shooterPID.SetFF(kff);
-    shooterPID.SetOutputRange(-1, 1);
-    shooterPID.SetSmartMotionMaxVelocity(mMaxV);
-    shooterPID.SetSmartMotionMinOutputVelocity(mMinVelocityO);
-    shooterPID.SetSmartMotionMaxAccel(mMaxA);
-    shooterPID.SetSmartMotionAllowedClosedLoopError(mCloseL);
-    shooterPID.SetIZone(800);
+    frc::SmartDashboard::PutNumber("Shooter B Set P", Bkp); 
+    frc::SmartDashboard::PutNumber("Shooter B Set I", Bki); 
+    frc::SmartDashboard::PutNumber("Shooter B Set D", Bkd); 
+    frc::SmartDashboard::PutNumber("Shooter B Set FF", Bkff);
+    frc::SmartDashboard::PutNumber("Shooter B Set Arb FF", 0);
+    frc::SmartDashboard::PutNumber("Shooter B Set MaxVelcity", BmMaxV);
+    frc::SmartDashboard::PutNumber("Shooter B Set MaxAccel", BmMaxA);
+    frc::SmartDashboard::PutNumber("Shooter B Set MinVelocityOut", BmMinVelocityO);
+    frc::SmartDashboard::PutNumber("Shooter B Set ClosedLoop", BmCloseL);
+
+
+    FshooterPID.SetP(Fkp); 
+    FshooterPID.SetI(Fki);
+    FshooterPID.SetD(Fkd);
+    FshooterPID.SetFF(Fkff);
+    FshooterPID.SetOutputRange(-1, 1);
+    FshooterPID.SetSmartMotionMaxVelocity(FmMaxV);
+    FshooterPID.SetSmartMotionMinOutputVelocity(FmMinVelocityO);
+    FshooterPID.SetSmartMotionMaxAccel(FmMaxA);
+    FshooterPID.SetSmartMotionAllowedClosedLoopError(FmCloseL);
+    FshooterPID.SetIZone(800);
+
+    BshooterPID.SetP(Bkp); 
+    BshooterPID.SetI(Bki);
+    BshooterPID.SetD(Bkd);
+    BshooterPID.SetFF(Bkff);
+    BshooterPID.SetOutputRange(-1, 1);
+    BshooterPID.SetSmartMotionMaxVelocity(BmMaxV);
+    BshooterPID.SetSmartMotionMinOutputVelocity(BmMinVelocityO);
+    BshooterPID.SetSmartMotionMaxAccel(BmMaxA);
+    BshooterPID.SetSmartMotionAllowedClosedLoopError(BmCloseL);
+    BshooterPID.SetIZone(800);
+
 }
 
 // This method will be called once per scheduler run
 void Shooter::Periodic() {  
-    arbFF = frc::SmartDashboard::GetNumber("ArbFF", 0); 
-    kp = frc::SmartDashboard::GetNumber("Set P", kp); 
-    ki = frc::SmartDashboard::GetNumber("Set I", ki);
-    kd = frc::SmartDashboard::GetNumber("Set D", kd);
-    kff = frc::SmartDashboard::GetNumber("Set FF", kff);
+    FarbFF = frc::SmartDashboard::GetNumber("Shooter F ArbFF", 0); 
+    Fkp = frc::SmartDashboard::GetNumber("Shooter F Set P", Fkp); 
+    Fki = frc::SmartDashboard::GetNumber("Shooter F Set I", Fki);
+    Fkd = frc::SmartDashboard::GetNumber("Shooter F Set D", Fkd);
+    Fkff = frc::SmartDashboard::GetNumber("Shooter F Set FF", Fkff);
 
-    TargetRPM = frc::SmartDashboard::GetNumber("Set RPM 2", TargetRPM); 
+    BarbFF = frc::SmartDashboard::GetNumber("Shooter B ArbFF", 0); 
+    Bkp = frc::SmartDashboard::GetNumber("Shooter B Set P", Bkp); 
+    Bki = frc::SmartDashboard::GetNumber("Shooter B Set I", Bki);
+    Bkd = frc::SmartDashboard::GetNumber("Shooter B Set D", Bkd);
+    Bkff = frc::SmartDashboard::GetNumber("Shooter B Set FF", Bkff);
+
+    FTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 F", FTargetRPM); 
+    BTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 B", BTargetRPM); 
+
     frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
-    if(Lastkp != kp)   {shooterPID.GetSmartMotionAccelStrategy(kp);   Lastkp = kp;}
-    if(Lastki != ki)   {shooterPID.SetI(ki);   Lastki = ki;}
-    if(Lastkd != kd)   {shooterPID.SetD(kd);   Lastkd = kd;}
-    if(Lastkff != kff) {shooterPID.SetFF(kff); Lastkff = kff;}
+    if(FLastkp != Fkp)   {FshooterPID.GetSmartMotionAccelStrategy(Fkp);   FLastkp = Fkp;}
+    if(FLastki != Fki)   {FshooterPID.SetI(Fki);   FLastki = Fki;}
+    if(FLastkd != Fkd)   {FshooterPID.SetD(Fkd);   FLastkd = Fkd;}
+    if(FLastkff != Fkff) {FshooterPID.SetFF(Fkff); FLastkff = Fkff;}
+
+    if(BLastkp != Bkp)   {BshooterPID.GetSmartMotionAccelStrategy(Bkp);   BLastkp = Bkp;}
+    if(BLastki != Bki)   {BshooterPID.SetI(Bki);   BLastki = Bki;}
+    if(BLastkd != Bkd)   {BshooterPID.SetD(Bkd);   BLastkd = Bkd;}
+    if(BLastkff != Bkff) {BshooterPID.SetFF(Bkff); BLastkff = Bkff;}
+
 }
 
 double Shooter::getVelocity(){
@@ -67,5 +105,7 @@ void Shooter::stopShooter() {
 void Shooter::setShooter() {
    // shooterPID->SetReference(maxRPM, rev::ControlType::kVelocity);
    // shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
-    shooterPID.SetReference(-TargetRPM, rev::ControlType::kSmartVelocity, arbFF);
+    FshooterPID.SetReference(-FTargetRPM, rev::ControlType::kSmartVelocity, FarbFF);
+    BshooterPID.SetReference(-BTargetRPM, rev::ControlType::kSmartVelocity, BarbFF);
+
 }

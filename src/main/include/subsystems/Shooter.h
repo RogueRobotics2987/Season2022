@@ -35,18 +35,34 @@ class Shooter : public frc2::SubsystemBase {
   //shooterEncoder = rev::CANEncoder(*shooterMotor);
   rev::CANSparkMax shooterMotor= rev::CANSparkMax(10, rev::CANSparkMax::MotorType::kBrushless);
   rev::CANSparkMax shooterMotor2= rev::CANSparkMax(11, rev::CANSparkMax::MotorType::kBrushless);
-  rev::SparkMaxPIDController shooterPID= shooterMotor.GetPIDController();
+  rev::SparkMaxPIDController FshooterPID= shooterMotor.GetPIDController();
+  rev::SparkMaxPIDController BshooterPID= shooterMotor2.GetPIDController();
+
   rev::SparkMaxRelativeEncoder shooterEncoder= shooterMotor.GetEncoder(); 
-  double TargetRPM = 2500;
-  double kp = 1E-4;
-  double ki = 0; 
-  double kd = 0;
-  double kff = 2.05E-4; //old number 0.7/3500
-  double mMaxV = 6000;
-  double mMaxA = 2000;
-  double mMinVelocityO = 500;
-  double mCloseL = 100;
+  double FTargetRPM = 2500;
+  double BTargetRPM = 2500;
+  double Fkp = 1E-4; //F is for front
+  double Fki = 0; 
+  double Fkd = 0;
+  double Fkff = 2.05E-4; //old number 0.7/3500
+  double FmMaxV = 6000;
+  double FmMaxA = 2000;
+  double FmMinVelocityO = 500;
+  double FmCloseL = 100;
+
+  double Bkp = 1E-4; //F is for front
+  double Bki = 0; //B is for back
+  double Bkd = 0;
+  double Bkff = 2.05E-4; //old number 0.7/3500
+  double BmMaxV = 6000;
+  double BmMaxA = 2000;
+  double BmMinVelocityO = 500;
+  double BmCloseL = 100;
+
   const std::string firmwareVersion = "1.8.2"; 
-  double Lastkp=0, Lastki=0, Lastkd=0, Lastkff=0;
-  double arbFF = 0; 
+  double FLastkp=0, FLastki=0, FLastkd=0, FLastkff=0;
+  double BLastkp=0, BLastki=0, BLastkd=0, BLastkff=0;
+  double FarbFF = 0; 
+  double BarbFF = 0; 
+
 };
