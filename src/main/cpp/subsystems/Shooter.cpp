@@ -5,7 +5,7 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter(){
-    shooterMotor2.Follow(shooterMotor,false); //false means it is not inverted
+    //shooterMotor2.Follow(shooterMotor,false); //false means it is not inverted
     frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", FTargetRPM); 
     frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", BTargetRPM); 
     //F is for front. B is for back
@@ -68,6 +68,7 @@ void Shooter::Periodic() {
     Bkd = frc::SmartDashboard::GetNumber("Shooter B Set D", Bkd);
     Bkff = frc::SmartDashboard::GetNumber("Shooter B Set FF", Bkff);
 
+    //NOTE: This doesn't update speed until you click the "shooter on" button
     FTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 F", FTargetRPM); 
     BTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 B", BTargetRPM); 
 
@@ -105,6 +106,8 @@ void Shooter::stopShooter() {
 void Shooter::setShooter() {
    // shooterPID->SetReference(maxRPM, rev::ControlType::kVelocity);
    // shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
+
+//NOTE: This update speeds only when you actually click the "shooter on" button
     FshooterPID.SetReference(-FTargetRPM, rev::ControlType::kSmartVelocity, FarbFF);
     BshooterPID.SetReference(-BTargetRPM, rev::ControlType::kSmartVelocity, BarbFF);
 
