@@ -22,6 +22,7 @@ Shooter::Shooter(){
     shooterPID.SetI(ki);
     shooterPID.SetD(kd);
     shooterPID.SetFF(kff);
+
     shooterPID.SetOutputRange(-1, 1);
     shooterPID.SetSmartMotionMaxVelocity(mMaxV);
     shooterPID.SetSmartMotionMinOutputVelocity(mMinVelocityO);
@@ -37,14 +38,15 @@ void Shooter::Periodic() {
     ki = frc::SmartDashboard::GetNumber("Set I", ki);
     kd = frc::SmartDashboard::GetNumber("Set D", kd);
     kff = frc::SmartDashboard::GetNumber("Set FF", kff);
-
     TargetRPM = frc::SmartDashboard::GetNumber("Set RPM 2", TargetRPM); 
+
     frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
+
     if(Lastkp != kp)   {shooterPID.GetSmartMotionAccelStrategy(kp);   Lastkp = kp;}
-    if(Lastki != ki)   {shooterPID.SetI(ki);   Lastki = ki;}
-    if(Lastkd != kd)   {shooterPID.SetD(kd);   Lastkd = kd;}
+    if(Lastki != ki)   {shooterPID.SetI(ki); Lastki = ki;}
+    if(Lastkd != kd)   {shooterPID.SetD(kd); Lastkd = kd;}
     if(Lastkff != kff) {shooterPID.SetFF(kff); Lastkff = kff;}
 }
 

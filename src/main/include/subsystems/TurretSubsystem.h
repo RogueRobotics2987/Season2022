@@ -34,28 +34,21 @@ class TurretSubsystem : public frc2::SubsystemBase {
 
     frc::Joystick* m_xBox = nullptr;
 
-    // rev::CANSparkMax m_vTurretMotorRight{13, rev::CANSparkMax::MotorType::kBrushless};
-    // rev::CANSparkMax m_vTurretMotorLeft{44, rev::CANSparkMax::MotorType::kBrushless};
     rev::CANSparkMax m_vTurretMotorCenter{12, rev::CANSparkMax::MotorType::kBrushless}; 
-
     rev::CANSparkMax m_hTurretMotor{14, rev::CANSparkMax::MotorType::kBrushless}; 
-    // rev::SparkMaxLimitSwitch ls_vTurretMotorRight = m_vTurretMotorRight.GetForwardLimitSwitch(
-    //                           rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
-    // rev::SparkMaxLimitSwitch ls_vTurretMotorLeft = m_vTurretMotorLeft.GetForwardLimitSwitch(
-    //                           rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
-    rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetForwardLimitSwitch(
-                              rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
-    // rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(
-    //                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+    
+    // rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen);
+    rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
 
-    // rev::SparkMaxRelativeEncoder re_vTurretMotorRight = m_vTurretMotorRight.GetEncoder();
-    // rev::SparkMaxRelativeEncoder re_vTurretMotorLeft = m_vTurretMotorLeft.GetEncoder();
+    // rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
+    
+    // rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);
+
     rev::SparkMaxRelativeEncoder re_vTurretMotorCenter = m_vTurretMotorCenter.GetEncoder();
-
     rev::SparkMaxRelativeEncoder re_hTurretMotor = m_hTurretMotor.GetEncoder(); 
 
     enum TurretState_t {INIT, R_CENTER, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE}; //R_ means retract
-    TurretState_t TurretState = DRIVER_SHOOT;
+    TurretState_t TurretState = R_CENTER;
 
     double cur_stickValV = 0.0;
     double cur_stickValH = 0.0;
