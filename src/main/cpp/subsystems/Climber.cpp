@@ -14,12 +14,16 @@ Climber::Climber(){
     frc::SmartDashboard::PutBoolean("Climb Servo Enable", enableServo);
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", servoUnlock);
     frc::SmartDashboard::PutBoolean("Climber Enable", enableClimber);
-    m_climbServoRight.SetAngle(0); //unlock
-    m_climbServoLeft.SetAngle(120); //unlock
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
+    if (startWithServoUnlock == true){
+        m_climbServoRight.SetAngle(0);
+        m_climbServoLeft.SetAngle(120);
+        frc::SmartDashboard::PutBoolean("Climb Servo Unlock", true);
+        startWithServoUnlock = false;
+    }
     // climbVal = 0.0;
     frc::SmartDashboard::PutNumber("climbVal", climbVal);
     climbKValue = frc::SmartDashboard::GetNumber("climbKValue", climbKValue);
