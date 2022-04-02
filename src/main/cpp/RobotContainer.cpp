@@ -109,10 +109,13 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
        
         //shake intake down
         //frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);}),
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
+
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
-        frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
         //Turn on intake and spin up shooter
 
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
@@ -124,18 +127,18 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
            frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
            TimerCMD(1)
          ),*/
-        SafeBallShoot(m_turret, 5), //  TODO FIX 2 BALL AUTO
+        SafeBallShoot(m_turret, 20), //  TODO FIX 2 BALL AUTO
         //frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         //frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
-          TimerCMD(1.0),
+          TimerCMD(0.3),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
         TimerCMD(0.5),
         
         frc2::ParallelCommandGroup(
-          TimerCMD(1.0),
+          TimerCMD(0.3),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         //TimerCMD(0.5),
@@ -147,7 +150,7 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         ),
          frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
         */ 
-        SafeBallShoot(m_turret,5),
+        SafeBallShoot(m_turret,20),
         frc2::ParallelCommandGroup(
           TimerCMD(5),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
@@ -155,7 +158,6 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
         
         frc2::InstantCommand([this] {intake.IntakeInRelease();},{&intake}),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        frc2::InstantCommand([this] {m_shooter.stopShooter();}, {&m_shooter}),
         frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
 
         
@@ -199,7 +201,7 @@ frc2::Command* RobotContainer::GetCloseBallAuto() {
 
   
 
-  std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/output/Turn180.wpilib.json";
+  std::string turn180File = frc::filesystem::GetDeployDirectory() + "/paths/output/Turn180_wider.wpilib.json";
   turn180 = frc::TrajectoryUtil::FromPathweaverJson(turn180File);
 
 
@@ -443,32 +445,36 @@ frc2::RamseteCommand ramseteCommandTurn180(
 
 
       // );
-
+     
+      
       // THERE CANNOT BE INSTANT COMANDS IN PARALLEL RACE GROUPS
       frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);}),
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
+
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
         frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
         frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
-        frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
         std::move(ramseteCommandTurn180),
         //   frc2::ParallelCommandGroup(
         //   frc2::InstantCommand([this] {m_turret.setAutoAimOn();}, {&m_turret}),
         //   TimerCMD(2)
         // ),
         // frc2::InstantCommand([this] {m_turret.setManuelAimOn();}, {&m_turret}),
-        SafeBallShoot(m_turret, 5),
+        SafeBallShoot(m_turret, 20),
 
         frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
         frc2::ParallelCommandGroup(
-          TimerCMD(0.5),
+          TimerCMD(0.3),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-        TimerCMD(0.5),
+        TimerCMD(1.0),
         
         frc2::ParallelCommandGroup(
-          TimerCMD(0.5),
+          TimerCMD(0.3),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
@@ -582,7 +588,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         std::move(ramseteCommandThreeBall1_2),
         
         // Auto Aim
-        SafeBallShoot(m_turret, 5),
+        SafeBallShoot(m_turret, 20),
        
         // Shoot Twice
         frc2::ParallelCommandGroup(
@@ -601,7 +607,7 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
         std::move(ramseteCommandThreeBall1_3),
         std::move(ramseteCommandThreeBall1_4),
         // Auto Aim Again
-        SafeBallShoot(m_turret, 5),
+        SafeBallShoot(m_turret, 20),
 
         // Shoot Twice Again
         frc2::ParallelCommandGroup(

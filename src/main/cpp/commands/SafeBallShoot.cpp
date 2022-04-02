@@ -29,9 +29,10 @@ void SafeBallShoot::Execute() {
   // if turret speed > 3700 & tx < 1, ty < 1 then conveyor forward
   float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
   float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+  float tv = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tv",0.0);
   // frc::SmartDashboard::PutNumber("Shooter RPM", m_shooter->getVelocity());
 
-  if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+  if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0 && tv == 1) {
     // m_intake->ConveyorForward();
     frc::SmartDashboard::PutBoolean("Target Locked", true);
     m_LockedOn = true;
