@@ -98,14 +98,14 @@ void Shooter::setPercent(double percent){
     shooterMotorBack.Set(percent); 
 }
 
-void Shooter::startShooter() {
+void Shooter::startShooter() { //not called
     shooterMotorFront.Set(0.2);
-    shooterMotorBack.Set(0.2);
+    shooterMotorBack.Set(0.2); 
 }
 
 void Shooter::reverseShooter(){
-    shooterMotorFront.Set(-0.2);
-    shooterMotorBack.Set(-0.2);
+    shooterMotorFront.Set(0.2);
+    shooterMotorBack.Set(0.2);
 
 }
 
