@@ -150,8 +150,8 @@ void TurretSubsystem::Periodic() {
     
     if (cur_stickPOV == 0){
         //default settings
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 4000 //was 2500
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 4000
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 4000 //was 2500
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 4000
         //cur_pipeline = 0; in Sam's code
         cur_pipeline = 7;//Mura close settings
     } else if (cur_stickPOV == 90){

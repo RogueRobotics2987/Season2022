@@ -41,8 +41,8 @@ class Shooter : public frc2::SubsystemBase {
 
   rev::SparkMaxRelativeEncoder shooterEncoderFront= shooterMotorFront.GetEncoder(); 
   rev::SparkMaxRelativeEncoder shooterEncoderBack= shooterMotorBack.GetEncoder(); 
-  double FTargetRPM = 2950;
-  double BTargetRPM = 2950;
+  double FTargetRPM = 2900;
+  double BTargetRPM = 2900;
   double Fkp = 1E-4; //F is for front
   double Fki = 0; 
   double Fkd = 0;
