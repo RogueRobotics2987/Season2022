@@ -74,12 +74,12 @@ void Shooter::Periodic() {
     frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
     frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
     frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
-    if(FLastkp != Fkp)   {FshooterPID.GetSmartMotionAccelStrategy(Fkp);   FLastkp = Fkp;}
+    if(FLastkp != Fkp)   {FshooterPID.SetP(Fkp);   FLastkp = Fkp;}
     if(FLastki != Fki)   {FshooterPID.SetI(Fki);   FLastki = Fki;}
     if(FLastkd != Fkd)   {FshooterPID.SetD(Fkd);   FLastkd = Fkd;}
     if(FLastkff != Fkff) {FshooterPID.SetFF(Fkff); FLastkff = Fkff;}
 
-    if(BLastkp != Bkp)   {BshooterPID.GetSmartMotionAccelStrategy(Bkp);   BLastkp = Bkp;}
+    if(BLastkp != Bkp)   {BshooterPID.SetP(Bkp);   BLastkp = Bkp;}
     if(BLastki != Bki)   {BshooterPID.SetI(Bki);   BLastki = Bki;}
     if(BLastkd != Bkd)   {BshooterPID.SetD(Bkd);   BLastkd = Bkd;}
     if(BLastkff != Bkff) {BshooterPID.SetFF(Bkff); BLastkff = Bkff;}
