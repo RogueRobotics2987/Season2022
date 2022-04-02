@@ -97,10 +97,12 @@ void Shooter::setPercent(double percent){
 
 void Shooter::startShooter() {
     shooterMotor.Set(0.2);
+    shooterMotor2.Set(0.2);
 }
 
 void Shooter::stopShooter() {
     shooterMotor.Set(0);
+    shooterMotor2.Set(0);
 }
 
 void Shooter::setShooter() {
