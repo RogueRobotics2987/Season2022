@@ -90,10 +90,12 @@ void Shooter::Periodic() {
 
 double Shooter::getVelocity(){
     return shooterEncoderFront.GetVelocity(); 
+    //return shooterEncoderBack.GetVelocity();
 }
 
 void Shooter::setPercent(double percent){
     shooterMotorFront.Set(percent); 
+    shooterMotorBack.Set(percent); 
 }
 
 void Shooter::startShooter() {
