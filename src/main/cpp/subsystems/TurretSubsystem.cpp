@@ -82,8 +82,9 @@ void TurretSubsystem::Periodic() {
         // }
     } else if (TurretState == PRESHOOT_RAISE){
         
-        if(re_vTurretMotorCenter.GetPosition() > -200) {//was -400
-            m_vTurretMotorCenter.Set(1.0); //might be inverted
+        if(re_vTurretMotorCenter.GetPosition() < 29) {//was -400 //was -200
+        //will need to set the speed back to 0.5
+            m_vTurretMotorCenter.Set(0.5); //might be inverted
             // m_vTurretMotorRight.Set(-1.0);
             // m_vTurretMotorLeft.Set(-1.0);
         } else {

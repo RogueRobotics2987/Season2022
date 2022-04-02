@@ -103,6 +103,12 @@ void Shooter::startShooter() {
     shooterMotorBack.Set(0.2);
 }
 
+void Shooter::reverseShooter(){
+    shooterMotorFront.Set(-0.2);
+    shooterMotorBack.Set(-0.2);
+
+}
+
 void Shooter::stopShooter() {
     shooterMotorFront.Set(0);
     shooterMotorBack.Set(0);

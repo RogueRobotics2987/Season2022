@@ -43,7 +43,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     //                           rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
     // rev::SparkMaxLimitSwitch ls_vTurretMotorLeft = m_vTurretMotorLeft.GetForwardLimitSwitch(
     //                           rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
-    rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetForwardLimitSwitch(
+    rev::SparkMaxLimitSwitch ls_vTurretMotorCenter = m_vTurretMotorCenter.GetReverseLimitSwitch(
                               rev::SparkMaxLimitSwitch::Type::kNormallyClosed);
     // rev::SparkMaxLimitSwitch ls_hTurretMotor = m_hTurretMotor.GetForwardLimitSwitch(
     //                              rev::SparkMaxLimitSwitch::LimitSwitchPolarity::kNormallyClosed);

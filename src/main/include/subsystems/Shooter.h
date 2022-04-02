@@ -23,6 +23,7 @@ class Shooter : public frc2::SubsystemBase {
   void Periodic();
   void startShooter();
   void stopShooter();
+  void reverseShooter();
   void setShooter();
   void setPercent(double percent); 
   double getVelocity(); 
