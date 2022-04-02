@@ -5,7 +5,7 @@
 #include "subsystems/Shooter.h"
 
 Shooter::Shooter(){
-    //shooterMotor2.Follow(shooterMotor,false); //false means it is not inverted
+    //shooterMotorBack.Follow(shooterMotorFront,false); //false means it is not inverted
     frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", FTargetRPM); 
     frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", BTargetRPM); 
     //F is for front. B is for back
@@ -72,9 +72,10 @@ void Shooter::Periodic() {
     FTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 F", FTargetRPM); 
     BTargetRPM = frc::SmartDashboard::GetNumber("Shooter Set RPM 2 B", BTargetRPM); 
 
-    frc::SmartDashboard::PutNumber("Shooter speed", shooterEncoder.GetVelocity());
-    frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotor.GetAppliedOutput());
-    frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotor.GetOutputCurrent());
+    frc::SmartDashboard::PutNumber("Shooter Front speed", shooterEncoderFront.GetVelocity());
+    frc::SmartDashboard::PutNumber("Shooter Back speed", shooterEncoderBack.GetVelocity());
+    frc::SmartDashboard::PutNumber("Shooter App Out", shooterMotorFront.GetAppliedOutput());
+    frc::SmartDashboard::PutNumber("Shooter Applied Current", shooterMotorFront.GetOutputCurrent());
     if(FLastkp != Fkp)   {FshooterPID.SetP(Fkp);   FLastkp = Fkp;}
     if(FLastki != Fki)   {FshooterPID.SetI(Fki);   FLastki = Fki;}
     if(FLastkd != Fkd)   {FshooterPID.SetD(Fkd);   FLastkd = Fkd;}
@@ -88,21 +89,21 @@ void Shooter::Periodic() {
 }
 
 double Shooter::getVelocity(){
-    return shooterEncoder.GetVelocity(); 
+    return shooterEncoderFront.GetVelocity(); 
 }
 
 void Shooter::setPercent(double percent){
-    shooterMotor.Set(percent); 
+    shooterMotorFront.Set(percent); 
 }
 
 void Shooter::startShooter() {
-    shooterMotor.Set(0.2);
-    shooterMotor2.Set(0.2);
+    shooterMotorFront.Set(0.2);
+    shooterMotorBack.Set(0.2);
 }
 
 void Shooter::stopShooter() {
-    shooterMotor.Set(0);
-    shooterMotor2.Set(0);
+    shooterMotorFront.Set(0);
+    shooterMotorBack.Set(0);
 }
 
 void Shooter::setShooter() {

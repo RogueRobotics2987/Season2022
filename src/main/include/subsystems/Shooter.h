@@ -33,12 +33,13 @@ class Shooter : public frc2::SubsystemBase {
  //shooterMotor = rev::CANSparkMax(47, rev::CANSparkMax::MotorType::kBrushless);
  // shooterPID = rev::CANPIDController(*shooterMotor);
   //shooterEncoder = rev::CANEncoder(*shooterMotor);
-  rev::CANSparkMax shooterMotor= rev::CANSparkMax(10, rev::CANSparkMax::MotorType::kBrushless);
-  rev::CANSparkMax shooterMotor2= rev::CANSparkMax(11, rev::CANSparkMax::MotorType::kBrushless);
-  rev::SparkMaxPIDController FshooterPID= shooterMotor.GetPIDController();
-  rev::SparkMaxPIDController BshooterPID= shooterMotor2.GetPIDController();
+  rev::CANSparkMax shooterMotorFront= rev::CANSparkMax(10, rev::CANSparkMax::MotorType::kBrushless);
+  rev::CANSparkMax shooterMotorBack= rev::CANSparkMax(11, rev::CANSparkMax::MotorType::kBrushless);
+  rev::SparkMaxPIDController FshooterPID= shooterMotorFront.GetPIDController();
+  rev::SparkMaxPIDController BshooterPID= shooterMotorBack.GetPIDController();
 
-  rev::SparkMaxRelativeEncoder shooterEncoder= shooterMotor.GetEncoder(); 
+  rev::SparkMaxRelativeEncoder shooterEncoderFront= shooterMotorFront.GetEncoder(); 
+  rev::SparkMaxRelativeEncoder shooterEncoderBack= shooterMotorBack.GetEncoder(); 
   double FTargetRPM = 2500;
   double BTargetRPM = 2500;
   double Fkp = 1E-4; //F is for front
