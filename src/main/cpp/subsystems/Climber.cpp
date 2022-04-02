@@ -14,6 +14,8 @@ Climber::Climber(){
     frc::SmartDashboard::PutBoolean("Climb Servo Enable", enableServo);
     frc::SmartDashboard::PutBoolean("Climb Servo Unlock", servoUnlock);
     frc::SmartDashboard::PutBoolean("Climber Enable", enableClimber);
+    m_climbServoRight.SetAngle(0); //unlock
+    m_climbServoLeft.SetAngle(120); //unlock
 }
 
 // This method will be called once per scheduler run
