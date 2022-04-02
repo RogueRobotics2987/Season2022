@@ -47,6 +47,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&xbox, 7).WhenPressed(&m_TurtModeAuto); 
   frc2::JoystickButton(&xbox, 7).WhenReleased(&m_TurtModeManu); 
 
+  frc2::JoystickButton(&stick2, 16).WhenPressed(&m_verticalAim);
+  //frc2::JoystickButton(&stick2, 15).WhenPressed(&m_lowGoalAim);
+
   frc2::JoystickButton(&xbox, 6).WhenPressed(&m_ClimbServoLock); //right bumper
   frc2::JoystickButton(&xbox, 5).WhenPressed(&m_ClimbServoUnlock); //left bumper
 

@@ -143,6 +143,8 @@ void TurretSubsystem::Periodic() {
 
         }   
 
+    } else if (TurretState == VERT_AIM){
+        m_vTurretMotorCenter.Set(-1.0 * (re_vTurretMotorCenter.GetPosition() - (29)) * kp_vAimre);
     }
 
     
@@ -159,10 +161,12 @@ void TurretSubsystem::Periodic() {
 
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3900);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3900);
         cur_pipeline = 4;//Mura human player spot
 
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 4000);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 800);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 800);
     } 
     
 }
@@ -211,3 +215,14 @@ void TurretSubsystem::setStickPOV(int stickPOV){
 double TurretSubsystem::getHPosition() {
     return re_hTurretMotor.GetPosition();
 }
+
+void TurretSubsystem::setVertAimOn() {
+    TurretState = VERT_AIM;
+}
+/*void TurretSubsystem::setLowGoalAim(){
+    if(re_vTurretMotorCenter.GetPosition() < 75) {//was -400 //was -200
+            m_vTurretMotorCenter.Set(0.2); 
+        } else if(re_vTurretMotorCenter.GetPosition() > 75) {
+            m_vTurretMotorCenter.Set(-0.2);
+        }
+}*/

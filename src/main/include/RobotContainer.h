@@ -95,8 +95,12 @@ class RobotContainer {
   frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
   frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
 
+  frc2::InstantCommand m_verticalAim{[this] {m_turret.setVertAimOn();}, {&m_turret}};
+
   frc2::InstantCommand m_ClimbServoLock{[this] {climber.ClimbServoLock();}, {&climber}};
   frc2::InstantCommand m_ClimbServoUnlock{[this] {climber.ClimbServoUnlock();}, {&climber}};
+
+  //frc2::InstantCommand m_lowGoalAim{[this] {m_turret.setLowGoalAim();}, {&m_turret}};
 
 
   // frc2::InstantCommand m_dropIntake{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
