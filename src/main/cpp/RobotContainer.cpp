@@ -16,6 +16,9 @@ RobotContainer::RobotContainer() {
   
 }
 
+std::string RobotContainer::GetLog() {
+  return m_turret.GetLog();
+}
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
   frc2::JoystickButton(&stick2, 1).WhenPressed(&m_intakeIn); //wwas xbox 4
