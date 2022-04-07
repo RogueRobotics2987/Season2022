@@ -145,7 +145,7 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == VERT_AIM){
         m_vTurretMotorCenter.Set(-1.0 * (re_vTurretMotorCenter.GetPosition() - (29)) * kp_vAimre);
-    }
+    }   
 
     
     if (cur_stickPOV == 0){
@@ -156,14 +156,15 @@ void TurretSubsystem::Periodic() {
         cur_pipeline = 0;
         //Mura close settings 7
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3450);//was 3100
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3450);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 3100
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 3450
+        //cur_pipeline = 1;
         //cur_pipeline = 6;
         //Mura launch pad 6
 
     } else if (cur_stickPOV == 180){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3900);
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3900);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);
         //cur_pipeline = 4;
         //Mura human player spot 4
 

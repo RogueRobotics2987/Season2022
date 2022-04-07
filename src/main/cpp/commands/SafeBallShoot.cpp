@@ -32,7 +32,7 @@ void SafeBallShoot::Execute() {
   float tv = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tv",0.0);
   // frc::SmartDashboard::PutNumber("Shooter RPM", m_shooter->getVelocity());
 
-  if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0 && tv == 1) {
+  if(-1.0 < tx && tx < 1.0 && -2.0 < ty && ty < 2.0 && tv == 1) {
     // m_intake->ConveyorForward();
     frc::SmartDashboard::PutBoolean("Target Locked", true);
     m_LockedOn = true;

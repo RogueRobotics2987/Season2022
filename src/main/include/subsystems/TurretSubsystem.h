@@ -61,7 +61,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     double cur_stickValV = 0.0;
     double cur_stickValH = 0.0;
     double kp_hAim = 0.01;
-    double kp_vAimty = 1.0;
+    double kp_vAimty = 0.1;
     double kp_vAimre = 0.02;
     double turretScaleVal = 0.4; //percent of max speed 
 
