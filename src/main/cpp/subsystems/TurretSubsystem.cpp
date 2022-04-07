@@ -14,6 +14,37 @@ TurretSubsystem::TurretSubsystem() {
 
     //m_vTurretMotorLeft.Follow(m_vTurretMotorLeft);
 }
+
+std::string TurretSubsystem::GetLog() {
+    
+    std::string ret_string = "TurretState: " + std::to_string(TurretState) + "\n" + 
+    "cur_stickValV: " + std::to_string(cur_stickValV) + "\n" + 
+    "cur_stickValH: " + std::to_string(cur_stickValH) + "\n" + 
+    "kp_hAim: " + std::to_string(kp_hAim) + "\n" + 
+    "kp_vAimty: " + std::to_string(kp_vAimty) + "\n" + 
+    "kp_vAimre: " + std::to_string(kp_vAimre) + "\n" + 
+    "turretScaleVal: " + std::to_string(turretScaleVal) + "\n" + 
+    "cur_pipeline: " + std::to_string(cur_pipeline) + "\n" + 
+    "cur_stickPOV: " + std::to_string(cur_stickPOV) + "\n" + 
+    "m_onTarget: " + std::to_string(m_onTarget) + "\n";
+    // enum TurretState_t {INIT, R_CENTER, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE, VERT_AIM}; //R_ means retract
+    // TurretState_t TurretState = R_CENTER;
+
+    // double cur_stickValV = 0.0;
+    // double cur_stickValH = 0.0;
+    // double kp_hAim = 0.01;
+    // double kp_vAimty = 1.0;
+    // double kp_vAimre = 0.02;
+    // double turretScaleVal = 0.4; //percent of max speed 
+
+    // int cur_pipeline = 0;
+    // int cur_stickPOV = 0;
+    // // bool m_onTarget = false;
+    // // Components (e.g. motor controllers and sensors) should generally be
+    // // declared private and exposed only through public methods.
+
+
+}
 void TurretSubsystem::setSpeed(float speed) {
     // m_turretMotor.Set(speed);
 }

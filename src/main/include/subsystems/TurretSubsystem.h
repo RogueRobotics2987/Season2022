@@ -15,6 +15,7 @@
 class TurretSubsystem : public frc2::SubsystemBase {
  public:
   TurretSubsystem();
+  std::string GetLog();
   void setSpeed(float speed);
   void setAngleV(float l_stickValV);
   void setAngleH(float l_stickValH);

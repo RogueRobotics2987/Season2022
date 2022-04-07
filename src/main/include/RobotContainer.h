@@ -56,6 +56,7 @@
 class RobotContainer {
  public:
   RobotContainer();
+  std::string GetLog();
   frc2::Command* GetAutonomousCommand();
   frc2::Command* GetCloseBallAuto();
   frc2::Command* GetThreeBallAuto();
