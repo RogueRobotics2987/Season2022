@@ -15,12 +15,15 @@ def m_play_sound():
 if __name__ == '__main__':
     NetworkTables.initialize(server='roborio-2987-frc.local')
     sd = NetworkTables.getTable('SmartDashboard')
-
     while True:
-        locked = sd.getBoolean('Manual Target Locked', False)
-        turret_state = sd.getNumber("TurretState", 1.0)
-
-        if locked == True and turret_state != 1.0:
-            m_play_sound()
+        if NetworkTables.isConnected() == False:
+            NetworkTables.initialize(server='roborio-2987-frc.local')
+            sd = NetworkTables.getTable('SmartDashboard')
         else:
-            time.sleep(.1)
+            locked = sd.getBoolean('Manual Target Locked', False)
+            turret_state = sd.getNumber("TurretState", 1.0)
+
+            if locked == True and turret_state != 1.0:
+                m_play_sound()
+            else:
+                time.sleep(.1)
