@@ -4,7 +4,7 @@ import random
 import winsound
 import time
 
-possible_sounds = ["kaden.wav", "dylan.wav", "nathan.wav", "michael.wav"]
+possible_sounds = ["kaden.wav", "dylan.wav", "nathan.wav"]
 
 def m_play_sound():
     print("playing sound...")
