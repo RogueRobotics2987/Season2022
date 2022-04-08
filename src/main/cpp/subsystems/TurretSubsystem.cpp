@@ -25,8 +25,8 @@ std::string TurretSubsystem::GetLog() {
     "kp_vAimre: " + std::to_string(kp_vAimre) + "\n" + 
     "turretScaleVal: " + std::to_string(turretScaleVal) + "\n" + 
     "cur_pipeline: " + std::to_string(cur_pipeline) + "\n" + 
-    "cur_stickPOV: " + std::to_string(cur_stickPOV) + "\n" + 
-    "m_onTarget: " + std::to_string(m_onTarget) + "\n";
+    "cur_stickPOV: " + std::to_string(cur_stickPOV) + "\n";
+    //"m_onTarget: " + std::to_string(m_onTarget) + "\n";
     // enum TurretState_t {INIT, R_CENTER, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE, VERT_AIM}; //R_ means retract
     // TurretState_t TurretState = R_CENTER;
 

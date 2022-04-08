@@ -28,10 +28,10 @@ void Robot::RobotInit() {
  */
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-  std::ofstream log_file; 
-  log_file.open("logfile.txt");
-  log_file << m_container.GetLog();
-  log_file.close();
+  // std::ofstream log_file; 
+  // log_file.open("logfile.txt");
+  // log_file << m_container.GetLog();
+  // log_file.close();
   // frc::SmartDashboard::PutData(frc2::CommandScheduler::GetInstance().Run());
 }
 
