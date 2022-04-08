@@ -480,7 +480,7 @@ frc2::RamseteCommand ramseteCommandTurn180(
         TimerCMD(1.0),
         
         frc2::ParallelCommandGroup(
-          TimerCMD(0.3),
+          TimerCMD(1.0),
           frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
         ),
         frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
