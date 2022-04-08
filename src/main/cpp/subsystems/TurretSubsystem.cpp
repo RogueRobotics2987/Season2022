@@ -68,7 +68,7 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("TurretScaleVal", turretScaleVal);
 
-    //nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
+    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("pipeline", cur_pipeline);
 
 
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
@@ -200,8 +200,9 @@ void TurretSubsystem::Periodic() {
         //Mura human player spot 4
 
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 800);
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 800);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3400);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3400);
+        cur_pipeline = 1;
     } 
     
 }
