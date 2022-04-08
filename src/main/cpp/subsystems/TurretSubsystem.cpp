@@ -181,27 +181,28 @@ void TurretSubsystem::Periodic() {
     
     if (cur_stickPOV == 0){
         //default settings
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 4000 //was 2500
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 4000
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 4000 //was 2500
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 4000
         //cur_pipeline = 0; in Sam's code
         cur_pipeline = 0;
         //Mura close settings 7
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 3100
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 3450
-        //cur_pipeline = 1;
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 3100
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 3450
+        cur_pipeline = 0;
         //cur_pipeline = 6;
         //Mura launch pad 6
 
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000);
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);
+        cur_pipeline =0;
         //cur_pipeline = 4;
         //Mura human player spot 4
 
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3400);
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3400);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3500);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3500);
         cur_pipeline = 1;
     } 
     
