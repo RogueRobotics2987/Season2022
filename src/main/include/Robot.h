@@ -7,6 +7,7 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <fstream>
 
 #include "RobotContainer.h"
 

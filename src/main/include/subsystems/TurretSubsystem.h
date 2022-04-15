@@ -15,6 +15,7 @@
 class TurretSubsystem : public frc2::SubsystemBase {
  public:
   TurretSubsystem();
+  std::string GetLog();
   void setSpeed(float speed);
   void setAngleV(float l_stickValV);
   void setAngleH(float l_stickValH);
@@ -61,11 +62,11 @@ class TurretSubsystem : public frc2::SubsystemBase {
     double cur_stickValV = 0.0;
     double cur_stickValH = 0.0;
     double kp_hAim = 0.01;
-    double kp_vAimty = 1.0;
+    double kp_vAimty = 0.1;
     double kp_vAimre = 0.02;
     double turretScaleVal = 0.4; //percent of max speed 
 
-    int cur_pipeline = 7;
+    int cur_pipeline = 0;
     int cur_stickPOV = 0;
     // bool m_onTarget = false;
     // Components (e.g. motor controllers and sensors) should generally be

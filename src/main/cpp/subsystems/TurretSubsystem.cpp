@@ -14,6 +14,37 @@ TurretSubsystem::TurretSubsystem() {
 
     //m_vTurretMotorLeft.Follow(m_vTurretMotorLeft);
 }
+
+std::string TurretSubsystem::GetLog() {
+    
+    std::string ret_string = "TurretState: " + std::to_string(TurretState) + "\n" + 
+    "cur_stickValV: " + std::to_string(cur_stickValV) + "\n" + 
+    "cur_stickValH: " + std::to_string(cur_stickValH) + "\n" + 
+    "kp_hAim: " + std::to_string(kp_hAim) + "\n" + 
+    "kp_vAimty: " + std::to_string(kp_vAimty) + "\n" + 
+    "kp_vAimre: " + std::to_string(kp_vAimre) + "\n" + 
+    "turretScaleVal: " + std::to_string(turretScaleVal) + "\n" + 
+    "cur_pipeline: " + std::to_string(cur_pipeline) + "\n" + 
+    "cur_stickPOV: " + std::to_string(cur_stickPOV) + "\n";
+    //"m_onTarget: " + std::to_string(m_onTarget) + "\n";
+    // enum TurretState_t {INIT, R_CENTER, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE, VERT_AIM}; //R_ means retract
+    // TurretState_t TurretState = R_CENTER;
+
+    // double cur_stickValV = 0.0;
+    // double cur_stickValH = 0.0;
+    // double kp_hAim = 0.01;
+    // double kp_vAimty = 1.0;
+    // double kp_vAimre = 0.02;
+    // double turretScaleVal = 0.4; //percent of max speed 
+
+    // int cur_pipeline = 0;
+    // int cur_stickPOV = 0;
+    // // bool m_onTarget = false;
+    // // Components (e.g. motor controllers and sensors) should generally be
+    // // declared private and exposed only through public methods.
+
+
+}
 void TurretSubsystem::setSpeed(float speed) {
     // m_turretMotor.Set(speed);
 }
@@ -37,7 +68,7 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("TurretScaleVal", turretScaleVal);
 
-    //nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr")->PutNumber("pipeline", cur_pipeline);
+    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("pipeline", cur_pipeline);
 
 
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
@@ -145,28 +176,34 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == VERT_AIM){
         m_vTurretMotorCenter.Set(-1.0 * (re_vTurretMotorCenter.GetPosition() - (29)) * kp_vAimre);
-    }
+    }   
 
     
     if (cur_stickPOV == 0){
         //default settings
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 4000 //was 2500
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 4000
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 4000 //was 2500
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 4000
         //cur_pipeline = 0; in Sam's code
-        cur_pipeline = 7;//Mura close settings
+        cur_pipeline = 0;
+        //Mura close settings 7
     } else if (cur_stickPOV == 90){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3450);//was 3100
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3450);
-        cur_pipeline = 6;//Mura launch pad
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 3100
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 3450
+        cur_pipeline = 0;
+        //cur_pipeline = 6;
+        //Mura launch pad 6
 
     } else if (cur_stickPOV == 180){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3900);
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3900);
-        cur_pipeline = 4;//Mura human player spot
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);
+        cur_pipeline =0;
+        //cur_pipeline = 4;
+        //Mura human player spot 4
 
     } else if (cur_stickPOV == 270){
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 800);
-        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 800);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3500);
+        frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3500);
+        cur_pipeline = 1;
     } 
     
 }

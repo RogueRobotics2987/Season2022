@@ -10,8 +10,8 @@
 
 void Robot::RobotInit() {
   m_chooser.AddOption("None", nullptr);
-  m_chooser.AddOption("Close Ball Auto", m_container.GetCloseBallAuto());
-  m_chooser.SetDefaultOption("Three Ball Auto", m_container.GetThreeBallAuto());
+  m_chooser.SetDefaultOption("Close Ball Auto", m_container.GetCloseBallAuto());
+  m_chooser.AddOption("Three Ball Auto", m_container.GetThreeBallAuto());
   m_chooser.AddOption("Two Ball Auto", m_container.GetTwoBallAuto());
   frc::SmartDashboard::PutData(&m_chooser);
 
@@ -28,7 +28,10 @@ void Robot::RobotInit() {
  */
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-
+  // std::ofstream log_file; 
+  // log_file.open("logfile.txt");
+  // log_file << m_container.GetLog();
+  // log_file.close();
   // frc::SmartDashboard::PutData(frc2::CommandScheduler::GetInstance().Run());
 }
 
