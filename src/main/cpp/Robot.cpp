@@ -14,6 +14,7 @@ void Robot::RobotInit() {
   m_chooser.AddOption("Three Ball Auto", m_container.GetThreeBallAuto());
   m_chooser.AddOption("Two Ball Auto", m_container.GetTwoBallAuto());
   m_chooser.AddOption("One And A Half Auto", m_container.GetOneBallPlusOneAuto());
+  m_chooser.AddOption("DriveBack_Shoot", m_container.GetDriveBack_Shoot());
   frc::SmartDashboard::PutData(&m_chooser);
 
   // automatically start camera server

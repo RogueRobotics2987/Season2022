@@ -21,6 +21,7 @@
 #include "commands/AimFor_T.h"
 #include "commands/TimerCMD.h"
 #include "commands/SafeBallShoot.h"
+#include "commands/ContinuousLock.h"
 
 #include "commands/PreAngles.h"
 
@@ -63,6 +64,8 @@ class RobotContainer {
   frc2::Command* GetTwoBallAuto();
   frc2::Command* GetLimelightLockOn();
   frc2::Command* GetOneBallPlusOneAuto();
+  frc2::Command* GetDriveBack_Shoot();
+
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain drivetrain;
@@ -109,6 +112,7 @@ class RobotContainer {
   frc2::Command* m_autonomousCommand;
 
   frc::Trajectory turn180;
+  frc::Trajectory DriveBack_Shoot;
   frc::Trajectory twoBall1_1;
   frc::Trajectory twoBall1_2;
   frc::Trajectory twoBall1_3;

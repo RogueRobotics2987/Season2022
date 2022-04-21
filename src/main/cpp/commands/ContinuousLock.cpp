@@ -2,30 +2,30 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/SafeBallShoot.h"
+#include "commands/ContinuousLock.h"
 
-SafeBallShoot::SafeBallShoot(TurretSubsystem& l_turret, double l_stopTime) {
+ContinuousLock::ContinuousLock(TurretSubsystem& l_turret) {
   // Use addRequirements() here to declare subsystem dependencies.
   // m_intake = &l_intake;
   // m_shooter = &l_shooter;
   m_turret = &l_turret;
-  stopTime = l_stopTime;
+  //stopTime = l_stopTime;
   // AddRequirements({m_intake});
   // AddRequirements({m_shooter});
   AddRequirements({m_turret});
 }
 
 // Called when the command is initially scheduled.
-void SafeBallShoot::Initialize() {
-  m_timer.Reset();
-  m_timer.Start();
+void ContinuousLock::Initialize() {
+  // m_timer.Reset();
+  // m_timer.Start();
   m_turret->setAutoAimOn();
   // m_shooter->setShooter();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SafeBallShoot::Execute() {
+void ContinuousLock::Execute() {
   // if turret speed > 3700 & tx < 1, ty < 1 then conveyor forward
   float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
   float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
@@ -43,16 +43,17 @@ void SafeBallShoot::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void SafeBallShoot::End(bool interrupted) {
+void ContinuousLock::End(bool interrupted) {
   m_turret->setManuelAimOn();
   // m_intake->ConveyorForwardRelease();
 }
 
 // Returns true when the command should end.
-bool SafeBallShoot::IsFinished() {
-  if(m_timer.Get().value() > stopTime || m_LockedOn == true) {
-    return true;
-  } else {
-    return false;
-  }
+bool ContinuousLock::IsFinished() {
+  // if(m_timer.Get().value() > stopTime || m_LockedOn == true) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  return false;
 }
