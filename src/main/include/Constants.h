@@ -8,9 +8,9 @@
 
 namespace DriveConstants{ 
 
-    constexpr auto ks = 0.162631_V; 
-    constexpr auto kv = 1.392 * 1_V * 1_s / 1_m; 
-    constexpr auto ka = 0.27535 * 1_V * 1_s * 1_s / 1_m; 
+    constexpr auto ks = 0.18757_V; //0.162631_V
+    constexpr auto kv = 1.3814 * 1_V * 1_s / 1_m; //1.392
+    constexpr auto ka = 0.25812 * 1_V * 1_s * 1_s / 1_m; //0.27535
     // constexpr double kPDriveVel = 1.69; 
     constexpr double kPDriveVel = 0.00001; 
     constexpr auto trackWidth = 0.58_m; 
