@@ -62,7 +62,7 @@ class RobotContainer {
   frc2::Command* GetThreeBallAuto();
   frc2::Command* GetTwoBallAuto();
   frc2::Command* GetLimelightLockOn();
-
+  frc2::Command* GetOneBallPlusOneAuto();
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain drivetrain;
@@ -112,5 +112,7 @@ class RobotContainer {
   frc::Trajectory twoBall1_1;
   frc::Trajectory twoBall1_2;
   frc::Trajectory twoBall1_3;
+  frc::Trajectory OneBallPlusOne1_1;
+  frc::Trajectory OneBallPlusOne1_2;
 
 };

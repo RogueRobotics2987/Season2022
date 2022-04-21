@@ -514,7 +514,102 @@ frc2::RamseteCommand ramseteCommandTurn180(
 }
 
 
-frc2::Command* RobotContainer::GetThreeBallAuto(){
+
+
+
+
+
+//Lime Light Lock
+
+frc2::Command* RobotContainer::GetLimelightLockOn(){
+  frc2::SequentialCommandGroup* lockOnGroup = new frc2::SequentialCommandGroup{
+    SafeBallShoot(m_turret, 20), 
+    frc2::ParallelCommandGroup(
+      TimerCMD(0.5),
+      frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+    ),
+    frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+
+  };
+  return lockOnGroup;
+}
+
+//One and a half auto
+
+frc2::Command* RobotContainer::GetOneBallPlusOneAuto(){
+  std::string OneBallPlusOne1_1File = frc::filesystem::GetDeployDirectory() + "/paths/output/OneBallPlusOne1.1.wpilib.json";
+    frc::Trajectory OneBallBallPlusOne1_1 = frc::TrajectoryUtil::FromPathweaverJson(OneBallPlusOne1_1File);
+
+  std::string OneBallPlusOne1_2File = frc::filesystem::GetDeployDirectory() + "/paths/output/OneBallPlusOne1.2.wpilib.json";
+    frc::Trajectory OneBallPlusOne1_2 = frc::TrajectoryUtil::FromPathweaverJson(OneBallPlusOne1_2File);
+
+
+ frc2::RamseteCommand ramseteCommandOneBallPlusOne1_1(
+      OneBallPlusOne1_1, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+
+      frc2::RamseteCommand ramseteCommandOneBallPlusOne1_2(
+      OneBallPlusOne1_2, [this]() { return drivetrain.GetPose(); },
+      frc::RamseteController(AutoConstants::kRamseteB,
+                             AutoConstants::kRamseteZeta),
+      frc::SimpleMotorFeedforward<units::meters>(
+          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
+      DriveConstants::kDriveKinematics,
+      [this] { return drivetrain.GetWheelSpeeds(); },
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { drivetrain.TankDriveVolts(left, right); },
+      {&drivetrain});
+
+       frc2::SequentialCommandGroup* pickUpCloseBallGroupPlusOne = new frc2::SequentialCommandGroup(
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);}),
+        frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
+
+        Auto(drivetrain, 0.3, 0.5),
+        Auto(drivetrain, 0.5, -0.2),
+        frc2::InstantCommand([this] {intake.IntakeIn();}, {&intake}),
+        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        std::move(ramseteCommandOneBallPlusOne1_1),
+ 
+        SafeBallShoot(m_turret, 20),
+
+        frc2::InstantCommand([this] {intake.IntakeInRelease();}, {&intake}),
+        frc2::ParallelCommandGroup(
+          TimerCMD(0.3),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+        TimerCMD(1.0),
+        
+        frc2::ParallelCommandGroup(
+          TimerCMD(1.0),
+          frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
+        ),
+        frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
+         std::move(ramseteCommandOneBallPlusOne1_2),
+
+        frc2::InstantCommand([this] { drivetrain.TankDriveVolts(0_V, 0_V); }, {&drivetrain})
+
+        
+      );
+      return pickUpCloseBallGroupPlusOne;
+      }
+
+
+//There Ball Auto
+
+      frc2::Command* RobotContainer::GetThreeBallAuto(){
   std::string threeBall1_1File = frc::filesystem::GetDeployDirectory() + "/paths/output/3Ball1.1.wpilib.json";
     frc::Trajectory threeBall1_1 = frc::TrajectoryUtil::FromPathweaverJson(threeBall1_1File);
 
@@ -638,22 +733,3 @@ frc2::RamseteCommand ramseteCommandThreeBall1_4(
       return pickUp3BallsGroup;
       
       }
-
-
-
-
-
-
-frc2::Command* RobotContainer::GetLimelightLockOn(){
-  frc2::SequentialCommandGroup* lockOnGroup = new frc2::SequentialCommandGroup{
-    SafeBallShoot(m_turret, 20), 
-    frc2::ParallelCommandGroup(
-      TimerCMD(0.5),
-      frc2::InstantCommand([this] {intake.ConveyorForward();}, {&intake})
-    ),
-    frc2::InstantCommand([this] {intake.ConveyorForwardRelease();}, {&intake}),
-
-  };
-  return lockOnGroup;
-}
-
