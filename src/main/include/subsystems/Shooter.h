@@ -27,6 +27,8 @@ class Shooter : public frc2::SubsystemBase {
   void setShooter();
   void setPercent(double percent); 
   double getVelocity(); 
+  void setShooter(double refF, double refB);
+
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -41,8 +43,8 @@ class Shooter : public frc2::SubsystemBase {
 
   rev::SparkMaxRelativeEncoder shooterEncoderFront= shooterMotorFront.GetEncoder(); 
   rev::SparkMaxRelativeEncoder shooterEncoderBack= shooterMotorBack.GetEncoder(); 
-  double FTargetRPM = 2950;
-  double BTargetRPM = 2950;
+  double FTargetRPM = 3050;
+  double BTargetRPM = 3050;
   double Fkp = 1E-4; //F is for front
   double Fki = 0; 
   double Fkd = 0;

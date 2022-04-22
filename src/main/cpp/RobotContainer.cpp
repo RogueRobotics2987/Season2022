@@ -115,11 +115,11 @@ frc2::Command* RobotContainer::GetTwoBallAuto() {
        
         //shake intake down
         //frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
-        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000); 
-          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);}),
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3050); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3050);}),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(twoBall1_1.InitialPose());}),
 
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {m_shooter.setShooter(3050,3050);}, {&m_shooter}),
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
         //Turn on intake and spin up shooter
@@ -200,10 +200,10 @@ frc2::RamseteCommand ramseteCommandTurn180(
       
       // THERE CANNOT BE INSTANT COMANDS IN PARALLEL RACE GROUPS
       frc2::SequentialCommandGroup* pickUpCloseBallGroup = new frc2::SequentialCommandGroup(
-        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000); 
-          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);}),
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3050); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3050);}),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(turn180.InitialPose());}),
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {m_shooter.setShooter(3050,3050);}, {&m_shooter}),
 
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),
@@ -294,10 +294,10 @@ frc2::RamseteCommand ramseteCommandDriveBack(
       
       // THERE CANNOT BE INSTANT COMANDS IN PARALLEL RACE GROUPS
       frc2::SequentialCommandGroup* DriveBack_ShootGroup = new frc2::SequentialCommandGroup(
-        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000); 
-          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);}),
+        frc2::InstantCommand([this] {frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3050); 
+          frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3050);}),
         frc2::InstantCommand([this] {drivetrain.ResetOdometry(DriveBack_Shoot.InitialPose());}),
-        frc2::InstantCommand([this] {m_shooter.setShooter();}, {&m_shooter}),
+        frc2::InstantCommand([this] {m_shooter.setShooter(3050,3050);}, {&m_shooter}),
 
         Auto(drivetrain, 0.3, 0.5),
         Auto(drivetrain, 0.5, -0.2),

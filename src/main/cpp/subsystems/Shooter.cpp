@@ -123,3 +123,12 @@ void Shooter::setShooter() {
     BshooterPID.SetReference(-BTargetRPM, rev::ControlType::kSmartVelocity, BarbFF);
 
 }
+void Shooter::setShooter(double refF, double refB) {
+   // shooterPID->SetReference(maxRPM, rev::ControlType::kVelocity);
+   // shooterPID.SetReference(TargetRPM, rev::ControlType::kVelocity, arbFF);
+
+//NOTE: This update speeds only when you actually click the "shooter on" button
+    FshooterPID.SetReference(-refF, rev::ControlType::kSmartVelocity, FarbFF);
+    BshooterPID.SetReference(-refB, rev::ControlType::kSmartVelocity, BarbFF);
+
+}
