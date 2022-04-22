@@ -241,7 +241,7 @@ void TurretSubsystem::setAutoAimOn() {
     TurretState = AUTO_SHOOT;
 }
 
-void TurretSubsystem::setManuelAimOn() {
+void TurretSubsystem::setManualAimOn() {
     TurretState = DRIVER_SHOOT;
 }
 

@@ -44,7 +44,7 @@ void SafeBallShoot::Execute() {
 
 // Called once the command ends or is interrupted.
 void SafeBallShoot::End(bool interrupted) {
-  m_turret->setManuelAimOn();
+  m_turret->setManualAimOn();
   // m_intake->ConveyorForwardRelease();
 }
 

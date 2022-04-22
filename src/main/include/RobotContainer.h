@@ -97,7 +97,7 @@ class RobotContainer {
   frc2::InstantCommand m_shooterReverse{[this] {m_shooter.reverseShooter();}, {&m_shooter}};
 
   frc2::InstantCommand m_TurtModeAuto{[this] {m_turret.setAutoAimOn();}, {&m_turret}};
-  frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
+  frc2::InstantCommand m_TurtModeManu{[this] {m_turret.setManualAimOn();}, {&m_turret}};
 
   frc2::InstantCommand m_verticalAim{[this] {m_turret.setVertAimOn();}, {&m_turret}};
 
@@ -107,7 +107,7 @@ class RobotContainer {
   //frc2::InstantCommand m_lowGoalAim{[this] {m_turret.setLowGoalAim();}, {&m_turret}};
 
 
-  // frc2::InstantCommand m_dropIntake{[this] {m_turret.setManuelAimOn();}, {&m_turret}};
+  // frc2::InstantCommand m_dropIntake{[this] {m_turret.setManualAimOn();}, {&m_turret}};
 
   frc2::Command* m_autonomousCommand;
 
