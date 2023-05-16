@@ -66,7 +66,7 @@ class TurretSubsystem : public frc2::SubsystemBase {
     double kp_vAimre = 0.02;
     double turretScaleVal = 0.4; //percent of max speed 
 
-    int cur_pipeline = 0;
+    //int cur_pipeline = 0;
     int cur_stickPOV = 0;
     // bool m_onTarget = false;
     // Components (e.g. motor controllers and sensors) should generally be

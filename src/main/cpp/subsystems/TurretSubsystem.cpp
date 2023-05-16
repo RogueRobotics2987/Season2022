@@ -24,7 +24,7 @@ std::string TurretSubsystem::GetLog() {
     "kp_vAimty: " + std::to_string(kp_vAimty) + "\n" + 
     "kp_vAimre: " + std::to_string(kp_vAimre) + "\n" + 
     "turretScaleVal: " + std::to_string(turretScaleVal) + "\n" + 
-    "cur_pipeline: " + std::to_string(cur_pipeline) + "\n" + 
+    // "cur_pipeline: " + std::to_string(cur_pipeline) + "\n" + 
     "cur_stickPOV: " + std::to_string(cur_stickPOV) + "\n";
     //"m_onTarget: " + std::to_string(m_onTarget) + "\n";
     // enum TurretState_t {INIT, R_CENTER, R_BOTH, R_LEFT, R_RIGHT, DRIVER_SHOOT, AUTO_SHOOT, PRESHOOT_RAISE, VERT_AIM}; //R_ means retract
@@ -68,7 +68,7 @@ void TurretSubsystem::Periodic() {
     frc::SmartDashboard::PutNumber("TurretState", TurretState);
     frc::SmartDashboard::PutNumber("TurretScaleVal", turretScaleVal);
 
-    nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("pipeline", cur_pipeline);
+    //nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("pipeline", cur_pipeline);
 
 
     frc::SmartDashboard::PutNumber("Turret H Position", re_hTurretMotor.GetPosition());
@@ -127,19 +127,19 @@ void TurretSubsystem::Periodic() {
 
     } else if (TurretState == DRIVER_SHOOT){
 
-        float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
-        float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
+        // float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        // float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
         m_vTurretMotorCenter.Set(-cur_stickValV); 
         // m_vTurretMotorRight.Set(cur_stickValV); 
         // m_vTurretMotorLeft.Set(cur_stickValV); 
 
-        if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
-            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", true);
-    }
-        else {
-            frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", false);
-        }
+    //     if(-1.0 < tx && tx < 1.0 && -1.0 < ty && ty < 1.0) {
+    //         frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", true);
+    // }
+    //     else {
+    //         frc::SmartDashboard::PutBoolean("Turret Manual Target Locked", false);
+    //     }
 
         m_hTurretMotor.Set(cur_stickValH); 
 
@@ -149,7 +149,7 @@ void TurretSubsystem::Periodic() {
         // 3 on 
         // 0 off 
         //cur_pipeline = nt::NetworkTableInstance::GetDefault().GetTable("limelight-rr") -> GetNumber("pipeline", cur_pipeline);
-        float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
+        /*float tx = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("tx",0.0);
         float ty = nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetNumber("ty",0.0);
 
         // re_vTurretMotorRight.GetPosition();  // Orser removed 3/26, shouldn't do anything?
@@ -173,7 +173,7 @@ void TurretSubsystem::Periodic() {
             // m_vTurretMotorLeft.Set((re_vTurretMotorLeft.GetPosition() - (-700)) * kp_vAimre);
 
         }   
-
+    */
     } else if (TurretState == VERT_AIM){
         m_vTurretMotorCenter.Set(-1.0 * (re_vTurretMotorCenter.GetPosition() - (29)) * kp_vAimre);
     }   
@@ -184,26 +184,26 @@ void TurretSubsystem::Periodic() {
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2950);//was 4000 //was 2500
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2950);//was 4000
         //cur_pipeline = 0; in Sam's code
-        cur_pipeline = 0;
+        //cur_pipeline = 0;
         //Mura close settings 7
     } else if (cur_stickPOV == 90){
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 2900);//was 3100
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 2900);//was 3450
-        cur_pipeline = 0;
+        //cur_pipeline = 0;
         //cur_pipeline = 6;
         //Mura launch pad 6
 
     } else if (cur_stickPOV == 180){
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3000);
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3000);
-        cur_pipeline =0;
+        //cur_pipeline =0;
         //cur_pipeline = 4;
         //Mura human player spot 4
 
     } else if (cur_stickPOV == 270){
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 F", 3500);
         frc::SmartDashboard::PutNumber("Shooter Set RPM 2 B", 3500);
-        cur_pipeline = 1;
+        //cur_pipeline = 1;
     } 
     
 }
@@ -256,10 +256,3 @@ double TurretSubsystem::getHPosition() {
 void TurretSubsystem::setVertAimOn() {
     TurretState = VERT_AIM;
 }
-/*void TurretSubsystem::setLowGoalAim(){
-    if(re_vTurretMotorCenter.GetPosition() < 75) {//was -400 //was -200
-            m_vTurretMotorCenter.Set(0.2); 
-        } else if(re_vTurretMotorCenter.GetPosition() > 75) {
-            m_vTurretMotorCenter.Set(-0.2);
-        }
-}*/
